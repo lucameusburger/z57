@@ -1,7 +1,6 @@
 import { Globe, Mail, MoveRight } from "lucide-react";
 import Image, { StaticImageData } from "next/image";
 
-import CustomCursor from "./components/CustomCursor";
 import irisImage from "@/app/images/iris.jpg";
 import liliImage from "@/app/images/lili.jpg";
 import lucaImage from "@/app/images/luca.jpg";
