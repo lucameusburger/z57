@@ -100,3 +100,13 @@ html {
     height: 100dvh;
   }
 }
+
+.min-full-viewport-height {
+  min-height: 100vh;
+}
+
+@supports (height: 100dvh) {
+  .min-full-viewport-height {
+    min-height: 100dvh;
+  }
+}
