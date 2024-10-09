@@ -1,9 +1,8 @@
-import { Bird, CandyCane, Cherry, CornerRightUp, Globe, Instagram, Mail, MoveRight, User } from "lucide-react";
+import { CandyCane, CornerRightUp, Globe, Instagram, Mail, MoveRight, User } from "lucide-react";
 import Image, { StaticImageData } from "next/image";
 
 import GlassCardWithRevealEffect from "./components/GlassCardWithRevealEffect";
 import adventImage from "@/app/images/events/advent.jpg";
-import groupGlassImage from "@/app/images/group-glass.png";
 import groupImage from "@/app/images/group.jpg";
 import irisImage from "@/app/images/iris.jpg";
 import liliImage from "@/app/images/lili.jpg";
@@ -263,8 +262,6 @@ export default function Home() {
     }
     return array;
   }
-
-  const randomPolygonPoints = generateRandomPolygonPoints();
 
   const shuffledMembers = shuffleArray([...members]);
 
