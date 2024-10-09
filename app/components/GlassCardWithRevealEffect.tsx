@@ -20,7 +20,7 @@ const GlassCardWithRevealEffect = () => {
   };
 
   return (
-    <div ref={containerRef} className="container w-full h-full rounded-3xl overflow-hidden cursor-none" onMouseMove={handleMouseMove}>
+    <div ref={containerRef} className="container w-full h-full rounded-3xl overflow-hidden bg-foreground cursor-none" onMouseMove={handleMouseMove}>
       <Image src={groupImage} alt="Group Image" className="revealed-image" layout="fill" objectFit="cover" />
       <Image src={groupGlassImage} alt="Group Glass Image" className="masked-image" layout="fill" objectFit="cover" />
     </div>

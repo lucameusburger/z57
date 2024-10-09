@@ -285,7 +285,7 @@ export default function Home() {
               <span>Design</span>
             </div>
             <div className=" md:col-span-2 w-full items-end justify-end relative ">
-              <span className="text-woit z-50 absolute bottom-8 right-8 font-black text-8xl tracking-tight">Z57</span>
+              <span className="text-woit z-50 absolute bottom-8 right-8 font-black text-8xl tracking-tight pointer-events-none">Z57</span>
               <GlassCardWithRevealEffect />
               {/* <div className="relative overflow-hidden rounded-3xl glassCard w-full h-full items-end justify-end p-8 flex ">
                 <Image src={groupGlassImage} alt={"Gruppenfoto"} width={800} height={1920} className=" z-10 absolute left-0 right-0 bottom-0 top-0 w-full h-full rounded-3xl object-cover filter grayscalesss contrast-2 group-hover:scale-110 transition-all transform" />
