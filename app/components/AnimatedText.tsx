@@ -10,7 +10,7 @@ const AnimatedText = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setBoldIndex((prev) => (prev + 1) % totalLength);
-    }, 100); // Adjust the speed here as needed
+    }, 1000); // Adjust the speed here as needed
     return () => clearInterval(interval);
   }, []);
 
