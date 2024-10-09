@@ -284,7 +284,7 @@ export default function Home() {
 
               <span>Design</span>
             </div>
-            <div className=" md:col-span-2 w-full items-end justify-end relative ">
+            <div className=" md:col-span-2 aspect-square md:aspect-auto w-full items-end justify-end relative ">
               <span className="text-woit z-50 absolute bottom-8 right-8 font-black text-8xl tracking-tight pointer-events-none">Z57</span>
               <GlassCardWithRevealEffect />
               {/* <div className="relative overflow-hidden rounded-3xl glassCard w-full h-full items-end justify-end p-8 flex ">
