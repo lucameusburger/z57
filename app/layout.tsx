@@ -1,8 +1,8 @@
 import "./globals.css";
 
 import type { Metadata } from "next";
-import groupImage from "@/app/images/group.jpg";
 import localFont from "next/font/local";
+import ogImage from "@/app/og.png";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   openGraph: {
     images: [
       {
-        url: groupImage.src,
+        url: ogImage.src,
         width: 1200,
         height: 630,
         alt: "Group Image",
@@ -36,7 +36,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="de">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>{children}</body>
     </html>
   );
