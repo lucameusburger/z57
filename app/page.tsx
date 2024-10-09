@@ -267,12 +267,13 @@ export default function Home() {
 
   return (
     <>
-      <div className="items-center justify-items-center min-h-screen gap-16 font-[family-name:var(--font-geist-sans)]">
+      <div className="items-center justify-items-center gap-16 font-[family-name:var(--font-geist-sans)]">
         <main className="flex flex-col w-full">
           {/* FRONT */}
-          <div className="flex flex-col md:grid grid-cols-1 md:grid-cols-3 w-full gap-8 full-viewport-height p-8">
+          <div className="flex flex-col md:grid grid-cols-1 md:grid-cols-3 w-full gap-8  p-8 min-full-viewport-height">
+            {/* full-viewport-height */}
             <div className="flex items-end justify-end flex-col text-4xl md:text-5xl flex-1">
-              <ArrowDownRight className="w-20 h-20" />
+              {/* <ArrowDownRight className="w-20 h-20" /> */}
               <span>Grafik</span>
 
               <span>Nailart</span>
