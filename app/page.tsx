@@ -1,7 +1,10 @@
-import { Globe, Mail, MoveRight } from "lucide-react";
+import { Bird, CandyCane, Cherry, CornerRightUp, Globe, Instagram, Mail, MoveRight, User } from "lucide-react";
 import Image, { StaticImageData } from "next/image";
 
-// import groupImage from "@/app/images/group.jpg";
+import GlassCardWithRevealEffect from "./components/GlassCardWithRevealEffect";
+import adventImage from "@/app/images/events/advent.jpg";
+import groupGlassImage from "@/app/images/group-glass.png";
+import groupImage from "@/app/images/group.jpg";
 import irisImage from "@/app/images/iris.jpg";
 import liliImage from "@/app/images/lili.jpg";
 import lucaImage from "@/app/images/luca.jpg";
@@ -47,7 +50,7 @@ const members: Member[] = [
     name: "Lilian Furrer",
     image: liliImage,
     title: "Restauration",
-    description: "Robert is a passionate Music lover and a big fan of the classical music. He is also a big fan of the new music and is always looking for new music to listen to. He is a huge fan of the new technology and is always looking for new technologies to learn. Robert is also a big fan of the new fashion and is always looking for new fashion to wear. Robert is also a big fan of the new food and is always looking for new food to eat.",
+    description: "Mag. Lilian Marie Furrer ist Mitbegründerin von z57 und freiberufliche Konservatorin/Restauratorin und Industriedesignerin, die in beiden Bereichen interdisziplinär arbeitet. Mit ihrem Interesse für Materialität, kulturelles Erbe und innovatives Design arbeitet sie objekt- und forschungsbasiert für kulturelle Institutionen und Firmen. In ihrer Freizeit widmet sie sich am liebsten der Keramik im kleinen z57 Keramikstudio.",
     email: "lili@example.com",
     projects: [
       {
@@ -64,7 +67,7 @@ const members: Member[] = [
     name: "Luca Meusburger",
     image: lucaImage,
     title: "Webentwicklung",
-    description: "Robert is a passionate Music lover and a big fan of the classical music. He is also a big fan of the new music and is always looking for new music to listen to. He is a huge fan of the new technology and is always looking for new technologies to learn. Robert is also a big fan of the new fashion and is always looking for new fashion to wear. Robert is also a big fan of the new food and is always looking for new food to eat.",
+    description: "Luca ist ein freiberuflicher Webentwickler und Designer, der mit modernen Technologien und aktuellen Standards arbeitet, um ästhetische und benutzerfreundliche digitale Lösungen zu schaffen. Sein Fokus liegt auf anspruchsvollen Projekten wie Dashboards und mobilen Apps, bei denen er sowohl die Frontend- und Backend-Entwicklung übernimmt als auch die Gestaltung von UI und UX. Viele seiner Arbeiten sind im Kultur- und Bildungsbereich angesiedelt.",
     email: "luca@example.com",
     website: "https://meusburger.io",
     projects: [
@@ -261,30 +264,70 @@ export default function Home() {
     return array;
   }
 
+  const randomPolygonPoints = generateRandomPolygonPoints();
+
   const shuffledMembers = shuffleArray([...members]);
 
   return (
     <>
       <div className="items-center justify-items-center min-h-screen gap-16 font-[family-name:var(--font-geist-sans)]">
         <main className="flex flex-col w-full">
+          {/* FRONT */}
           <div className="grid grid-cols-1 md:grid-cols-3 w-full gap-8 h-screen p-8">
             <div className="flex items-end justify-end flex-col text-4xl md:text-5xl flex-1">
               <span>Grafik</span>
-              <span>Architektur</span>
-              <span>Webentwicklung</span>
-              <span>Keramik</span>
+
               <span>Nailart</span>
+
+              <span>Architektur</span>
+
+              <span>Webentwicklung</span>
+
               <span>Fotografie</span>
+
+              <span>Design</span>
             </div>
-            <div className=" md:col-span-2 w-full items-end justify-end ">
-              <div className="bg-blue-700 rounded-3xl w-full h-full items-end justify-end p-8 flex">
-                <span className="text-woit font-black text-8xl tracking-tight">Z57</span>
-              </div>
+            <div className=" md:col-span-2 w-full items-end justify-end relative ">
+              <span className="text-woit z-50 absolute bottom-8 right-8 font-black text-8xl tracking-tight">Z57</span>
+              <GlassCardWithRevealEffect />
+              {/* <div className="relative overflow-hidden rounded-3xl glassCard w-full h-full items-end justify-end p-8 flex ">
+                <Image src={groupGlassImage} alt={"Gruppenfoto"} width={800} height={1920} className=" z-10 absolute left-0 right-0 bottom-0 top-0 w-full h-full rounded-3xl object-cover filter grayscalesss contrast-2 group-hover:scale-110 transition-all transform" />
+                <Image src={groupImage} alt={"Gruppenfoto"} width={800} height={1920} className=" absolute left-0 right-0 bottom-0 top-0 w-full h-full rounded-3xl object-cover filter grayscalesss contrast-2 group-hover:scale-110 transition-all transform" />
+                
+              </div> */}
             </div>
           </div>
 
-          {/* <hr className="col-span-2 border-foreground mx-8" /> */}
+          {/* UPCOMING */}
+          <div className="flex flex-col gap-8 p-8">
+            <div className=" flex items-start flex-col gap-4 md:col-span-2 justify-start relative ">
+              <div className="flex justify-between items-center w-full border-t border-foreground pt-4">
+                <span className="text-2xl md:text-5xl">Upcoming</span>
+                <a href="#top">
+                  <CornerRightUp className="w-6 h-6 " />
+                </a>
+                {/* <div className="flex gap-2">
+                  <MailButton />
+                </div> */}
+              </div>
+              <div className="flex gap-8 w-full flex-col md:flex-row">
+                <a href="mailto:info@z57.at" className="order-2 md:order-1  border-foreground hover:bg-background hover:text-foreground w-full flex flex-col gap-4 justify-between text-woit bg-foreground border overflow-hidden relative rounded-3xl p-4">
+                  <CandyCane className=" w-12 h-12" />
+                  <div className="flex flex-col gap-2">
+                    <span className="self-end text-xl">20.Dez 2024</span>
+                    <hr className="border-current" />
+                    <span className="self-end text-xl font-bold">Adventmarkt am Dach</span>
+                  </div>
+                </a>
+                <Image src={adventImage} alt={"Grupenfoto"} width={800} height={400} className="w-full order-1 md:order-2 h-64 rounded-3xl object-cover filter grayscalesss contrast-2 group-hover:scale-110 transition-all transform" />
+              </div>
+              {/* <div className="border-foreground border overflow-hidden relative rounded-3xl w-full p-4">
+                <span className="text-xl py-1 px-2">Hallo</span>
+              </div> */}
+            </div>
+          </div>
 
+          {/* MEMBERS */}
           <div className="flex flex-col gap-8 p-8">
             {shuffledMembers.map((member, index) => (
               <>
@@ -292,6 +335,47 @@ export default function Home() {
                 {/* {index !== members.length - 1 && <hr className="border-foreground" />} */}
               </>
             ))}
+          </div>
+
+          {/* KONTAKT */}
+          <div className="flex flex-col gap-8 p-8">
+            <div className="member-content flex items-start flex-col gap-4 md:col-span-2 justify-start relative">
+              <div className="flex justify-between items-center w-full border-t border-foreground pt-4">
+                <span className="text-2xl md:text-5xl">Get in touch</span>
+                <a href="#top">
+                  <CornerRightUp className="w-6 h-6 " />
+                </a>
+                {/* <div className="flex gap-2">
+                  <MailButton />
+                </div> */}
+              </div>
+              <div className="flex gap-8 w-full flex-col md:flex-row">
+                <a href="mailto:info@z57.at" className="border-foreground hover:bg-background hover:text-foreground w-full flex flex-col gap-4 justify-between text-woit bg-foreground border overflow-hidden relative rounded-3xl p-4">
+                  <Mail className=" w-12 h-12" />
+                  <div className="flex flex-col gap-2">
+                    <hr className="border-current" />
+                    <span className="self-end text-xl">info@z57.at</span>
+                  </div>
+                </a>
+                <a href="https://www.instagram.com/z57.at/" className="border-foreground hover:bg-background hover:text-foreground w-full flex flex-col gap-4 justify-between text-woit bg-foreground border overflow-hidden relative rounded-3xl p-4">
+                  <Instagram className=" w-12 h-12" />
+                  <div className="flex flex-col gap-2">
+                    <hr className="border-current" />
+                    <span className="self-end text-xl">z57.at</span>
+                  </div>
+                </a>
+                <div className="border-foreground w-full flex flex-col gap-4 justify-between border overflow-hidden relative rounded-3xl p-4">
+                  <User className=" w-12 h-12" />
+                  <div className="flex flex-col gap-2">
+                    <span className="text-xl">Schreib uns!</span>
+                  </div>
+                </div>
+                <Image src={groupImage} alt={"Grupenfoto"} width={200} height={200} className="w-full h-64 rounded-3xl object-cover filter grayscalesss contrast-2 group-hover:scale-110 transition-all transform" />
+              </div>
+              {/* <div className="border-foreground border overflow-hidden relative rounded-3xl w-full p-4">
+                <span className="text-xl py-1 px-2">Hallo</span>
+              </div> */}
+            </div>
           </div>
         </main>
         <footer className="px-8">
