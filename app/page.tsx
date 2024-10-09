@@ -1,4 +1,4 @@
-import { ArrowDownRight, CandyCane, CornerRightUp, Globe, Instagram, Mail, MoveRight, User } from "lucide-react";
+import { CandyCane, CornerRightUp, Globe, Instagram, Mail, MoveRight, User } from "lucide-react";
 import Image, { StaticImageData } from "next/image";
 
 import GlassCardWithRevealEffect from "./components/GlassCardWithRevealEffect";
