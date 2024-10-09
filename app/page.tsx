@@ -311,7 +311,7 @@ export default function Home() {
                 <a href="mailto:info@z57.at" className="order-2 md:order-1  border-foreground hover:bg-background hover:text-foreground w-full flex flex-col gap-4 justify-between text-woit bg-foreground border overflow-hidden relative rounded-3xl p-4">
                   <CandyCane className=" w-12 h-12" />
                   <div className="flex flex-col gap-2">
-                    <span className="self-end text-xl">20.Dez 2024</span>
+                    <span className="self-end text-xl">TBA. Dez 2024</span>
                     <hr className="border-current" />
                     <span className="self-end text-xl font-bold">Adventmarkt am Dach</span>
                   </div>
