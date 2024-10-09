@@ -1,6 +1,7 @@
 import { CandyCane, CornerRightUp, Globe, Instagram, Mail, MoveRight, User } from "lucide-react";
 import Image, { StaticImageData } from "next/image";
 
+import AnimatedText from "./components/AnimatedText";
 import GlassCardWithRevealEffect from "./components/GlassCardWithRevealEffect";
 // import adventImage from "@/app/images/events/advent.jpg";
 import groupImage from "@/app/images/group.jpg";
@@ -272,8 +273,7 @@ export default function Home() {
           {/* FRONT */}
           <div className="flex flex-col md:grid grid-cols-1 md:grid-cols-3 w-full gap-8  p-8 min-full-viewport-height">
             {/* full-viewport-height */}
-            <div className="flex items-end justify-end flex-col text-4xl md:text-5xl flex-1">
-              {/* <ArrowDownRight className="w-20 h-20" /> */}
+            {/* <div className="flex items-end justify-end flex-col text-4xl md:text-5xl flex-1">
               <span>Grafik</span>
 
               <span>Nailart</span>
@@ -285,7 +285,8 @@ export default function Home() {
               <span>Fotografie</span>
 
               <span>Design</span>
-            </div>
+            </div> */}
+            <AnimatedText />
             <div className=" md:col-span-2 aspect-square md:aspect-auto w-full items-end justify-end relative ">
               <span className="text-woit z-50 absolute bottom-8 right-8 font-black text-8xl tracking-tight pointer-events-none">Z57</span>
               <GlassCardWithRevealEffect />
