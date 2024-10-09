@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { CSSProperties, useRef } from "react";
 
 import Image from "next/image";
 import groupGlassImage from "@/app/images/group-glass.png";
@@ -19,8 +19,15 @@ const GlassCardWithRevealEffect = () => {
     }
   };
 
+  const handleMouseLeave = () => {
+    if (containerRef.current) {
+      containerRef.current.style.setProperty("--mouse-x", `-9999px`);
+      containerRef.current.style.setProperty("--mouse-y", `-9999px`);
+    }
+  };
+
   return (
-    <div ref={containerRef} className="container w-full h-full rounded-3xl overflow-hidden bg-foreground cursor-none" onMouseMove={handleMouseMove}>
+    <div ref={containerRef} className="container w-full h-full rounded-3xl overflow-hidden bg-foreground cursor-none" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave} style={{ "--mouse-x": "-9999px", "--mouse-y": "-9999px" } as CSSProperties}>
       <Image src={groupImage} alt="Group Image" className="revealed-image" layout="fill" objectFit="cover" />
       <Image src={groupGlassImage} alt="Group Glass Image" className="masked-image" layout="fill" objectFit="cover" />
     </div>
