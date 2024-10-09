@@ -1,7 +1,7 @@
-import { Globe, Mail, MoveRight, User } from "lucide-react";
+import { Globe, Mail, MoveRight } from "lucide-react";
 import Image, { StaticImageData } from "next/image";
 
-import groupImage from "@/app/images/group.jpg";
+// import groupImage from "@/app/images/group.jpg";
 import irisImage from "@/app/images/iris.jpg";
 import liliImage from "@/app/images/lili.jpg";
 import lucaImage from "@/app/images/luca.jpg";
@@ -292,36 +292,6 @@ export default function Home() {
                 {/* {index !== members.length - 1 && <hr className="border-foreground" />} */}
               </>
             ))}
-          </div>
-
-          <div className="flex flex-col gap-8 p-8">
-            <div className="member-content flex items-start flex-col gap-4 md:col-span-2 justify-start relative">
-              <div className="flex justify-between items-center w-full border-t border-foreground pt-4">
-                <span className="text-2xl md:text-5xl">Get in touch</span>
-                <div className="flex gap-2">
-                  <MailButton />
-                </div>
-              </div>
-              <div className="flex gap-8 w-full">
-                <div className="border-foreground w-full flex flex-col gap-4 justify-between text-woit bg-foreground border overflow-hidden relative rounded-3xl p-4">
-                  <Mail className=" w-12 h-12" />
-                  <div className="flex flex-col gap-2">
-                    <hr className="border-current" />
-                    <span className="self-end text-xl">info@z57.at</span>
-                  </div>
-                </div>
-                <div className="border-foreground w-full flex flex-col gap-4 justify-between border overflow-hidden relative rounded-3xl p-4">
-                  <User className=" w-12 h-12" />
-                  <div className="flex flex-col gap-2">
-                    <span className="text-xl">Schreib uns!</span>
-                  </div>
-                </div>
-                <Image src={groupImage} alt={"Grupenfoto"} width={200} height={200} className="w-full h-64 rounded-3xl object-cover filter grayscalesss contrast-2 group-hover:scale-110 transition-all transform" />
-              </div>
-              {/* <div className="border-foreground border overflow-hidden relative rounded-3xl w-full p-4">
-                <span className="text-xl py-1 px-2">Hallo</span>
-              </div> */}
-            </div>
           </div>
         </main>
         <footer className="px-8">
