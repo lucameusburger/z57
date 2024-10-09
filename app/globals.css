@@ -55,3 +55,48 @@ html {
   mask-image: radial-gradient(circle 200px at var(--mouse-x, 0) var(--mouse-y, 0), transparent 80%, black 81%);
   -webkit-mask-image: radial-gradient(circle 200px at var(--mouse-x, 0) var(--mouse-y, 0), transparent 80%, black 81%);
 }
+
+.image-container {
+  width: 100%; /* Container width */
+  height: 100%; /* Container height */
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.5rem; /* To match the rounded corners */
+}
+
+.image-container::before {
+  content: "";
+  background-image: url("./images/events/advent.jpg");
+  background-size: cover;
+  background-position: top;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%; /* Double the height for smoother scrolling */
+  transition: background-position 0s;
+}
+
+.image-container:hover::before {
+  animation: scrollDown 4s linear infinite;
+  /* No transition when animating */
+}
+
+@keyframes scrollDown {
+  0% {
+    background-position-y: 0%;
+  }
+  100% {
+    background-position-y: 200%;
+  }
+}
+
+.full-viewport-height {
+  height: 100vh;
+}
+
+@supports (height: 100dvh) {
+  .full-viewport-height {
+    height: 100dvh;
+  }
+}

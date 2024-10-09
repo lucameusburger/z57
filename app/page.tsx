@@ -1,8 +1,8 @@
-import { CandyCane, CornerRightUp, Globe, Instagram, Mail, MoveRight, User } from "lucide-react";
+import { ArrowDownRight, CandyCane, CornerRightUp, Globe, Instagram, Mail, MoveRight, User } from "lucide-react";
 import Image, { StaticImageData } from "next/image";
 
 import GlassCardWithRevealEffect from "./components/GlassCardWithRevealEffect";
-import adventImage from "@/app/images/events/advent.jpg";
+// import adventImage from "@/app/images/events/advent.jpg";
 import groupImage from "@/app/images/group.jpg";
 import irisImage from "@/app/images/iris.jpg";
 import liliImage from "@/app/images/lili.jpg";
@@ -171,15 +171,15 @@ const WebsiteButton = () => {
   );
 };
 
-const generateRandomPolygonPoints = () => {
-  const min = 10; // Minimum value for a point
-  const max = 100; // Maximum value for a point
-  const points = Array.from({ length: 4 }, () => `${Math.random() * (max - min) + min},${Math.random() * (max - min) + min}`).join(" ");
-  return points;
-};
+// const generateRandomPolygonPoints = () => {
+//   const min = 10; // Minimum value for a point
+//   const max = 100; // Maximum value for a point
+//   const points = Array.from({ length: 4 }, () => `${Math.random() * (max - min) + min},${Math.random() * (max - min) + min}`).join(" ");
+//   return points;
+// };
 
 const MemberSection = ({ member, switched }: { member: Member; switched: number }) => {
-  const randomPolygonPoints = generateRandomPolygonPoints();
+  // const randomPolygonPoints = generateRandomPolygonPoints();
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 w-full gap-8">
@@ -196,10 +196,10 @@ const MemberSection = ({ member, switched }: { member: Member; switched: number 
             <div className="border-foreground border overflow-hidden relative rounded-3xl w-full p-4">
               <span className="text-xl rounded-full text-background bg-blue-700 py-1 px-2">{member.title}</span>
               <span className="text-xl py-1 px-2">{member.description}</span>
-              <svg className="absolute -z-10 bottom-0 right-0 w-96 h-96 text-blue-700" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              {/* <svg className="absolute -z-10 bottom-0 right-0 w-96 h-96 text-blue-700" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="50" cy="50" r="15" fill="currentColor" />
                 <polygon points={randomPolygonPoints} fill="currentColor" />
-              </svg>
+              </svg> */}
             </div>
             <div className="flex gap-2 flex-wrap">
               {member.projects?.map((project, index) => (
@@ -234,10 +234,10 @@ const MemberSection = ({ member, switched }: { member: Member; switched: number 
             <div className="border-foreground border overflow-hidden relative rounded-3xl w-full p-4">
               <span className="text-xl rounded-full text-background bg-blue-700 py-1 px-2">{member.title}</span>
               <span className="text-xl py-1 px-2">{member.description}</span>
-              <svg className="absolute -z-10 bottom-0 right-0 w-96 h-96 text-blue-700" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              {/* <svg className="absolute -z-10 bottom-0 right-0 w-96 h-96 text-blue-700" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="50" cy="50" r="15" fill="currentColor" />
                 <polygon points={randomPolygonPoints} fill="currentColor" />
-              </svg>
+              </svg> */}
             </div>
             <div className="flex gap-2 flex-wrap">
               {member.projects?.map((project, index) => (
@@ -270,8 +270,9 @@ export default function Home() {
       <div className="items-center justify-items-center min-h-screen gap-16 font-[family-name:var(--font-geist-sans)]">
         <main className="flex flex-col w-full">
           {/* FRONT */}
-          <div className="grid grid-cols-1 md:grid-cols-3 w-full gap-8 h-screen p-8">
+          <div className="flex flex-col md:grid grid-cols-1 md:grid-cols-3 w-full gap-8 full-viewport-height p-8">
             <div className="flex items-end justify-end flex-col text-4xl md:text-5xl flex-1">
+              <ArrowDownRight className="w-20 h-20" />
               <span>Grafik</span>
 
               <span>Nailart</span>
@@ -296,7 +297,7 @@ export default function Home() {
           </div>
 
           {/* UPCOMING */}
-          <div className="flex flex-col gap-8 p-8">
+          <div className="flex flex-col gap-8 px-8">
             <div className=" flex items-start flex-col gap-4 md:col-span-2 justify-start relative ">
               <div className="flex justify-between items-center w-full border-t border-foreground pt-4">
                 <span className="text-2xl md:text-5xl">Upcoming</span>
@@ -308,7 +309,7 @@ export default function Home() {
                 </div> */}
               </div>
               <div className="flex gap-8 w-full flex-col md:flex-row">
-                <a href="mailto:info@z57.at" className="order-2 md:order-1  border-foreground hover:bg-background hover:text-foreground w-full flex flex-col gap-4 justify-between text-woit bg-foreground border overflow-hidden relative rounded-3xl p-4">
+                <a href="mailto:info@z57.at" className="order-2 md:order-1  border-foreground hover:bg-background hover:text-foreground transition-colors w-full flex flex-col gap-4 justify-between text-woit bg-foreground border overflow-hidden relative rounded-3xl p-4">
                   <CandyCane className=" w-12 h-12" />
                   <div className="flex flex-col gap-2">
                     <span className="self-end text-xl">TBA. Dez 2024</span>
@@ -316,7 +317,9 @@ export default function Home() {
                     <span className="self-end text-xl font-bold">Adventmarkt am Dach</span>
                   </div>
                 </a>
-                <Image src={adventImage} alt={"Grupenfoto"} width={800} height={400} className="w-full order-1 md:order-2 h-64 rounded-3xl object-cover filter grayscalesss contrast-2 group-hover:scale-110 transition-all transform" />
+                <div className="w-full order-1 md:order-2 h-64 rounded-3xl object-cover filter grayscalesss contrast-2 group-hover:scale-110 transition-all transform">
+                  <div className="image-container">{/* <Image src={adventImage} alt="Gruppenfoto" width={800} height={400} className="hidden" /> */}</div>
+                </div>
               </div>
               {/* <div className="border-foreground border overflow-hidden relative rounded-3xl w-full p-4">
                 <span className="text-xl py-1 px-2">Hallo</span>
