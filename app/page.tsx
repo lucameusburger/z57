@@ -1,4 +1,4 @@
-import { CandyCane, CornerRightUp, Globe, Instagram, Mail, MoveRight, QrCode, User } from "lucide-react";
+import { CandyCane, CornerRightUp, Globe, Instagram, Mail, MoveRight, User } from "lucide-react";
 import Image, { StaticImageData } from "next/image";
 
 import GlassCardWithRevealEffect from "./components/GlassCardWithRevealEffect";
@@ -401,10 +401,18 @@ export default function Home() {
           <div className="py-8 justify-between gap-4 flex flex-col md:flex-row">
             <div className="flex gap-2 flex-col md:flex-row">
               <div>
-                <span className="text-xl rounded-full text-background bg-blue-700 py-1 px-2">Copyright z57 © 2024</span>
+                <span className="text-xl rounded-full text-background bg-foreground py-1 px-2">Copyright z57 © 2024</span>
               </div>
               <div>
-                <span className="text-xl rounded-full text-background bg-foreground py-1 px-2">Website by Luca Meusburger</span>
+                <span
+                  style={{
+                    backgroundImage: `url(${groupGlassImage.src})`,
+                    backgroundSize: "cover",
+                  }}
+                  className="text-xl rounded-full text-background bg-foreground py-1 px-2"
+                >
+                  Website by Luca Meusburger
+                </span>
               </div>
             </div>
             <div className="flex gap-2">
