@@ -1,7 +1,8 @@
-import { CandyCane, CornerRightUp, Globe, Instagram, Mail, MoveRight, User } from "lucide-react";
+import { CandyCane, CornerRightUp, Globe, Instagram, Mail, MoveRight, QrCode, User } from "lucide-react";
 import Image, { StaticImageData } from "next/image";
 
 import GlassCardWithRevealEffect from "./components/GlassCardWithRevealEffect";
+import groupGlassImage from "@/app/images/group-glass.png";
 // import adventImage from "@/app/images/events/advent.jpg";
 import groupImage from "@/app/images/group.jpg";
 import irisImage from "@/app/images/iris.jpg";
@@ -182,11 +183,11 @@ const MemberSection = ({ member, switched }: { member: Member; switched: number 
   // const randomPolygonPoints = generateRandomPolygonPoints();
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 w-full gap-8">
+    <div className="grid grid-cols-1 md:grid-cols-3 w-full gap-4 md:gap-8">
       {switched % 2 !== 0 ? (
         <>
-          <div className="member-content flex items-start flex-col gap-4 md:col-span-2 justify-start relative">
-            <div className="flex justify-between items-center w-full border-t border-foreground pt-4">
+          <div className="member-content flex items-start flex-col gap-4 md:col-span-2 justify-start relative order-3 md:order-1">
+            <div className="flex justify-between items-center w-full md:border-t md:border-foreground md:pt-4">
               <span className="text-2xl md:text-5xl">{member.name}</span>
               <div className="flex gap-2">
                 <MailButton />
@@ -194,7 +195,15 @@ const MemberSection = ({ member, switched }: { member: Member; switched: number 
               </div>
             </div>
             <div className="border-foreground border overflow-hidden relative rounded-3xl w-full p-4">
-              <span className="text-xl rounded-full text-background bg-blue-700 py-1 px-2">{member.title}</span>
+              <span
+                style={{
+                  backgroundImage: `url(${groupGlassImage.src})`,
+                  backgroundSize: "cover",
+                }}
+                className="text-xl rounded-full text-background bg-foreground py-1 px-2"
+              >
+                {member.title}
+              </span>
               <span className="text-xl py-1 px-2">{member.description}</span>
               {/* <svg className="absolute -z-10 bottom-0 right-0 w-96 h-96 text-blue-700" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="50" cy="50" r="15" fill="currentColor" />
@@ -210,7 +219,7 @@ const MemberSection = ({ member, switched }: { member: Member; switched: number 
               ))}
             </div>
           </div>
-          <div className="member-image justify-between w-full aspect-square items-start p-0 flex">
+          <div className="member-image justify-between w-full aspect-square items-start p-0 flex order-1 md:order-3">
             <div className="relative w-full h-full rounded-3xl overflow-hidden group">
               <Image src={member.image} alt={member.name} width={200} height={200} className="w-full h-full rounded-3xl object-cover filter grayscalesss contrast-2 group-hover:scale-110 transition-all transform" />
             </div>
@@ -224,7 +233,7 @@ const MemberSection = ({ member, switched }: { member: Member; switched: number 
             </div>
           </div>
           <div className="member-content flex items-start flex-col gap-4 md:col-span-2 justify-start relative">
-            <div className="flex justify-between items-center w-full border-t border-foreground pt-4">
+            <div className="flex justify-between items-center w-full md:border-t md:border-foreground md:pt-4">
               <span className="text-2xl md:text-5xl">{member.name}</span>
               <div className="flex gap-2">
                 <MailButton />
@@ -232,7 +241,15 @@ const MemberSection = ({ member, switched }: { member: Member; switched: number 
               </div>
             </div>
             <div className="border-foreground border overflow-hidden relative rounded-3xl w-full p-4">
-              <span className="text-xl rounded-full text-background bg-blue-700 py-1 px-2">{member.title}</span>
+              <span
+                style={{
+                  backgroundImage: `url(${groupGlassImage.src})`,
+                  backgroundSize: "cover",
+                }}
+                className="text-xl rounded-full text-background bg-foreground py-1 px-2"
+              >
+                {member.title}
+              </span>
               <span className="text-xl py-1 px-2">{member.description}</span>
               {/* <svg className="absolute -z-10 bottom-0 right-0 w-96 h-96 text-blue-700" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="50" cy="50" r="15" fill="currentColor" />
@@ -351,14 +368,14 @@ export default function Home() {
                 </div> */}
               </div>
               <div className="flex gap-8 w-full flex-col md:flex-row">
-                <a href="mailto:info@z57.at" className="border-foreground hover:bg-background hover:text-foreground w-full flex flex-col gap-4 justify-between text-woit bg-foreground border overflow-hidden relative rounded-3xl p-4">
+                <a href="mailto:info@z57.at" className="border-foreground hover:bg-background transition-colors hover:text-foreground w-full flex flex-col gap-4 justify-between text-woit bg-foreground border overflow-hidden relative rounded-3xl p-4">
                   <Mail className=" w-12 h-12" />
                   <div className="flex flex-col gap-2">
                     <hr className="border-current" />
                     <span className="self-end text-xl">info@z57.at</span>
                   </div>
                 </a>
-                <a href="https://www.instagram.com/z57.at/" className="border-foreground hover:bg-background hover:text-foreground w-full flex flex-col gap-4 justify-between text-woit bg-foreground border overflow-hidden relative rounded-3xl p-4">
+                <a href="https://www.instagram.com/z57.at/" className="border-foreground hover:bg-background transition-colors hover:text-foreground w-full flex flex-col gap-4 justify-between text-woit bg-foreground border overflow-hidden relative rounded-3xl p-4">
                   <Instagram className=" w-12 h-12" />
                   <div className="flex flex-col gap-2">
                     <hr className="border-current" />
