@@ -21,7 +21,7 @@ export default function Marquee({ elements, className, direction = "rtl", speed 
 
   return (
     <div className="w-full overflow-hidden">
-      <div className={"wrapper py-2 flex items-center relative overflow-hidden w-[100%] shrink-0 " + className} ref={boxesContainer}>
+      <div className={"wrapper py-2 flex items-center relative overflow-hidden w-full shrink-0 " + className} ref={boxesContainer}>
         {elements.map((el) => (
           <div key={`box-${el}`} className="box text-3xl px-8 flex items-center ">
             {el}
