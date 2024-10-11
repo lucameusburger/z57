@@ -1,4 +1,4 @@
-import { ArrowBigDown, BeanOff, CandyCane, CornerRightUp, House, Instagram, Mail, User } from "lucide-react";
+import { Bean, BeanOff, CandyCane, CornerRightUp, Instagram, Mail, User } from "lucide-react";
 import { Member, members } from "./members";
 
 import GlassCardWithRevealEffect from "./components/GlassCardWithRevealEffect";
@@ -122,7 +122,7 @@ export default function Home() {
                     <span className=" text-xl py-1 px-2">Wir sind gerne auf unserem Dach und freuen uns über neue Ideen und Projekte.</span>
                   </div>
 
-                  <Marquee speed={2} direction="ltr" className="bg-background text-foreground" elements={[<BeanOff />, <BeanOff />, <BeanOff />, <BeanOff />, <BeanOff />, <BeanOff />, <BeanOff />, <BeanOff />, <BeanOff />, <BeanOff />, <BeanOff />, <BeanOff />, <BeanOff />, <BeanOff />, <BeanOff />, <BeanOff />, <BeanOff />]} />
+                  <Marquee speed={2} direction="ltr" className="bg-background text-foreground" elements={[<BeanOff key={1} />, <Bean key={2} />, <BeanOff key={4} />, <Bean key={5} />, <BeanOff key={6} />, <Bean key={7} />, <BeanOff key={8} />, <Bean key={9} />, <BeanOff key={10} />, <Bean key={11} />, <BeanOff key={12} />, <Bean key={13} />, <BeanOff key={14} />]} />
                   <div className="p-4">
                     <span className=" text-xl py-1 px-2">Wir arbeiten einzeln, zusammen und in Teams. Wir sind eine Gruppe aus Menschen mit unterschiedlichen Hintergründen und Interessen. Wir arbeiten an Projekten, die sich an der Zukunft und unserer Zukunft orientieren. Wir sind ein Team von Menschen, die sich für Innovation und Entwicklung einsetzen.</span>
                   </div>
