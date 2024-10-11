@@ -122,7 +122,7 @@ export default function Home() {
                     <span className=" text-xl py-1 px-2">Wir sind gerne auf unserem Dach und freuen uns über neue Ideen und Projekte.</span>
                   </div>
 
-                  <Marquee direction="ltr" className="bg-background text-foreground" elements={[<BeanOff />, <BeanOff />, <BeanOff />, <BeanOff />, <BeanOff />, <BeanOff />, <BeanOff />, <BeanOff />, <BeanOff />, <BeanOff />, <BeanOff />, <BeanOff />, <BeanOff />, <BeanOff />]} />
+                  <Marquee speed={2} direction="ltr" className="bg-background text-foreground" elements={[<BeanOff />, <BeanOff />, <BeanOff />, <BeanOff />, <BeanOff />, <BeanOff />, <BeanOff />, <BeanOff />, <BeanOff />, <BeanOff />, <BeanOff />, <BeanOff />, <BeanOff />, <BeanOff />, <BeanOff />, <BeanOff />, <BeanOff />]} />
                   <div className="p-4">
                     <span className=" text-xl py-1 px-2">Wir arbeiten einzeln, zusammen und in Teams. Wir sind eine Gruppe aus Menschen mit unterschiedlichen Hintergründen und Interessen. Wir arbeiten an Projekten, die sich an der Zukunft und unserer Zukunft orientieren. Wir sind ein Team von Menschen, die sich für Innovation und Entwicklung einsetzen.</span>
                   </div>
