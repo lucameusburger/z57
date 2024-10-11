@@ -147,7 +147,7 @@ export default function Home() {
                     <span className="self-end text-xl font-bold">Zieglergasse Dach</span>
                   </div>
                   <div className=" h-[50vh] w-full relative">
-                    <video className=" h-full w-full object-cover rounded-2xl" autoPlay loop muted>
+                    <video className=" pointer-events-none h-full w-full object-cover rounded-2xl" autoPlay loop muted>
                       <source src="outside.mp4" type="video/mp4" />
                     </video>
                     <span className="absolute bottom-4 right-4 text-3xl text-woit">
