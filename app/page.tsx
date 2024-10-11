@@ -1,176 +1,13 @@
-import { CandyCane, CornerRightUp, Globe, Instagram, Mail, MoveRight, User } from "lucide-react";
-import Image, { StaticImageData } from "next/image";
+import { ArrowBigDown, BeanOff, CandyCane, CornerRightUp, House, Instagram, Mail, User } from "lucide-react";
+import { Member, members } from "./members";
 
 import GlassCardWithRevealEffect from "./components/GlassCardWithRevealEffect";
+import Image from "next/image";
+import Marquee from "./components/Marquee";
+import MemberItem from "./components/MemberItem";
 import groupGlassImage from "@/app/images/group-glass.png";
 // import adventImage from "@/app/images/events/advent.jpg";
 import groupImage from "@/app/images/group.jpg";
-import irisImage from "@/app/images/iris.jpg";
-import liliImage from "@/app/images/lili.jpg";
-import lucaImage from "@/app/images/luca.jpg";
-import nikoImage from "@/app/images/niko.jpg";
-import robertImage from "@/app/images/robert.jpg";
-import stellaImage from "@/app/images/stella.jpg";
-import victorImage from "@/app/images/victor.jpg";
-
-interface Member {
-  name: string;
-  image: StaticImageData;
-  title: string;
-  description: string;
-  email: string;
-  website?: string;
-  projects?: Project[];
-}
-
-interface Project {
-  name: string;
-  url: string;
-}
-
-const members: Member[] = [
-  {
-    name: "Robert Zanona",
-    image: robertImage,
-    title: "Architektur",
-    description: "Robert is a passionate Music lover and a big fan of the classical music. He is also a big fan of the new music and is always looking for new music to listen to. He is a huge fan of the new technology and is always looking for new technologies to learn. Robert is also a big fan of the new fashion and is always looking for new fashion to wear. Robert is also a big fan of the new food and is always looking for new food to eat.",
-    email: "robert@example.com",
-    projects: [
-      {
-        name: "Poolbar Festival",
-        url: "https://poolbar.at",
-      },
-      {
-        name: "west68",
-        url: "https://west68.at",
-      },
-    ],
-  },
-  {
-    name: "Lilian Furrer",
-    image: liliImage,
-    title: "Restauration",
-    description: "Mag. Lilian Marie Furrer ist Mitbegründerin von z57 und freiberufliche Konservatorin/Restauratorin und Industriedesignerin, die in beiden Bereichen interdisziplinär arbeitet. Mit ihrem Interesse für Materialität, kulturelles Erbe und innovatives Design arbeitet sie objekt- und forschungsbasiert für kulturelle Institutionen und Firmen. In ihrer Freizeit widmet sie sich am liebsten der Keramik im kleinen z57 Keramikstudio.",
-    email: "lili@example.com",
-    projects: [
-      {
-        name: "Restauration Workshop",
-        url: "https://poolbar.at",
-      },
-      {
-        name: "IKEA Designweek",
-        url: "asd",
-      },
-    ],
-  },
-  {
-    name: "Luca Meusburger",
-    image: lucaImage,
-    title: "Webentwicklung",
-    description: "Luca ist ein freiberuflicher Webentwickler und Designer, der mit modernen Technologien und aktuellen Standards arbeitet, um ästhetische und benutzerfreundliche digitale Lösungen zu schaffen. Sein Fokus liegt auf anspruchsvollen Projekten wie Dashboards und mobilen Apps, bei denen er sowohl die Frontend- und Backend-Entwicklung übernimmt als auch die Gestaltung von UI und UX. Viele seiner Arbeiten sind im Kultur- und Bildungsbereich angesiedelt.",
-    email: "luca@example.com",
-    website: "https://meusburger.io",
-    projects: [
-      {
-        name: "Austrian Jazz Award",
-        url: "https://jazzpreis.at",
-      },
-      {
-        name: "Poolbar Festival",
-        url: "https://poolbar.at",
-      },
-      {
-        name: "Amadeus Austrian Music Award",
-        url: "https://aama.at",
-      },
-      {
-        name: "Wissenschaftsverbund",
-        url: "https://wissenschaftsverbund.org",
-      },
-    ],
-  },
-  {
-    name: "Stella Kucher",
-    image: stellaImage,
-    title: "Grafik",
-    description: "Robert is a passionate Music lover and a big fan of the classical music. He is also a big fan of the new music and is always looking for new music to listen to. He is a huge fan of the new technology and is always looking for new technologies to learn. Robert is also a big fan of the new fashion and is always looking for new fashion to wear. Robert is also a big fan of the new food and is always looking for new food to eat.",
-    email: "stella@example.com",
-    projects: [
-      {
-        name: "Grafik Workshop",
-        url: "https://poolbar.at",
-      },
-      {
-        name: "Nailart Workshop",
-        url: "https://poolbar.at",
-      },
-    ],
-  },
-  {
-    name: "Niko Havranek",
-    image: nikoImage,
-    title: "Fotografie",
-    description: "Robert is a passionate Music lover and a big fan of the classical music. He is also a big fan of the new music and is always looking for new music to listen to. He is a huge fan of the new technology and is always looking for new technologies to learn. Robert is also a big fan of the new fashion and is always looking for new fashion to wear. Robert is also a big fan of the new food and is always looking for new food to eat.",
-    email: "niko@example.com",
-    website: "http://www.nikohavranek.com/",
-    projects: [
-      {
-        name: "Fotografie Workshop",
-        url: "https://poolbar.at",
-      },
-      {
-        name: "Nailart Workshop",
-        url: "https://poolbar.at",
-      },
-    ],
-  },
-  {
-    name: "Iris Prassl",
-    image: irisImage,
-    title: "Nailart",
-    description: "Robert is a passionate Music lover and a big fan of the classical music. He is also a big fan of the new music and is always looking for new music to listen to. He is a huge fan of the new technology and is always looking for new technologies to learn. Robert is also a big fan of the new fashion and is always looking for new fashion to wear. Robert is also a big fan of the new food and is always looking for new food to eat.",
-    email: "iris@example.com",
-    projects: [
-      {
-        name: "Nailart Workshop",
-        url: "https://poolbar.at",
-      },
-    ],
-  },
-  {
-    name: "Victor Dölle",
-    title: "Architektur",
-    image: victorImage,
-    description: "Robert is a passionate Music lover and a big fan of the classical music. He is also a big fan of the new music and is always looking for new music to listen to. He is a huge fan of the new technology and is always looking for new technologies to learn. Robert is also a big fan of the new fashion and is always looking for new fashion to wear. Robert is also a big fan of the new food and is always looking for new food to eat.",
-    email: "victor@example.com",
-    projects: [
-      {
-        name: "Architektur Workshop",
-        url: "https://poolbar.at",
-      },
-      {
-        name: "Nailart Workshop",
-        url: "https://poolbar.at",
-      },
-    ],
-  },
-];
-
-const MailButton = () => {
-  return (
-    <button className="bg-foreground rounded-full h-12 w-12 aspect-square flex items-center justify-center hover:bg-blue-700">
-      <Mail className="text-woit w-12 h-6" />
-    </button>
-  );
-};
-
-const WebsiteButton = () => {
-  return (
-    <button className="bg-foreground rounded-full h-12 w-12 aspect-square flex items-center justify-center hover:bg-blue-700">
-      <Globe className="text-woit w-12 h-6" />
-    </button>
-  );
-};
 
 // const generateRandomPolygonPoints = () => {
 //   const min = 10; // Minimum value for a point
@@ -178,98 +15,6 @@ const WebsiteButton = () => {
 //   const points = Array.from({ length: 4 }, () => `${Math.random() * (max - min) + min},${Math.random() * (max - min) + min}`).join(" ");
 //   return points;
 // };
-
-const MemberSection = ({ member, switched }: { member: Member; switched: number }) => {
-  // const randomPolygonPoints = generateRandomPolygonPoints();
-
-  return (
-    <div className="grid grid-cols-1 md:grid-cols-3 w-full gap-4 md:gap-8">
-      {switched % 2 !== 0 ? (
-        <>
-          <div className="member-content flex items-start flex-col gap-4 md:col-span-2 justify-start relative order-3 md:order-1">
-            <div className="flex justify-between items-center w-full md:border-t md:border-foreground md:pt-4">
-              <span className="text-2xl md:text-5xl">{member.name}</span>
-              <div className="flex gap-2">
-                <MailButton />
-                {member.website && <WebsiteButton />}
-              </div>
-            </div>
-            <div className="border-foreground border overflow-hidden relative rounded-3xl w-full p-4">
-              <span
-                style={{
-                  backgroundImage: `url(${groupGlassImage.src})`,
-                  backgroundSize: "cover",
-                }}
-                className="text-xl rounded-full text-background bg-foreground py-1 px-2"
-              >
-                {member.title}
-              </span>
-              <span className="text-xl py-1 px-2">{member.description}</span>
-              {/* <svg className="absolute -z-10 bottom-0 right-0 w-96 h-96 text-blue-700" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="50" cy="50" r="15" fill="currentColor" />
-                <polygon points={randomPolygonPoints} fill="currentColor" />
-              </svg> */}
-            </div>
-            <div className="flex gap-2 flex-wrap">
-              {member.projects?.map((project, index) => (
-                <a key={index} className="hover:bg-background hover:text-foreground border border-foreground text-base rounded-full text-background bg-foreground py-0.5 px-2 whitespace-nowrap flex gap-1 items-center" href={project.url}>
-                  <span>{project.name}</span>
-                  <MoveRight className="w-3 h-3" />
-                </a>
-              ))}
-            </div>
-          </div>
-          <div className="member-image justify-between w-full aspect-square items-start p-0 flex order-1 md:order-3">
-            <div className="relative w-full h-full rounded-3xl overflow-hidden group">
-              <Image src={member.image} alt={member.name} width={200} height={200} className="w-full h-full rounded-3xl object-cover filter grayscalesss contrast-2 group-hover:scale-110 transition-all transform" />
-            </div>
-          </div>
-        </>
-      ) : (
-        <>
-          <div className="member-image justify-between w-full aspect-square items-start p-0 flex">
-            <div className="relative w-full h-full rounded-3xl overflow-hidden group">
-              <Image src={member.image} alt={member.name} width={200} height={200} className="w-full h-full rounded-3xl object-cover filter grayscalesss contrast-2 group-hover:scale-110 transition-all transform" />
-            </div>
-          </div>
-          <div className="member-content flex items-start flex-col gap-4 md:col-span-2 justify-start relative">
-            <div className="flex justify-between items-center w-full md:border-t md:border-foreground md:pt-4">
-              <span className="text-2xl md:text-5xl">{member.name}</span>
-              <div className="flex gap-2">
-                <MailButton />
-                {member.website && <WebsiteButton />}
-              </div>
-            </div>
-            <div className="border-foreground border overflow-hidden relative rounded-3xl w-full p-4">
-              <span
-                style={{
-                  backgroundImage: `url(${groupGlassImage.src})`,
-                  backgroundSize: "cover",
-                }}
-                className="text-xl rounded-full text-background bg-foreground py-1 px-2"
-              >
-                {member.title}
-              </span>
-              <span className="text-xl py-1 px-2">{member.description}</span>
-              {/* <svg className="absolute -z-10 bottom-0 right-0 w-96 h-96 text-blue-700" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="50" cy="50" r="15" fill="currentColor" />
-                <polygon points={randomPolygonPoints} fill="currentColor" />
-              </svg> */}
-            </div>
-            <div className="flex gap-2 flex-wrap">
-              {member.projects?.map((project, index) => (
-                <a key={index} className="hover:bg-background hover:text-foreground border border-foreground text-base rounded-full text-background bg-foreground py-0.5 px-2 whitespace-nowrap flex gap-1 items-center" href={project.url}>
-                  <span>{project.name}</span>
-                  <MoveRight className="w-3 h-3" />
-                </a>
-              ))}
-            </div>
-          </div>
-        </>
-      )}
-    </div>
-  );
-};
 
 export default function Home() {
   function shuffleArray(array: Member[]) {
@@ -345,11 +90,60 @@ export default function Home() {
             </div>
           </div>
 
+          <div className="h-8" />
+          <div className="px-8">
+            <Marquee className="bg-foreground text-background" elements={["Architektur", "Webentwicklung", "Nailart", "Fotografie", "Design", "Feiern", "Dach", "Zieglergasse", "Wien", "Baustein", "Skizze", "Kuchen", "Geschenk"]} />
+          </div>
+
+          {/* ABOUT */}
+          <div className="flex flex-col gap-8 px-8 pt-8">
+            <div className=" flex items-start flex-col gap-4 md:col-span-2 justify-start relative ">
+              <div className="flex justify-between items-center w-full border-t border-foreground pt-4">
+                <span className="text-2xl md:text-5xl">Über uns</span>
+                <a href="#top">
+                  <CornerRightUp className="w-6 h-6 " />
+                </a>
+                {/* <div className="flex gap-2">
+                  <MailButton />
+                </div> */}
+              </div>
+              <div className="flex gap-8 w-full flex-col md:flex-row">
+                <div className="w-full  h-64 rounded-3xl contrast-2 group-hover:scale-110 transition-all transform border-foreground border ">
+                  <div className="p-4">
+                    <span
+                      // style={{
+                      //   backgroundImage: `url(${groupGlassImage.src})`,
+                      //   backgroundSize: "cover",
+                      // }}
+                      className="text-xl rounded-full text-background bg-foreground py-1 px-2 "
+                    >
+                      Hello
+                    </span>
+                    <span className=" text-xl py-1 px-2">Wir sind gerne auf unserem Dach und freuen uns über neue Ideen und Projekte.</span>
+                  </div>
+
+                  <Marquee direction="ltr" className="bg-background text-foreground" elements={[<BeanOff />, <BeanOff />, <BeanOff />, <BeanOff />, <BeanOff />, <BeanOff />, <BeanOff />, <BeanOff />, <BeanOff />, <BeanOff />, <BeanOff />, <BeanOff />, <BeanOff />, <BeanOff />]} />
+                  <div className="p-4">
+                    <span className=" text-xl py-1 px-2">Wir arbeiten einzeln, zusammen und in Teams. Wir sind eine Gruppe aus Menschen mit unterschiedlichen Hintergründen und Interessen. Wir arbeiten an Projekten, die sich an der Zukunft und unserer Zukunft orientieren. Wir sind ein Team von Menschen, die sich für Innovation und Entwicklung einsetzen.</span>
+                  </div>
+                </div>
+                <a href="mailto:info@z57.at" className="  border-foreground hover:bg-background hover:text-foreground transition-colors w-full flex flex-col gap-4 justify-between text-woit bg-foreground border overflow-hidden relative rounded-3xl p-4">
+                  <CandyCane className=" w-12 h-12" />
+                  <div className="flex flex-col gap-2">
+                    <span className="self-end text-xl">TBA. Dez 2024</span>
+                    <hr className="border-current" />
+                    <span className="self-end text-xl font-bold">Adventmarkt am Dach</span>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+
           {/* MEMBERS */}
           <div className="flex flex-col gap-8 p-8">
             {shuffledMembers.map((member, index) => (
               <>
-                <MemberSection key={member.name} member={member} switched={index} />
+                <MemberItem key={member.name} member={member} switched={index} />
                 {/* {index !== members.length - 1 && <hr className="border-foreground" />} */}
               </>
             ))}

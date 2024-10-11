@@ -24,6 +24,9 @@ const config: Config = {
         woit: "#f7f1f3",
         stella: "#C04021",
       },
+      backgroundImage: {
+        glass: "url('./images/group-glass.png')",
+      },
     },
   },
   plugins: [],

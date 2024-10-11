@@ -110,3 +110,8 @@ html {
     min-height: 100dvh;
   }
 }
+
+.bg-glass {
+  background-image: url("./images/group-glass.png");
+  background-size: cover;
+}
