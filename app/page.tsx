@@ -129,19 +129,9 @@ export default function Home() {
                       <span className=" text-xl py-1 px-2">Wir arbeiten einzeln, zusammen und in Teams. Wir sind eine Gruppe aus Menschen mit unterschiedlichen Hintergründen und Interessen. Wir arbeiten an Projekten, die sich an der Zukunft und unserer Zukunft orientieren. Wir sind ein Team von Menschen, die sich für Innovation und Entwicklung einsetzen.</span>
                     </div>
                   </div>
-                  <div className=" rounded-3xl contrast-2 group-hover:scale-110 transition-all transform border-foreground border ">
-                    <div className="p-4">
-                      <span
-                        // style={{
-                        //   backgroundImage: `url(${groupGlassImage.src})`,
-                        //   backgroundSize: "cover",
-                        // }}
-                        className="text-xl rounded-full text-background bg-foreground py-1 px-2 "
-                      >
-                        Hello
-                      </span>
-                      <span className=" text-xl py-1 px-2">Wir sind gerne auf unserem Dach und freuen uns über neue Ideen und Projekte.</span>
-                    </div>
+                  <div className="p-4 rounded-3xl contrast-2 border-foreground border ">
+                    <span className="text-xl rounded-full text-background bg-foreground py-1 px-2 ">Hello</span>
+                    <span className=" text-xl py-1 px-2">Wir sind gerne auf unserem Dach und freuen uns über neue Ideen und Projekte.</span>
                   </div>
                 </div>
                 <div className="  border-foreground hover:bg-background hover:text-foreground transition-colors w-full flex flex-col gap-4 justify-between text-woit bg-foreground border overflow-hidden relative rounded-3xl p-4">
