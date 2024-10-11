@@ -12,7 +12,7 @@ export default function Marquee({ elements, className, direction = "rtl", speed 
   useGSAP(
     () => {
       const boxes = gsap.utils.toArray(".box");
-      horizontalLoop(boxes, { repeat: -1, direction, speed: speed });
+      horizontalLoop(boxes, { repeat: -1, reversed: direction === "ltr", speed: speed });
     },
     {
       scope: boxesContainer,
