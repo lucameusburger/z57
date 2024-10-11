@@ -134,7 +134,7 @@ export default function Home() {
                     <span className=" text-xl py-1 px-2">Wir sind gerne auf unserem Dach und freuen uns über neue Ideen und Projekte.</span>
                   </div>
                 </div>
-                <div className="  border-foreground hover:bg-background hover:text-foreground transition-colors w-full flex flex-col gap-4 justify-between text-woit bg-foreground border overflow-hidden relative rounded-3xl p-4">
+                <div className="  border-foreground w-full flex flex-col gap-4 justify-between text-woit bg-foreground border overflow-hidden relative rounded-3xl p-4">
                   <div className="flex justify-between ">
                     <Cctv className=" w-12 h-12" />
                     <div className="h-3 w-3 bg-current rounded-full  relative">
