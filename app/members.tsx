@@ -29,7 +29,7 @@ export const members: Member[] = [
     image: robertImage,
     title: "Architektur",
     description:
-      "Robert’s Arbeitswelt lässt sich zwischen Architektur, Kunst und Event-Management verorten. Als Architekt arbeitet er mit Fokus auf nachhaltigem Innenausbau und Holzbau mit einem besonderen Händchen für Materialität und Form. Als Assistent eines österreichischen Künstlers und als Booker des Poolbar Festivals ist er genauso in der österreichischen Kunst und Musik-Szene zu finden. Als Mitbegründer von Z57 kümmert er sich in seiner feien Zeit am liebsten um den Gemeinschaftsgarten im Atelier, töpfert oder baut Keramiköfen.",
+      "Robert’s Arbeitswelt lässt sich zwischen Architektur, Kunst und Event-Management verorten. Als Architekt arbeitet er mit Fokus auf nachhaltigem Innenausbau und Holzbau mit einem besonderen Händchen für Materialität und Form. Als Assistent eines österreichischen Künstlers und als Booker des Poolbar Festivals ist er genauso in der österreichischen Kunst und Musik-Szene zu finden. Als Mitbegründer von Z57 kümmert er sich in seiner freien Zeit am liebsten um den Gemeinschaftsgarten im Atelier, töpfert oder baut Keramiköfen.",
     email: "robert@example.com",
     website: "http://www.west68.at",
     instagram: "https://www.instagram.com/west68_rz/",
@@ -40,7 +40,7 @@ export const members: Member[] = [
       },
       {
         name: "west68",
-        url: "https://west68.at",
+        url: "http://www.west68.at",
       },
     ],
   },
