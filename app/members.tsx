@@ -28,7 +28,8 @@ export const members: Member[] = [
     name: "Robert Zanona",
     image: robertImage,
     title: "Architektur",
-    description: "Robert is a passionate Music lover and a big fan of the classical music. He is also a big fan of the new music and is always looking for new music to listen to. He is a huge fan of the new technology and is always looking for new technologies to learn. Robert is also a big fan of the new fashion and is always looking for new fashion to wear. Robert is also a big fan of the new food and is always looking for new food to eat.",
+    description:
+      "Robert’s Arbeitswelt lässt sich zwischen Architektur, Kunst und Event-Management verorten. Als Architekt arbeitet er mit Fokus auf nachhaltigem Innenausbau und Holzbau mit einem besonderen Händchen für Materialität und Form. Als Assistent eines österreichischen Künstlers und als Booker des Poolbar Festivals ist er genauso in der österreichischen Kunst und Musik-Szene zu finden. Als Mitbegründer von Z57 kümmert er sich in seiner feien Zeit am liebsten um den Gemeinschaftsgarten im Atelier, töpfert oder baut Keramiköfen.",
     email: "robert@example.com",
     website: "http://www.west68.at",
     instagram: "https://www.instagram.com/west68_rz/",
@@ -130,13 +131,13 @@ export const members: Member[] = [
     name: "Iris Prassl",
     image: irisImage,
     title: "Nailart",
-    description: "Robert is a passionate Music lover and a big fan of the classical music. He is also a big fan of the new music and is always looking for new music to listen to. He is a huge fan of the new technology and is always looking for new technologies to learn. Robert is also a big fan of the new fashion and is always looking for new fashion to wear. Robert is also a big fan of the new food and is always looking for new food to eat.",
-    email: "iris@example.com",
+    description: "Iris ist eine freiberufliche Nail Designerin die sich durch ihre außergewöhnlichen und extravaganten Designs auszeichnet. Ihre Bandbreite erstreckt sich von übertriebenem Kitsch bis hin zu animalischen Claws. Neben ihrer täglichen Beschäftigung mit Nägeln gibt sie zudem Workshops bei denen die Teilnehmer*innen ihre eigenen Press On Nägel gestalten können.",
+    email: "fest.genagelt@gmx.at",
     instagram: "https://www.instagram.com/fest.genagelt/",
     projects: [
       {
-        name: "Nailart Workshop",
-        url: "https://poolbar.at",
+        name: "Austrian Fashion Association",
+        url: "https://www.austrianfashionassociation.at/event/nailgasm-manikuere-mode-gesellschaft/",
       },
     ],
   },
@@ -144,7 +145,8 @@ export const members: Member[] = [
     name: "Victor Dölle",
     title: "Architektur",
     image: victorImage,
-    description: "Robert is a passionate Music lover and a big fan of the classical music. He is also a big fan of the new music and is always looking for new music to listen to. He is a huge fan of the new technology and is always looking for new technologies to learn. Robert is also a big fan of the new fashion and is always looking for new fashion to wear. Robert is also a big fan of the new food and is always looking for new food to eat.",
+    description:
+      "Victor ist freischaffender Architekt aus Berlin mit langjähriger Erfahrung in kollektiver Architekturpraxis und Innenausbau. Als Leiter des Architektur-Labors beim Poolbar Generator beweist er alljährlich seine Vermittlungskompetenz, während er als Bauleiter des Poolbar Festivals die Zusammenarbeit auf Augenhöhe mit über 20 Mitarbeitenden zu koordinieren vermag. Wer Victor nicht mit Akku-Schrauber sondern doch mal mit Kochlöffel erwischt, erahnt schnell seine ursprüngliche Erstausbildung aus Koch.",
     email: "victor@example.com",
     projects: [
       {
@@ -152,8 +154,8 @@ export const members: Member[] = [
         url: "https://poolbar.at",
       },
       {
-        name: "Nailart Workshop",
-        url: "https://poolbar.at",
+        name: "Benu Bestattung",
+        url: "https://www.benu.at/",
       },
     ],
   },
