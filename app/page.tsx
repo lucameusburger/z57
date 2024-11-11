@@ -206,7 +206,7 @@ export default function Home() {
             </div>
           </div>
         </main>
-        <footer className="px-8">
+        <footer className="px-8 w-full">
           <hr className="border-foreground" />
           <div className="py-8 justify-between gap-4 flex flex-col md:flex-row">
             <div className="flex gap-2 flex-col md:flex-row">
