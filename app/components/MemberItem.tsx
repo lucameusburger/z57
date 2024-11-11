@@ -55,7 +55,7 @@ const MemberItem = ({ member, switched }: { member: Member; switched: number }) 
           </div>
           <div className="member-image justify-between w-full aspect-square items-start p-0 flex order-1 md:order-3">
             <div className="relative w-full h-full rounded-3xl overflow-hidden group">
-              <Image src={member.image} alt={member.name} width={200} height={200} className="w-full h-full rounded-3xl object-cover filter grayscalesss contrast-2 group-hover:scale-110 transition-all transform" />
+              <Image src={member.image} alt={member.name} width={1080} height={1080} className="w-full h-full rounded-3xl object-cover filter grayscalesss contrast-2 group-hover:scale-110 transition-all transform" />
             </div>
           </div>
         </>
@@ -63,7 +63,7 @@ const MemberItem = ({ member, switched }: { member: Member; switched: number }) 
         <>
           <div className="member-image justify-between w-full aspect-square items-start p-0 flex">
             <div className="relative w-full h-full rounded-3xl overflow-hidden group">
-              <Image src={member.image} alt={member.name} width={200} height={200} className="w-full h-full rounded-3xl object-cover filter grayscalesss contrast-2 group-hover:scale-110 transition-all transform" />
+              <Image src={member.image} alt={member.name} width={1080} height={1080} className="w-full h-full rounded-3xl object-cover filter grayscalesss contrast-2 group-hover:scale-110 transition-all transform" />
             </div>
           </div>
           <div className="member-content flex items-start flex-col gap-4 md:col-span-2 justify-start relative">
