@@ -1,7 +1,6 @@
-import { Bean, BeanOff, CandyCane, Cctv, CornerRightUp, Instagram, Mail, User } from "lucide-react";
+import { CandyCane, CornerRightUp, Instagram, Mail, User } from "lucide-react";
 import { Member, members } from "./members";
 
-import Clock from "./components/Clock";
 import GlassCardWithRevealEffect from "./components/GlassCardWithRevealEffect";
 import Image from "next/image";
 import Marquee from "./components/Marquee";
@@ -97,30 +96,19 @@ export default function Home() {
           </div>
 
           {/* ABOUT */}
-          <div className="flex flex-col gap-8 px-8 pt-8">
+          {/* <div className="flex flex-col gap-8 px-8 pt-8">
             <div className=" flex items-start flex-col gap-4 md:col-span-2 justify-start relative ">
               <div className="flex justify-between items-center w-full border-t border-foreground pt-4">
                 <span className="text-2xl md:text-5xl">Über uns</span>
                 <a href="#top">
                   <CornerRightUp className="w-6 h-6 " />
                 </a>
-                {/* <div className="flex gap-2">
-                  <MailButton />
-                </div> */}
               </div>
               <div className="flex gap-8 w-full flex-col md:flex-row">
                 <div className="flex flex-col gap-8">
                   <div className=" rounded-3xl contrast-2 group-hover:scale-110 transition-all transform border-foreground border ">
                     <div className="p-4">
-                      <span
-                        // style={{
-                        //   backgroundImage: `url(${groupGlassImage.src})`,
-                        //   backgroundSize: "cover",
-                        // }}
-                        className="text-xl rounded-full text-background bg-foreground py-1 px-2 "
-                      >
-                        Hello
-                      </span>
+                      <span className="text-xl rounded-full text-background bg-foreground py-1 px-2 ">Hello</span>
                       <span className=" text-xl py-1 px-2">Wir sind gerne auf unserem Dach und freuen uns über neue Ideen und Projekte.</span>
                     </div>
 
@@ -157,7 +145,7 @@ export default function Home() {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
 
           {/* MEMBERS */}
           <div className="flex flex-col gap-8 p-8">
