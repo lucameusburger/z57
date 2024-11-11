@@ -112,18 +112,15 @@ export const members: Member[] = [
     name: "Niko Havranek",
     image: nikoImage,
     title: "Fotografie",
-    description: "Robert is a passionate Music lover and a big fan of the classical music. He is also a big fan of the new music and is always looking for new music to listen to. He is a huge fan of the new technology and is always looking for new technologies to learn. Robert is also a big fan of the new fashion and is always looking for new fashion to wear. Robert is also a big fan of the new food and is always looking for new food to eat.",
+    description:
+      "Niko Havranek, 1987 in Wien geboren, hat das Kolleg für Fotografie an der Graphischen sowie die Meisterklasse für Grafikdesign absolviert. Seit 2012 ist er freischaffender Fotograf in den Bereichen Portrait, Reportage, Corporate & Werbung. Niko dokumentiert renommierte Kunst- und Kulturevents in seiner ganz eigenen Bildsprache, etwa für das mumok, die Vienna Contemporary oder das Museumsquartier. In seinen freien Arbeiten spielen streetphotography, Collage und Zeichnung eine wichtige Rolle.",
     email: "niko@example.com",
     instagram: "https://www.instagram.com/niko.havranek",
     website: "http://www.nikohavranek.com/",
     projects: [
       {
-        name: "Fotografie Workshop",
-        url: "https://poolbar.at",
-      },
-      {
-        name: "Nailart Workshop",
-        url: "https://poolbar.at",
+        name: "Auslöser Magazin",
+        url: "http://ausloeser.org/",
       },
     ],
   },
