@@ -122,6 +122,22 @@ export const members: Member[] = [
         name: "Auslöser Magazin",
         url: "http://ausloeser.org/",
       },
+      {
+        name: "The Message Magazine",
+        url: "https://themessagemagazine.at/?s=niko+havranek",
+      },
+      {
+        name: "A Photographers Portrait",
+        url: "https://www.sabrinanorte.com/work/niko-havranek-a-photographers-portrait",
+      },
+      {
+        name: "Interview Lomography",
+        url: "https://www.lomography.de/magazine/339933-unterwegs-mit-der-lomo-instant-wide-ein-interview-mit-niko-havranek",
+      },
+      {
+        name: "Kampagne Vienna Design Week 2021",
+        url: "https://page-online.de/kreation/streifen-die-reichen-coole-identity-der-vienna-design-week/",
+      },
     ],
   },
   {
