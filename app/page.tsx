@@ -3,8 +3,10 @@ import { Member, members } from "./members";
 
 import GlassCardWithRevealEffect from "./components/GlassCardWithRevealEffect";
 import Image from "next/image";
+import ImageGrid from "./components/ImageGrid";
 import Marquee from "./components/Marquee";
 import MemberItem from "./components/MemberItem";
+import Model3D from "./components/Model3D";
 import adventImage from "@/app/images/events/advent.jpg";
 import groupGlassImage from "@/app/images/group-glass.png";
 import groupImage from "@/app/images/group.jpg";
@@ -101,6 +103,18 @@ export default function Home() {
           <div className="h-8" />
           <div className="px-8">
             <Marquee className="bg-foreground text-background" elements={["Architektur", "Webentwicklung", "Nailart", "Fotografie", "Design", "Feiern", "Dach", "Zieglergasse", "Wien", "Baustein", "Skizze", "Kuchen", "Geschenk"]} />
+          </div>
+
+          <div className="h-8" />
+
+          <div className="px-8">
+            <ImageGrid />
+          </div>
+
+          <div className="h-8" />
+
+          <div className="px-8">
+            <Model3D />
           </div>
 
           {/* ABOUT */}
