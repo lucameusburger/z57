@@ -10,11 +10,16 @@
   },
   "dependencies": {
     "@gsap/react": "^2.1.1",
+    "@react-three/drei": "^9.117.2",
+    "@react-three/fiber": "^8.17.10",
+    "@types/three": "^0.170.0",
     "gsap": "^3.12.5",
     "lucide-react": "^0.451.0",
+    "motion": "^11.11.17",
     "next": "14.2.14",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "three": "^0.170.0"
   },
   "devDependencies": {
     "@types/node": "^20",
