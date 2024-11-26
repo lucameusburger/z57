@@ -196,7 +196,7 @@ export default function ImageGrid() {
   };
 
   return (
-    <div className="grid grid-cols-3 gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
       <AnimatePresence mode="wait">
         {/* First image */}
         <motion.div key={`img1-${day}`} initial={{ opacity: 0, x: -1000 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 1000 }} transition={{ duration: 0.5 }}>
@@ -206,14 +206,14 @@ export default function ImageGrid() {
 
       {/* Second image (spans 2 columns) */}
       <AnimatePresence mode="wait">
-        <motion.div key={`img2-${day}`} initial={{ opacity: 0, x: 1000 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -1000 }} transition={{ duration: 0.5 }} className="col-span-2">
+        <motion.div key={`img2-${day}`} initial={{ opacity: 0, x: 1000 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -1000 }} transition={{ duration: 0.5 }} className="md:col-span-2">
           <Image src={currentImages.img2} alt="image2" className="w-full h-full object-cover rounded-2xl h-[40vh]" />
         </motion.div>
       </AnimatePresence>
 
       {/* Third image (spans 2 columns) */}
       <AnimatePresence mode="wait">
-        <motion.div key={`img3-${day}`} initial={{ opacity: 0, x: 1000 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -1000 }} transition={{ duration: 0.5 }} className="col-span-2">
+        <motion.div key={`img3-${day}`} initial={{ opacity: 0, x: 1000 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -1000 }} transition={{ duration: 0.5 }} className="md:col-span-2">
           <Image src={currentImages.img3} alt="image3" className="w-full h-full object-cover rounded-2xl h-[40vh]" />
         </motion.div>
       </AnimatePresence>
@@ -231,11 +231,11 @@ export default function ImageGrid() {
         <AnimatePresence mode="wait">
           {day === 0 ? (
             <motion.div key="sun" initial={{ rotate: -180, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 180, opacity: 0 }} transition={{ duration: 0.5 }}>
-              <Sun className="w-32 h-32" />
+              <Sun className="w-12 h-12 md:w-32 md:h-32" />
             </motion.div>
           ) : (
             <motion.div key="moon" initial={{ rotate: -180, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 180, opacity: 0 }} transition={{ duration: 0.5 }}>
-              <Moon className="w-32 h-32" />
+              <Moon className="w-12 h-12 md:w-32 md:h-32" />
             </motion.div>
           )}
         </AnimatePresence>
