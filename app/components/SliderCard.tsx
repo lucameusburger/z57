@@ -26,7 +26,7 @@ export default function SliderCard({ images }: Props) {
         setCurrentIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
       }}
     >
-      <div className="relative h-full w-full">
+      <div className="relative h-full w-full min-h-96">
         <AnimatePresence initial={false}>
           <motion.div key={currentIndex} className="absolute h-full w-full" initial={{ x: "100%" }} animate={{ x: 0 }} exit={{ x: "-100%" }} transition={{ duration: 0.5 }}>
             <Image src={images[currentIndex]} alt="Gruppenfoto" width={800} height={400} className="w-full h-full rounded-none object-cover contrast-2 scale-100 group-hover:scale-110 transition-all transform object-center" />

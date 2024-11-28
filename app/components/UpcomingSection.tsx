@@ -6,7 +6,7 @@ import adventImage2 from "@/app/images/events/advent2.jpg";
 
 export default function UpcomingSection() {
   return (
-    <div className="flex flex-col gap-8 px-8">
+    <div className="flex flex-col gap-8 px-4 md:px-8">
       <div className=" flex items-start flex-col gap-4 md:col-span-2 justify-start relative ">
         <div className="flex justify-between items-center w-full border-t border-foreground pt-4">
           <span className="text-2xl md:text-5xl">Upcoming</span>
