@@ -60,8 +60,6 @@ import img7740 from "@/app/images/house/20241126_Z57_NikoHavranek_web-7740.jpg";
 import img7742 from "@/app/images/house/20241126_Z57_NikoHavranek_web-7742.jpg";
 import img7752 from "@/app/images/house/20241126_Z57_NikoHavranek_web-7752.jpg";
 import img7758 from "@/app/images/house/20241126_Z57_NikoHavranek_web-7758.jpg";
-import img7779 from "@/app/images/house/20241126_Z57_NikoHavranek_web-7779.jpg";
-import img7788 from "@/app/images/house/20241126_Z57_NikoHavranek_web-7788.jpg";
 import img7799 from "@/app/images/house/20241126_Z57_NikoHavranek_web-7799.jpg";
 import img7800 from "@/app/images/house/20241126_Z57_NikoHavranek_web-7800.jpg";
 import img7810 from "@/app/images/house/20241126_Z57_NikoHavranek_web-7810.jpg";
@@ -161,8 +159,6 @@ export default function ImageGrid() {
       img7742,
       img7752,
       img7758,
-      img7779,
-      img7788,
       img7799,
       img7800,
       img7810,
@@ -200,21 +196,21 @@ export default function ImageGrid() {
       <AnimatePresence mode="wait">
         {/* First image */}
         <motion.div key={`img1-${day}`} initial={{ opacity: 0, x: -1000 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 1000 }} transition={{ duration: 0.5 }}>
-          <Image src={currentImages.img1} alt="image1" className="w-full h-full object-cover rounded-2xl h-[40vh]" />
+          <Image src={currentImages.img1} alt="image1" className="w-full object-cover rounded-2xl h-[40vh]" />
         </motion.div>
       </AnimatePresence>
 
       {/* Second image (spans 2 columns) */}
       <AnimatePresence mode="wait">
         <motion.div key={`img2-${day}`} initial={{ opacity: 0, x: 1000 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -1000 }} transition={{ duration: 0.5 }} className="md:col-span-2">
-          <Image src={currentImages.img2} alt="image2" className="w-full h-full object-cover rounded-2xl h-[40vh]" />
+          <Image src={currentImages.img2} alt="image2" className="w-full object-cover rounded-2xl h-[40vh]" />
         </motion.div>
       </AnimatePresence>
 
       {/* Third image (spans 2 columns) */}
       <AnimatePresence mode="wait">
         <motion.div key={`img3-${day}`} initial={{ opacity: 0, x: 1000 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -1000 }} transition={{ duration: 0.5 }} className="md:col-span-2">
-          <Image src={currentImages.img3} alt="image3" className="w-full h-full object-cover rounded-2xl h-[40vh]" />
+          <Image src={currentImages.img3} alt="image3" className="w-full object-cover rounded-2xl h-[40vh]" />
         </motion.div>
       </AnimatePresence>
 
