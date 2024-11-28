@@ -65,13 +65,13 @@ export default function Home() {
           <UpcomingSection />
 
           <div className="h-8" />
-          <div className="px-8">
+          <div className="px-4 md:px-8">
             <Marquee className="bg-foreground text-background" elements={["Architektur", "Webentwicklung", "Nailart", "Fotografie", "Design", "Feiern", "Dach", "Zieglergasse", "Wien", "Baustein", "Skizze", "Kuchen", "Geschenk"]} />
           </div>
 
           <div className="h-8" />
 
-          <div className="px-8">
+          <div className="px-4 md:px-8">
             <p className="pb-8 text-2xl">
               Das Atelier Z57 befindet sich im Herzen des 7. Bezirks an der Zieglergasse 57. Über den Dächern Wiens erstrecken sich die Räumlichkeiten über drei Dachgeschosse, wo sie einst als Architekturbüro in den 70er Jahren angelegt und für 40 Jahre eben diesem Zweck entsprechend genutzt wurden. Wer sich längere Zeit im geräumigen und doch verwinkelten Atelier aufhält, erkennt die verschiedenen Bauphasen, die der ausgebaute Dachboden über den langen Zeitraum der Entstehung erfahren hat und
               welche ganz eigenen und unverwechselbaren Details er mit sich bringt. Herzstück bildet ein 200 qm großes Flachdach mit Dachgarten, das anstelle der zweiten Dachhälfte hofseitig angelegt wurde.
@@ -81,12 +81,12 @@ export default function Home() {
 
           <div className="h-8" />
 
-          <div className="px-8">
+          <div className="px-4 md:px-8">
             <Model3D />
           </div>
 
           {/* ABOUT */}
-          {/* <div className="flex flex-col gap-8 px-8 pt-8">
+          {/* <div className="flex flex-col gap-8 px-4 md:px-8 pt-8">
             <div className=" flex items-start flex-col gap-4 md:col-span-2 justify-start relative ">
               <div className="flex justify-between items-center w-full border-t border-foreground pt-4">
                 <span className="text-2xl md:text-5xl">Über uns</span>
@@ -188,7 +188,7 @@ export default function Home() {
             </div>
           </div>
         </main>
-        <footer className="px-8 w-full">
+        <footer className="px-4 md:px-8 w-full">
           <hr className="border-foreground" />
           <div className="py-8 justify-between gap-4 flex flex-col md:flex-row">
             <div className="flex gap-2 flex-col md:flex-row">
