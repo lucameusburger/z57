@@ -1,4 +1,4 @@
-import { CandyCane, CornerRightUp, Instagram, Mail, User } from "lucide-react";
+import { CornerRightUp, Instagram, Mail, User } from "lucide-react";
 import { Member, members } from "./members";
 
 import GlassCardWithRevealEffect from "./components/GlassCardWithRevealEffect";
@@ -7,7 +7,7 @@ import ImageGrid from "./components/ImageGrid";
 import Marquee from "./components/Marquee";
 import MemberItem from "./components/MemberItem";
 import Model3D from "./components/Model3D";
-import adventImage from "@/app/images/events/advent.jpg";
+import UpcomingSection from "./components/UpcomingSection";
 import groupGlassImage from "@/app/images/group-glass.png";
 import groupImage from "@/app/images/group.jpg";
 
@@ -62,43 +62,7 @@ export default function Home() {
           </div>
 
           {/* UPCOMING */}
-          <div className="flex flex-col gap-8 px-8">
-            <div className=" flex items-start flex-col gap-4 md:col-span-2 justify-start relative ">
-              <div className="flex justify-between items-center w-full border-t border-foreground pt-4">
-                <span className="text-2xl md:text-5xl">Upcoming</span>
-                <a href="#top">
-                  <CornerRightUp className="w-6 h-6 " />
-                </a>
-                {/* <div className="flex gap-2">
-                  <MailButton />
-                </div> */}
-              </div>
-              <div className="flex gap-8 w-full flex-col md:flex-row">
-                <a href="mailto:info@z57.at" className="order-2 md:order-1 flex-1 border-foreground hover:bg-background hover:text-foreground transition-colors w-full flex flex-col gap-4 justify-between text-woit bg-foreground border overflow-hidden relative rounded-3xl p-4">
-                  <CandyCane className=" w-12 h-12" />
-                  <div className="flex flex-col gap-2">
-                    <span className="self-end text-xl">14. - 15. Dez 2024</span>
-                    <hr className="border-current" />
-                    <span className="self-end text-xl font-bold">Open Atelier Days</span>
-                  </div>
-                </a>
-                <div className="flex-1 h-96">
-                  <Image
-                    src={adventImage}
-                    alt="Gruppenfoto"
-                    width={800}
-                    height={400}
-                    className="w-full order-1 md:order-2 h-full
-                   rounded-3xl object-cover filter grayscalesss contrast-2 group-hover:scale-110 transition-all transform"
-                  />
-                </div>
-              </div>
-
-              {/* <div className="border-foreground border overflow-hidden relative rounded-3xl w-full p-4">
-                <span className="text-xl py-1 px-2">Hallo</span>
-              </div> */}
-            </div>
-          </div>
+          <UpcomingSection />
 
           <div className="h-8" />
           <div className="px-8">
