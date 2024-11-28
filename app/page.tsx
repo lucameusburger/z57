@@ -34,7 +34,7 @@ export default function Home() {
       <div className="items-center justify-items-center gap-16 font-[family-name:var(--font-geist-sans)]">
         <main className="flex flex-col w-full">
           {/* FRONT */}
-          <div className="flex flex-col md:grid grid-cols-1 md:grid-cols-3 w-full gap-8  p-8 min-full-viewport-height">
+          <div className="flex flex-col md:grid grid-cols-1 md:grid-cols-3 w-full gap-8  p-4 md:p-8 min-full-viewport-height">
             {/* full-viewport-height */}
             <div className="flex items-end justify-end flex-col text-4xl md:text-5xl flex-1">
               <span>Grafik</span>
@@ -50,7 +50,7 @@ export default function Home() {
               <span>Design</span>
             </div>
             {/* <AnimatedText /> */}
-            <div className=" md:col-span-2 aspect-square md:aspect-auto w-full items-end justify-end relative ">
+            <div className=" md:col-span-2 aspect-square md:aspect-auto w-full justify-items-end flex items-end justify-end relative ">
               <span className="text-woit z-50 absolute bottom-8 right-8 font-black text-8xl tracking-tight pointer-events-none">Z57</span>
               <GlassCardWithRevealEffect />
               {/* <div className="relative overflow-hidden rounded-3xl glassCard w-full h-full items-end justify-end p-8 flex ">
@@ -138,7 +138,7 @@ export default function Home() {
           </div> */}
 
           {/* MEMBERS */}
-          <div className="flex flex-col gap-8 p-8">
+          <div className="flex flex-col gap-8 py-8 px-4 md:px-8">
             {shuffledMembers.map((member, index) => (
               <>
                 <MemberItem key={member.name} member={member} switched={index} />
@@ -148,7 +148,7 @@ export default function Home() {
           </div>
 
           {/* KONTAKT */}
-          <div className="flex flex-col gap-8 p-8">
+          <div className="flex flex-col gap-8 py-8 px-4 md:px-8">
             <div className="member-content flex items-start flex-col gap-4 md:col-span-2 justify-start relative">
               <div className="flex justify-between items-center w-full border-t border-foreground pt-4">
                 <span className="text-2xl md:text-5xl">Get in touch</span>
