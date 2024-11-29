@@ -1,9 +1,9 @@
 "use client";
 
 import { AnimatePresence, motion } from "motion/react";
-import { Candy, Carrot, Moon, Rotate3D, Sun } from "lucide-react";
+import { Candy, Carrot } from "lucide-react";
 import Image, { StaticImageData } from "next/image";
-import React, { useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 
 // Images from 20241126
 import img7534 from "@/app/images/house/20241126_Z57_NikoHavranek_web-7534.jpg";
