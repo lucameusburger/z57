@@ -1,8 +1,8 @@
 "use client";
 
 import { AnimatePresence, motion } from "motion/react";
+import { Candy, Carrot, Moon, Rotate3D, Sun } from "lucide-react";
 import Image, { StaticImageData } from "next/image";
-import { Moon, Sun } from "lucide-react";
 import React, { useMemo, useState } from "react";
 
 // Images from 20241126
@@ -227,11 +227,11 @@ export default function ImageGrid() {
         <AnimatePresence mode="wait">
           {day === 0 ? (
             <motion.div key="sun" initial={{ rotate: -180, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 180, opacity: 0 }} transition={{ duration: 0.5 }}>
-              <Sun className="w-12 h-12 md:w-32 md:h-32" />
+              <Candy className="w-12 h-12 md:w-32 md:h-32" />
             </motion.div>
           ) : (
             <motion.div key="moon" initial={{ rotate: -180, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 180, opacity: 0 }} transition={{ duration: 0.5 }}>
-              <Moon className="w-12 h-12 md:w-32 md:h-32" />
+              <Carrot className="w-12 h-12 md:w-32 md:h-32" />
             </motion.div>
           )}
         </AnimatePresence>
