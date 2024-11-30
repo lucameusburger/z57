@@ -1,31 +1,88 @@
-# FILE:Z57_3D Aufmaß.obj
-newmtl GDLM1_SHADOW_MATERIAL
-Ka 0.228885 0.228885 0.228885
-Kd 0.228885 0.228885 0.228885
+# FILE:Z57_Modell Website V1.obj
+newmtl Farbe,_weiß
+Ka 0.93 0.93 0.93
+Kd 0.41 0.41 0.41
+Ks 0.0990005 0.0990005 0.1
+illum 2
+Ns 0.72
+newmtl Holz_Kiefer
+Ka 0.572784 0.530745 0.454549
+Kd 0.530039 0.491137 0.420627
+Ks 0.152 0.152 0.152
+illum 2
+Ns 0
+map_Ka Z57_Modell Website V1_Texturen/Holz - Kiefer Gemasert Horizontal -opt.jpg
+map_Kd Z57_Modell Website V1_Texturen/Holz - Kiefer Gemasert Horizontal -opt.jpg
+map_Ks Z57_Modell Website V1_Texturen/Holz - Kiefer Gemasert Horizontal -opt.jpg
+newmtl Verputz,_glatt,_weiß
+Ka 0.66 0.66 0.66
+Kd 0.95 0.95 0.95
+Ks 0.01 0.01 0.01
+illum 2
+Ns 0.16
+map_Ka Z57_Modell Website V1_Texturen/Putz - Weiß Fein c -opt.jpg
+map_Kd Z57_Modell Website V1_Texturen/Putz - Weiß Fein c -opt.jpg
+map_Ks Z57_Modell Website V1_Texturen/Putz - Weiß Fein c -opt.jpg
+newmtl Z57_Fliesen_Waschbecken_Booking
+Ka 0.7 0.7 0.7
+Kd 0.7 0.7 0.7
+Ks 0 0 0
+illum 2
+Ns 11
+map_Ka Z57_Modell Website V1_Texturen/Fliesen - Weiß Glänzend 15x15 b.jpg
+map_Kd Z57_Modell Website V1_Texturen/Fliesen - Weiß Glänzend 15x15 b.jpg
+map_Ks Z57_Modell Website V1_Texturen/Fliesen - Weiß Glänzend 15x15 b.jpg
+newmtl Z57_Farbe_Beige_Töpferzimmer
+Ka 0.647059 0.605882 0.55
+Kd 0.647059 0.605882 0.55
 Ks 0 0 0
 illum 2
 Ns 0
+newmtl Z57_Boden_grau
+Ka 0.336314 0.336314 0.336314
+Kd 0.215451 0.215451 0.215451
+Ks 0.0990005 0.0990005 0.1
+illum 2
+Ns 0.72
+map_Ka Z57_Modell Website V1_Texturen/Decke - Gipskartonplatte gelocht 60x60 cb -opt.jpg
+map_Kd Z57_Modell Website V1_Texturen/Decke - Gipskartonplatte gelocht 60x60 cb -opt.jpg
+map_Ks Z57_Modell Website V1_Texturen/Decke - Gipskartonplatte gelocht 60x60 cb -opt.jpg
+newmtl Z57_Fliesen_weiß_Nagelstudio
+Ka 0.7 0.7 0.7
+Kd 0.7 0.7 0.7
+Ks 0 0 0
+illum 2
+Ns 0
+map_Ka Z57_Modell Website V1_Texturen/Fliesen - Weiß 30x30 -opt.jpg
+map_Kd Z57_Modell Website V1_Texturen/Fliesen - Weiß 30x30 -opt.jpg
+map_Ks Z57_Modell Website V1_Texturen/Fliesen - Weiß 30x30 -opt.jpg
+newmtl Z57_Fliesen_weiß_Besprechungsraum
+Ka 0.7 0.7 0.7
+Kd 0.7 0.7 0.7
+Ks 0 0 0
+illum 2
+Ns 0
+map_Ka Z57_Modell Website V1_Texturen/Fliesen - Weiß 30x30 -opt.jpg
+map_Kd Z57_Modell Website V1_Texturen/Fliesen - Weiß 30x30 -opt.jpg
+map_Ks Z57_Modell Website V1_Texturen/Fliesen - Weiß 30x30 -opt.jpg
+newmtl Farbe,_grau
+Ka 0.331882 0.331882 0.331882
+Kd 0.146314 0.146314 0.146314
+Ks 0.0990005 0.0990005 0.1
+illum 2
+Ns 0.72
 newmtl Z57_Boden_DG
 Ka 0.578039 0.504471 0.399373
 Kd 0.534902 0.466824 0.369569
 Ks 0.152 0.152 0.152
 illum 2
 Ns 0
-map_Ka Z57_3D Aufmaß_Texturen/Parkett - 05 c.jpg
-map_Kd Z57_3D Aufmaß_Texturen/Parkett - 05 c.jpg
-map_Ks Z57_3D Aufmaß_Texturen/Parkett - 05 c.jpg
-newmtl Metall_Stahl,_verzinkt
-Ka 0.500706 0.527059 0.543529
-Kd 0.280157 0.294902 0.304118
-Ks 0.534471 0.534471 0.534471
-illum 2
-Ns 9
-map_Ka Z57_3D Aufmaß_Texturen/Metall - Stahl Galvanisiert -opt.jpg
-map_Kd Z57_3D Aufmaß_Texturen/Metall - Stahl Galvanisiert -opt.jpg
-map_Ks Z57_3D Aufmaß_Texturen/Metall - Stahl Galvanisiert -opt.jpg
-newmtl Farbe,_weiß
-Ka 0.93 0.93 0.93
-Kd 0.41 0.41 0.41
+map_Ka Z57_Modell Website V1_Texturen/Parkett - 05 c.jpg
+map_Kd Z57_Modell Website V1_Texturen/Parkett - 05 c.jpg
+map_Ks Z57_Modell Website V1_Texturen/Parkett - 05 c.jpg
+newmtl Farbe,_hellgrau
+Ka 0.612706 0.612706 0.612706
+Kd 0.270118 0.270118 0.270118
 Ks 0.0990005 0.0990005 0.1
 illum 2
 Ns 0.72
@@ -35,6 +92,24 @@ Kd 0.38 0.38 0.38
 Ks 0.421013 0.421013 0.421013
 illum 2
 Ns 17
+newmtl Metall_Gitter_3
+Ka 0.321126 0.325444 0.326528
+Kd 0.430309 0.436096 0.437547
+Ks 0.57 0.57 0.57
+illum 2
+Ns 3.8
+map_Ka Z57_Modell Website V1_Texturen/Metall - Gitter 05 cb -opt.jpg
+map_Kd Z57_Modell Website V1_Texturen/Metall - Gitter 05 cb -opt.jpg
+map_Ks Z57_Modell Website V1_Texturen/Metall - Gitter 05 cb -opt.jpg
+newmtl Metall_Stahl,_verzinkt
+Ka 0.500706 0.527059 0.543529
+Kd 0.280157 0.294902 0.304118
+Ks 0.534471 0.534471 0.534471
+illum 2
+Ns 9
+map_Ka Z57_Modell Website V1_Texturen/Metall - Stahl Galvanisiert -opt.jpg
+map_Kd Z57_Modell Website V1_Texturen/Metall - Stahl Galvanisiert -opt.jpg
+map_Ks Z57_Modell Website V1_Texturen/Metall - Stahl Galvanisiert -opt.jpg
 newmtl Glas_Normalglas
 Ka 0.64 0.658667 0.648
 Kd 0.564706 0.581176 0.571765
@@ -42,204 +117,12 @@ Ks 1 1 1
 illum 2
 d 0.31
 Ns 79.52
-newmtl Metall_Gitter_3
-Ka 0.321126 0.325444 0.326528
-Kd 0.430309 0.436096 0.437547
-Ks 0.57 0.57 0.57
-illum 2
-Ns 3.8
-map_Ka Z57_3D Aufmaß_Texturen/Metall - Gitter 05 cb -opt.jpg
-map_Kd Z57_3D Aufmaß_Texturen/Metall - Gitter 05 cb -opt.jpg
-map_Ks Z57_3D Aufmaß_Texturen/Metall - Gitter 05 cb -opt.jpg
-newmtl Holz_Kiefer
-Ka 0.572784 0.530745 0.454549
-Kd 0.530039 0.491137 0.420627
-Ks 0.152 0.152 0.152
-illum 2
-Ns 0
-map_Ka Z57_3D Aufmaß_Texturen/Holz - Kiefer Gemasert Horizontal -opt.jpg
-map_Kd Z57_3D Aufmaß_Texturen/Holz - Kiefer Gemasert Horizontal -opt.jpg
-map_Ks Z57_3D Aufmaß_Texturen/Holz - Kiefer Gemasert Horizontal -opt.jpg
-newmtl Z57_Fliesen_Waschbecken_Booking
-Ka 0.7 0.7 0.7
-Kd 0.7 0.7 0.7
-Ks 0 0 0
-illum 2
-Ns 11
-map_Ka Z57_3D Aufmaß_Texturen/Fliesen - Weiß Glänzend 15x15 b.jpg
-map_Kd Z57_3D Aufmaß_Texturen/Fliesen - Weiß Glänzend 15x15 b.jpg
-map_Ks Z57_3D Aufmaß_Texturen/Fliesen - Weiß Glänzend 15x15 b.jpg
-newmtl Farbe,_hellgrau
-Ka 0.612706 0.612706 0.612706
-Kd 0.270118 0.270118 0.270118
-Ks 0.0990005 0.0990005 0.1
-illum 2
-Ns 0.72
-newmtl Z57_Türen_usw_rot
-Ka 0.644157 0.256314 0.236078
-Kd 0.644157 0.256314 0.236078
-Ks 0.708067 0.708067 0.708067
-illum 2
-Ns 24
-newmtl Holz_Esche
-Ka 0.54651 0.478196 0.38098
-Kd 0.505725 0.44251 0.352549
-Ks 0.152 0.152 0.152
-illum 2
-Ns 0
-map_Ka Z57_3D Aufmaß_Texturen/Holz - Esche 02 -opt.jpg
-map_Kd Z57_3D Aufmaß_Texturen/Holz - Esche 02 -opt.jpg
-map_Ks Z57_3D Aufmaß_Texturen/Holz - Esche 02 -opt.jpg
-newmtl Metall,_Fassade_Aluminium
-Ka 0.71586 0.687236 0.687236
-Kd 0.128488 0.12335 0.12335
-Ks 0.544738 0.544738 0.544738
-illum 2
-Ns 10.2
-newmtl Z57_FB_rot
-Ka 0.583451 0.354118 0.340627
-Kd 0.583451 0.354118 0.340627
-Ks 0.708067 0.708067 0.708067
-illum 2
-Ns 24
-newmtl Z57_Boden_grau
-Ka 0.336314 0.336314 0.336314
-Kd 0.215451 0.215451 0.215451
-Ks 0.0990005 0.0990005 0.1
-illum 2
-Ns 0.72
-map_Ka Z57_3D Aufmaß_Texturen/Decke - Gipskartonplatte gelocht 60x60 cb -opt.jpg
-map_Kd Z57_3D Aufmaß_Texturen/Decke - Gipskartonplatte gelocht 60x60 cb -opt.jpg
-map_Ks Z57_3D Aufmaß_Texturen/Decke - Gipskartonplatte gelocht 60x60 cb -opt.jpg
-newmtl Z57_Fensterrahmen
-Ka 0.273255 0.228588 0.194431
-Kd 0.252863 0.211529 0.179922
-Ks 0.152 0.152 0.152
-illum 2
-Ns 0
-map_Ka Z57_3D Aufmaß_Texturen/Holz - Wallnuß Horizontal -opt.jpg
-map_Kd Z57_3D Aufmaß_Texturen/Holz - Wallnuß Horizontal -opt.jpg
-map_Ks Z57_3D Aufmaß_Texturen/Holz - Wallnuß Horizontal -opt.jpg
-newmtl Metall_Messing
-Ka 0.588235 0.442353 0.136471
-Kd 0.27451 0.206431 0.0636863
-Ks 0.84 0.813333 0.646667
-illum 2
-Ns 6.2
-newmtl Z57_Farbe_Beige_Töpferzimmer
-Ka 0.647059 0.605882 0.55
-Kd 0.647059 0.605882 0.55
-Ks 0 0 0
-illum 2
-Ns 0
 newmtl Z57_Stahlträger_Anthrazit
 Ka 0.116706 0.116706 0.116706
 Kd 0.051451 0.051451 0.051451
 Ks 0.0990005 0.0990005 0.1
 illum 2
 Ns 0.72
-newmtl Metall_Stahl,_matt
-Ka 0.412039 0.44302 0.44302
-Kd 0.208627 0.224314 0.224314
-Ks 0.373529 0.373529 0.373529
-illum 2
-Ns 6.2
-newmtl Z57_Fliesen_weiß_Besprechungsraum
-Ka 0.7 0.7 0.7
-Kd 0.7 0.7 0.7
-Ks 0 0 0
-illum 2
-Ns 0
-map_Ka Z57_3D Aufmaß_Texturen/Fliesen - Weiß 30x30 -opt.jpg
-map_Kd Z57_3D Aufmaß_Texturen/Fliesen - Weiß 30x30 -opt.jpg
-map_Ks Z57_3D Aufmaß_Texturen/Fliesen - Weiß 30x30 -opt.jpg
-newmtl Naturstein_Granit,_grau
-Ka 0.472941 0.472941 0.472941
-Kd 0.437647 0.437647 0.437647
-Ks 0.152 0.152 0.152
-illum 2
-Ns 0
-map_Ka Z57_3D Aufmaß_Texturen/Stein - Granit Grau -opt.jpg
-map_Kd Z57_3D Aufmaß_Texturen/Stein - Granit Grau -opt.jpg
-map_Ks Z57_3D Aufmaß_Texturen/Stein - Granit Grau -opt.jpg
-newmtl Lack_schwarz
-Ka 0 0 0
-Kd 0 0 0
-Ks 0.593245 0.593245 0.593245
-illum 2
-Ns 14
-newmtl Z57_Fliesen_weiß_Nagelstudio
-Ka 0.7 0.7 0.7
-Kd 0.7 0.7 0.7
-Ks 0 0 0
-illum 2
-Ns 0
-map_Ka Z57_3D Aufmaß_Texturen/Fliesen - Weiß 30x30 -opt.jpg
-map_Kd Z57_3D Aufmaß_Texturen/Fliesen - Weiß 30x30 -opt.jpg
-map_Ks Z57_3D Aufmaß_Texturen/Fliesen - Weiß 30x30 -opt.jpg
-newmtl Verputz,_glatt,_weiß
-Ka 0.66 0.66 0.66
-Kd 0.95 0.95 0.95
-Ks 0.01 0.01 0.01
-illum 2
-Ns 0.16
-map_Ka Z57_3D Aufmaß_Texturen/Putz - Weiß Fein c -opt.jpg
-map_Kd Z57_3D Aufmaß_Texturen/Putz - Weiß Fein c -opt.jpg
-map_Ks Z57_3D Aufmaß_Texturen/Putz - Weiß Fein c -opt.jpg
-newmtl Farbe,_grau
-Ka 0.331882 0.331882 0.331882
-Kd 0.146314 0.146314 0.146314
-Ks 0.0990005 0.0990005 0.1
-illum 2
-Ns 0.72
-newmtl Metall_Chrom_
-Ka 0.486863 0.486863 0.486863
-Kd 0.224706 0.224706 0.224706
-Ks 0.96 0.96 0.96
-illum 2
-Ns 53.92
-newmtl Holz_Buche
-Ka 0.570157 0.444039 0.317922
-Kd 0.527608 0.410902 0.294196
-Ks 0.152 0.152 0.152
-illum 2
-Ns 0
-map_Ka Z57_3D Aufmaß_Texturen/Holz - Buche 02 -opt.jpg
-map_Kd Z57_3D Aufmaß_Texturen/Holz - Buche 02 -opt.jpg
-map_Ks Z57_3D Aufmaß_Texturen/Holz - Buche 02 -opt.jpg
-newmtl Z57_Brettrschalung_dunkel
-Ka 0.00262745 0.00262745 0.00262745
-Kd 0.00243137 0.00243137 0.00243137
-Ks 0.152 0.152 0.152
-illum 2
-Ns 0
-map_Ka Z57_3D Aufmaß_Texturen/Holz - 26 Vertikal r.jpg
-map_Kd Z57_3D Aufmaß_Texturen/Holz - 26 Vertikal r.jpg
-map_Ks Z57_3D Aufmaß_Texturen/Holz - 26 Vertikal r.jpg
-newmtl Metall_Stahl,_gebürstet
-Ka 0.532353 0.535294 0.567647
-Kd 0.390392 0.392549 0.416275
-Ks 0.82349 0.803961 0.787686
-illum 2
-Ns 13
-map_Ka Z57_3D Aufmaß_Texturen/Metall - Stahl gebürstet 02 -opt.jpg
-map_Kd Z57_3D Aufmaß_Texturen/Metall - Stahl gebürstet 02 -opt.jpg
-map_Ks Z57_3D Aufmaß_Texturen/Metall - Stahl gebürstet 02 -opt.jpg
-newmtl Z57_Fensterrahmen-Kopie
-Ka 0.273255 0.228588 0.194431
-Kd 0.252863 0.211529 0.179922
-Ks 0.152 0.152 0.152
-illum 2
-Ns 0
-map_Ka Z57_3D Aufmaß_Texturen/Holz - Wallnuß Horizontal -opt.jpg
-map_Kd Z57_3D Aufmaß_Texturen/Holz - Wallnuß Horizontal -opt.jpg
-map_Ks Z57_3D Aufmaß_Texturen/Holz - Wallnuß Horizontal -opt.jpg
-newmtl PEN_MATERIAL6
-Ka 0.15259 0.15259 0.15259
-Kd 0.15259 0.15259 0.15259
-Ks 0 0 0
-illum 2
-Ns 0
 newmtl PEN_MATERIAL1
 Ka 0.15259 0.15259 0.15259
 Kd 0.15259 0.15259 0.15259
@@ -253,33 +136,180 @@ Ks 0 0 0
 illum 2
 d 0
 Ns 0
-newmtl Metall_Aluminium,_matt
-Ka 0.419608 0.427451 0.447059
-Kd 0.318902 0.324863 0.339765
-Ks 0.75 0.75 0.75
+newmtl Z57_FB_rot
+Ka 0.583451 0.354118 0.340627
+Kd 0.583451 0.354118 0.340627
+Ks 0.708067 0.708067 0.708067
 illum 2
-Ns 11
+Ns 24
+newmtl Z57_Brettrschalung_dunkel
+Ka 0.00262745 0.00262745 0.00262745
+Kd 0.00243137 0.00243137 0.00243137
+Ks 0.152 0.152 0.152
+illum 2
+Ns 0
+map_Ka Z57_Modell Website V1_Texturen/Holz - 26 Vertikal r.jpg
+map_Kd Z57_Modell Website V1_Texturen/Holz - 26 Vertikal r.jpg
+map_Ks Z57_Modell Website V1_Texturen/Holz - 26 Vertikal r.jpg
 newmtl Z57_Stiege_Nagelstudio
 Ka 0.472941 0.472941 0.472941
 Kd 0.437647 0.437647 0.437647
 Ks 0.152 0.152 0.152
 illum 2
 Ns 0
-map_Ka Z57_3D Aufmaß_Texturen/Stein - Granit Pinot Noir -opt.jpg
-map_Kd Z57_3D Aufmaß_Texturen/Stein - Granit Pinot Noir -opt.jpg
-map_Ks Z57_3D Aufmaß_Texturen/Stein - Granit Pinot Noir -opt.jpg
+map_Ka Z57_Modell Website V1_Texturen/Stein - Granit Pinot Noir -opt.jpg
+map_Kd Z57_Modell Website V1_Texturen/Stein - Granit Pinot Noir -opt.jpg
+map_Ks Z57_Modell Website V1_Texturen/Stein - Granit Pinot Noir -opt.jpg
+newmtl Naturstein_Granit,_grau
+Ka 0.472941 0.472941 0.472941
+Kd 0.437647 0.437647 0.437647
+Ks 0.152 0.152 0.152
+illum 2
+Ns 0
+map_Ka Z57_Modell Website V1_Texturen/Stein - Granit Grau -opt.jpg
+map_Kd Z57_Modell Website V1_Texturen/Stein - Granit Grau -opt.jpg
+map_Ks Z57_Modell Website V1_Texturen/Stein - Granit Grau -opt.jpg
+newmtl Metall_Aluminium,_matt
+Ka 0.419608 0.427451 0.447059
+Kd 0.318902 0.324863 0.339765
+Ks 0.75 0.75 0.75
+illum 2
+Ns 11
+newmtl Lack_schwarz
+Ka 0 0 0
+Kd 0 0 0
+Ks 0.593245 0.593245 0.593245
+illum 2
+Ns 14
+newmtl Z57_Türen_usw_rot
+Ka 0.644157 0.256314 0.236078
+Kd 0.644157 0.256314 0.236078
+Ks 0.708067 0.708067 0.708067
+illum 2
+Ns 24
+newmtl Z57_Fensterrahmen
+Ka 0.273255 0.228588 0.194431
+Kd 0.252863 0.211529 0.179922
+Ks 0.152 0.152 0.152
+illum 2
+Ns 0
+map_Ka Z57_Modell Website V1_Texturen/Holz - Wallnuß Horizontal -opt.jpg
+map_Kd Z57_Modell Website V1_Texturen/Holz - Wallnuß Horizontal -opt.jpg
+map_Ks Z57_Modell Website V1_Texturen/Holz - Wallnuß Horizontal -opt.jpg
+newmtl Metall_Messing
+Ka 0.588235 0.442353 0.136471
+Kd 0.27451 0.206431 0.0636863
+Ks 0.84 0.813333 0.646667
+illum 2
+Ns 6.2
+newmtl Z57_Fensterrahmen-Kopie
+Ka 0.273255 0.228588 0.194431
+Kd 0.252863 0.211529 0.179922
+Ks 0.152 0.152 0.152
+illum 2
+Ns 0
+map_Ka Z57_Modell Website V1_Texturen/Holz - Wallnuß Horizontal -opt.jpg
+map_Kd Z57_Modell Website V1_Texturen/Holz - Wallnuß Horizontal -opt.jpg
+map_Ks Z57_Modell Website V1_Texturen/Holz - Wallnuß Horizontal -opt.jpg
+newmtl Holz_Esche
+Ka 0.54651 0.478196 0.38098
+Kd 0.505725 0.44251 0.352549
+Ks 0.152 0.152 0.152
+illum 2
+Ns 0
+map_Ka Z57_Modell Website V1_Texturen/Holz - Esche 02 -opt.jpg
+map_Kd Z57_Modell Website V1_Texturen/Holz - Esche 02 -opt.jpg
+map_Ks Z57_Modell Website V1_Texturen/Holz - Esche 02 -opt.jpg
+newmtl Holz_Schalung,_hell,_liegend
+Ka 0.702941 0.702941 0.702941
+Kd 0.656078 0.656078 0.656078
+Ks 0.152 0.152 0.152
+illum 2
+Ns 0
+map_Ka Z57_Modell Website V1_Texturen/Außenverkleidung - Hell -opt.jpg
+map_Kd Z57_Modell Website V1_Texturen/Außenverkleidung - Hell -opt.jpg
+map_Ks Z57_Modell Website V1_Texturen/Außenverkleidung - Hell -opt.jpg
 newmtl Holz_Dielen
 Ka 0.578039 0.538627 0.483451
 Kd 0.534902 0.498431 0.447373
 Ks 0.152 0.152 0.152
 illum 2
 Ns 0
-map_Ka Z57_3D Aufmaß_Texturen/Dielen - 03 -opt.jpg
-map_Kd Z57_3D Aufmaß_Texturen/Dielen - 03 -opt.jpg
-map_Ks Z57_3D Aufmaß_Texturen/Dielen - 03 -opt.jpg
-newmtl GDLM38_Opaque
+map_Ka Z57_Modell Website V1_Texturen/Dielen - 03 -opt.jpg
+map_Kd Z57_Modell Website V1_Texturen/Dielen - 03 -opt.jpg
+map_Ks Z57_Modell Website V1_Texturen/Dielen - 03 -opt.jpg
+newmtl Metall_Chrom_
+Ka 0.486863 0.486863 0.486863
+Kd 0.224706 0.224706 0.224706
+Ks 0.96 0.96 0.96
+illum 2
+Ns 53.92
+newmtl Metall_Stahl,_matt
+Ka 0.412039 0.44302 0.44302
+Kd 0.208627 0.224314 0.224314
+Ks 0.373529 0.373529 0.373529
+illum 2
+Ns 6.2
+newmtl Metall_Stahl,_gebürstet
+Ka 0.532353 0.535294 0.567647
+Kd 0.390392 0.392549 0.416275
+Ks 0.82349 0.803961 0.787686
+illum 2
+Ns 13
+map_Ka Z57_Modell Website V1_Texturen/Metall - Stahl gebürstet 02 -opt.jpg
+map_Kd Z57_Modell Website V1_Texturen/Metall - Stahl gebürstet 02 -opt.jpg
+map_Ks Z57_Modell Website V1_Texturen/Metall - Stahl gebürstet 02 -opt.jpg
+newmtl MW_Ziegel,_rotbraun,_DF
+Ka 0.452941 0.326667 0.282745
+Kd 0.452941 0.326667 0.282745
+Ks 0 0 0
+illum 2
+Ns 0
+map_Ka Z57_Modell Website V1_Texturen/Ziegelstein - Rot Braun DF -opt.jpg
+map_Kd Z57_Modell Website V1_Texturen/Ziegelstein - Rot Braun DF -opt.jpg
+map_Ks Z57_Modell Website V1_Texturen/Ziegelstein - Rot Braun DF -opt.jpg
+newmtl PEN_MATERIAL6
+Ka 0.15259 0.15259 0.15259
+Kd 0.15259 0.15259 0.15259
+Ks 0 0 0
+illum 2
+Ns 0
+newmtl Metall,_Fassade_Aluminium
+Ka 0.71586 0.687236 0.687236
+Kd 0.128488 0.12335 0.12335
+Ks 0.544738 0.544738 0.544738
+illum 2
+Ns 10.2
+newmtl GDLM38_PEN_MATERIAL0
+Ka 0.844892 0.844892 0.844892
+Kd 0.844892 0.844892 0.844892
+Ks 0 0 0
+illum 2
+Ns 0
+newmtl GDLM39_SHADOW_MATERIAL
+Ka 0.228885 0.228885 0.228885
+Kd 0.228885 0.228885 0.228885
+Ks 0 0 0
+illum 2
+Ns 0
+newmtl GDLM40_Opaque
 Ka 0 0 0
 Kd 0 0 0
 Ks 0 0 0
 illum 2
 Ns 0
+newmtl Holz_Buche
+Ka 0.570157 0.444039 0.317922
+Kd 0.527608 0.410902 0.294196
+Ks 0.152 0.152 0.152
+illum 2
+Ns 0
+map_Ka Z57_Modell Website V1_Texturen/Holz - Buche 02 -opt.jpg
+map_Kd Z57_Modell Website V1_Texturen/Holz - Buche 02 -opt.jpg
+map_Ks Z57_Modell Website V1_Texturen/Holz - Buche 02 -opt.jpg
+newmtl Metall_Nickel
+Ka 0.557255 0.538039 0.494118
+Kd 0.398039 0.384314 0.352941
+Ks 0.651176 0.625765 0.571765
+illum 2
+Ns 5.2
