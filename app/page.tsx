@@ -78,8 +78,8 @@ export default function Home() {
           <div className="h-8" />
 
           <div className="px-4 md:px-8">
-            <div className="flex flex-row gap-8  pb-8">
-              <div className="flex-none max-w-1/3 min-w-96 border-foreground border overflow-hidden relative rounded-3xl h-full bg-white flex items-center justify-center">
+            <div className="flex md:flex-row flex-col gap-8  pb-8">
+              <div className="flex-none max-w-1/3 md:w-96  border-foreground border overflow-hidden relative rounded-3xl h-full bg-white flex items-center justify-center">
                 <SliderCard images={[rissImg1, rissImg2]} />
               </div>
               <p className=" text-2xl">
