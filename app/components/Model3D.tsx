@@ -3,13 +3,13 @@
 import * as THREE from "three";
 
 import { Canvas, useFrame, useLoader } from "@react-three/fiber";
+import { Edges, OrbitControls } from "@react-three/drei";
 import { Play, Rotate3d, RotateCcw } from "lucide-react";
 import { Suspense, useEffect, useRef, useState } from "react";
 
 import { MTLLoader } from "three/addons/loaders/MTLLoader.js";
 import { OBJLoader } from "three/addons/loaders/OBJLoader.js";
-import { OrbitControls as OCT } from "three-stdlib";
-import { OrbitControls } from "@react-three/drei";
+import { OrbitControls as OrbitControlsType } from "three-stdlib";
 import bgImage from "@/app/images/bg.jpg";
 
 function Model({ objUrl, mtlUrl, autoRotate = false }: { objUrl: string; mtlUrl: string; autoRotate: boolean }) {
@@ -21,17 +21,13 @@ function Model({ objUrl, mtlUrl, autoRotate = false }: { objUrl: string; mtlUrl:
 
   const modelRef = useRef<THREE.Group>();
 
-  // Center the model when it loads
   useEffect(() => {
     if (modelRef.current) {
-      modelRef.current.rotation.x = Math.PI / 2; // 90 degrees in radians
-      modelRef.current.rotation.y = Math.PI; // 90 degrees in radians
+      modelRef.current.rotation.y = Math.PI;
 
-      // Create a bounding box
       const box = new THREE.Box3().setFromObject(modelRef.current);
       const center = box.getCenter(new THREE.Vector3());
 
-      // Move the model so its center is at the origin
       modelRef.current.position.x -= center.x;
       modelRef.current.position.y -= center.y;
       modelRef.current.position.z -= center.z;
@@ -40,27 +36,33 @@ function Model({ objUrl, mtlUrl, autoRotate = false }: { objUrl: string; mtlUrl:
 
   useFrame(() => {
     if (autoRotate && modelRef.current) {
-      modelRef.current.rotation.z += 0.001;
+      modelRef.current.rotation.y += 0.01;
     }
   });
 
-  return <primitive ref={modelRef} object={obj} />;
+  return (
+    <group ref={modelRef}>
+      <primitive object={obj} />
+      {obj.children.map((child, index) => {
+        if (child instanceof THREE.Mesh) {
+          return <Edges key={index} geometry={child.geometry} threshold={15} color="black" />;
+        }
+        return null;
+      })}
+    </group>
+  );
 }
 
 export default function Model3D() {
-  const [autoRotate, setAutoRotate] = useState(true);
+  const [autoRotate, setAutoRotate] = useState(false);
   const [controlsEnabled, setControlsEnabled] = useState(false);
-  const controlsRef = useRef<OCT>(null);
+  const controlsRef = useRef<OrbitControlsType>(null);
 
   const resetModel = () => {
     if (controlsRef.current) {
-      // Reset orbit controls to initial position
       controlsRef.current.reset();
-      // Reset camera position
       controlsRef.current.object.position.set(0, 0, 5);
-      // Reset target
       controlsRef.current.target.set(0, 0, 0);
-      // Update controls
       controlsRef.current.update();
     }
   };
