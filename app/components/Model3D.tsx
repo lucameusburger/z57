@@ -10,10 +10,18 @@ import { Suspense, useEffect, useRef, useState } from "react";
 import { MTLLoader } from "three/addons/loaders/MTLLoader.js";
 import { OBJLoader } from "three/addons/loaders/OBJLoader.js";
 import { OrbitControls as OrbitControlsType } from "three-stdlib";
-import bgImage from "@/app/images/bg.jpg";
+
+// import bgImage from "@/app/images/bg.jpg";
 
 function Model({ objUrl, mtlUrl, autoRotate = false }: { objUrl: string; mtlUrl: string; autoRotate: boolean }) {
   const materials = useLoader(MTLLoader, mtlUrl);
+
+  // Modify materials before loading the object
+  Object.values(materials.materials).forEach((material) => {
+    material.transparent = true;
+    material.opacity = 0.2;
+  });
+
   const obj = useLoader(OBJLoader, objUrl, (loader) => {
     materials.preload();
     loader.setMaterials(materials);
@@ -31,6 +39,26 @@ function Model({ objUrl, mtlUrl, autoRotate = false }: { objUrl: string; mtlUrl:
       modelRef.current.position.x -= center.x;
       modelRef.current.position.y -= center.y;
       modelRef.current.position.z -= center.z;
+
+      modelRef.current.position.z -= 10;
+      modelRef.current.position.x -= 5;
+
+      // Force update materials
+      modelRef.current.traverse((child) => {
+        if (child instanceof THREE.Mesh) {
+          if (Array.isArray(child.material)) {
+            child.material.forEach((mat) => {
+              mat.transparent = true;
+              mat.opacity = 0.2;
+              mat.needsUpdate = true;
+            });
+          } else {
+            child.material.transparent = true;
+            child.material.opacity = 0.6;
+            child.material.needsUpdate = true;
+          }
+        }
+      });
     }
   }, [obj]);
 
@@ -41,11 +69,14 @@ function Model({ objUrl, mtlUrl, autoRotate = false }: { objUrl: string; mtlUrl:
   });
 
   return (
+    // @ts-expect-error asd
     <group ref={modelRef}>
       <primitive object={obj} />
       {obj.children.map((child, index) => {
         if (child instanceof THREE.Mesh) {
-          return <Edges key={index} geometry={child.geometry} threshold={15} color="black" />;
+          const mat = child.material as THREE.Material;
+          console.log(mat.name);
+          return <Edges lineWidth={2} key={index} geometry={child.geometry} threshold={15} color={mat.name === "Metall_Stahl,_verzinkt" ? "#c2382f" : "#211f20"} />;
         }
         return null;
       })}
@@ -70,11 +101,13 @@ export default function Model3D() {
   return (
     <div
       className="h-[80vh] md:h-[800px] max-h-[80vh] w-full rounded-3xl overflow-hidden border border-foreground "
-      style={{
-        backgroundImage: `url(${bgImage.src})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
+      style={
+        {
+          // backgroundImage: `url(${bgImage.src})`,
+          // backgroundSize: "cover",
+          // backgroundPosition: "center",
+        }
+      }
     >
       <div className="backdrop-blur-md h-full w-full">
         <div className="flex flex-col gap-1 absolute left-4 top-4">
