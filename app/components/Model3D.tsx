@@ -115,7 +115,7 @@ export default function Model3D() {
         }
       }
     >
-      <div className={"h-full w-full" + (fullscreen ? " fixed top-0 left-0 z-50 bottom-0 right-0" : "")}>
+      <div className={"h-full w-full " + (fullscreen ? " fixed top-0 left-0 z-50 bottom-0 right-0" : "")}>
         <div className="flex flex-col gap-1 absolute left-4 top-4">
           <button className={"rounded-full bg-foreground text-background hover:text-foreground p-3  z-20 hover:bg-background border " + (autoRotate ? "border-background" : "border-foreground")} onClick={() => setAutoRotate(!autoRotate)}>
             <Play className="w-6 h-6" />
