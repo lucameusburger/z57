@@ -21,7 +21,7 @@ export default function SliderCard({ images }: Props) {
 
   return (
     <div
-      className="h-full overflow-hidden rounded-2xl group cursor-pointer relative"
+      className="h-full overflow-hidden rounded-2xl w-full group cursor-pointer relative"
       onClick={() => {
         setCurrentIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
       }}
@@ -29,7 +29,7 @@ export default function SliderCard({ images }: Props) {
       <div className="relative h-full w-full min-h-96">
         <AnimatePresence initial={false}>
           <motion.div key={currentIndex} className="absolute h-full w-full" initial={{ x: "100%" }} animate={{ x: 0 }} exit={{ x: "-100%" }} transition={{ duration: 0.5 }}>
-            <Image src={images[currentIndex]} alt="Gruppenfoto" width={800} height={400} className="w-full h-full rounded-none object-cover contrast-2 scale-100 group-hover:scale-110 transition-all transform object-center" />
+            <Image src={images[currentIndex]} alt="Bild" width={800} height={800} className="w-full h-full rounded-none object-cover contrast-2 scale-100 group-hover:scale-110 transition-all transform object-center" />
           </motion.div>
         </AnimatePresence>
       </div>

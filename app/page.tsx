@@ -7,9 +7,12 @@ import ImageGrid from "./components/ImageGrid";
 import Marquee from "./components/Marquee";
 import MemberItem from "./components/MemberItem";
 import Model3D from "./components/Model3D";
+import SliderCard from "./components/SliderCard";
 import UpcomingSection from "./components/UpcomingSection";
 import groupGlassImage from "@/app/images/group-glass.png";
 import groupImage from "@/app/images/group.jpg";
+import rissImg1 from "@/app/images/riss/z57_side_1.png";
+import rissImg2 from "@/app/images/riss/z57_side_2.png";
 
 // const generateRandomPolygonPoints = () => {
 //   const min = 10; // Minimum value for a point
@@ -66,16 +69,24 @@ export default function Home() {
 
           <div className="h-8" />
           <div className="px-4 md:px-8">
-            <Marquee className="bg-foreground text-background" elements={["Architektur", "Webentwicklung", "Nailart", "Fotografie", "Design", "Feiern", "Dach", "Zieglergasse", "Wien", "Baustein", "Skizze", "Kuchen", "Geschenk"]} />
+            <Marquee
+              className="bg-foreground text-background"
+              elements={["Renderings", "3D-Modelle", "Produktdesign", "Produktentwicklung", "Prototypenbau", "Möbelbau", "Innenarchitektur", "Gebäudeplanung", "Vermessung", "Plandarstellung", "Webentwicklung", "Softwareentwicklung", "Naildesign", "Fotografie", "Grafikdesign", "Reinigung von Konservierung & Restaurierung von Kunstwerken", "Reinigung-, Festigung-, Ergänzung und Retusche von Kunstwerken", "Dokumentationen", "Publikationen", "Keramikwerkstatt", "Holzwerkstatt", "Vermittlung"]}
+            />
           </div>
 
           <div className="h-8" />
 
           <div className="px-4 md:px-8">
-            <p className="pb-8 text-2xl">
-              Das Atelier Z57 befindet sich im Herzen des 7. Bezirks an der Zieglergasse 57. Über den Dächern Wiens erstrecken sich die Räumlichkeiten über drei Dachgeschosse, wo sie einst als Architekturbüro in den 70er Jahren angelegt und für 40 Jahre eben diesem Zweck entsprechend genutzt wurden. Wer sich längere Zeit im geräumigen und doch verwinkelten Atelier aufhält, erkennt die verschiedenen Bauphasen, die der ausgebaute Dachboden über den langen Zeitraum der Entstehung erfahren hat und
-              welche ganz eigenen und unverwechselbaren Details er mit sich bringt. Herzstück bildet ein 200 qm großes Flachdach mit Dachgarten, das anstelle der zweiten Dachhälfte hofseitig angelegt wurde.
-            </p>
+            <div className="flex flex-row gap-8  pb-8">
+              <div className="flex-none max-w-1/3 min-w-96 border-foreground border overflow-hidden relative rounded-3xl h-full bg-white flex items-center justify-center">
+                <SliderCard images={[rissImg1, rissImg2]} />
+              </div>
+              <p className=" text-2xl">
+                Das Atelier Z57 befindet sich im Herzen des 7. Bezirks an der Zieglergasse 57. Über den Dächern Wiens erstrecken sich die Räumlichkeiten über drei Dachgeschosse, wo sie einst als Architekturbüro in den 70er Jahren angelegt und für 40 Jahre eben diesem Zweck entsprechend genutzt wurden. Wer sich längere Zeit im geräumigen und doch verwinkelten Atelier aufhält, erkennt die verschiedenen Bauphasen, die der ausgebaute Dachboden über den langen Zeitraum der Entstehung erfahren hat und
+                welche ganz eigenen und unverwechselbaren Details er mit sich bringt. Herzstück bildet ein 200 qm großes Flachdach mit Dachgarten, das anstelle der zweiten Dachhälfte hofseitig angelegt wurde.
+              </p>
+            </div>
             <ImageGrid />
           </div>
 
