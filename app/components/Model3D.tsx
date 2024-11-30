@@ -19,7 +19,7 @@ function Model({ objUrl, mtlUrl, autoRotate = false }: { objUrl: string; mtlUrl:
   // Modify materials before loading the object
   Object.values(materials.materials).forEach((material) => {
     material.transparent = true;
-    material.opacity = 0.2;
+    material.opacity = 0.4;
   });
 
   const obj = useLoader(OBJLoader, objUrl, (loader) => {
@@ -44,21 +44,21 @@ function Model({ objUrl, mtlUrl, autoRotate = false }: { objUrl: string; mtlUrl:
       modelRef.current.position.x -= 5;
 
       // Force update materials
-      modelRef.current.traverse((child) => {
-        if (child instanceof THREE.Mesh) {
-          if (Array.isArray(child.material)) {
-            child.material.forEach((mat) => {
-              mat.transparent = true;
-              mat.opacity = 0.2;
-              mat.needsUpdate = true;
-            });
-          } else {
-            child.material.transparent = true;
-            child.material.opacity = 0.6;
-            child.material.needsUpdate = true;
-          }
-        }
-      });
+      // modelRef.current.traverse((child) => {
+      //   if (child instanceof THREE.Mesh) {
+      //     if (Array.isArray(child.material)) {
+      //       child.material.forEach((mat) => {
+      //         mat.transparent = true;
+      //         mat.opacity = 0.2;
+      //         mat.needsUpdate = true;
+      //       });
+      //     } else {
+      //       child.material.transparent = true;
+      //       child.material.opacity = 0.6;
+      //       child.material.needsUpdate = true;
+      //     }
+      //   }
+      // });
     }
   }, [obj]);
 
@@ -76,7 +76,8 @@ function Model({ objUrl, mtlUrl, autoRotate = false }: { objUrl: string; mtlUrl:
         if (child instanceof THREE.Mesh) {
           const mat = child.material as THREE.Material;
           console.log(mat.name);
-          return <Edges lineWidth={2} key={index} geometry={child.geometry} threshold={15} color={mat.name === "Metall_Stahl,_verzinkt" ? "#c2382f" : "#211f20"} />;
+          // return <Edges lineWidth={1} key={index} geometry={child.geometry} threshold={15} color={mat.name === "Metall_Stahl,_verzinkt" ? "#c2382f" : "#211f20"} />;
+          return <Edges lineWidth={1} key={index} geometry={child.geometry} threshold={15} color={mat.name === "Metall_Stahl,_verzinkt" ? "#211f20" : "#211f20"} />;
         }
         return null;
       })}
@@ -123,8 +124,8 @@ export default function Model3D() {
         </div>
         <Canvas camera={{ position: [0, 0, 5] }}>
           <Suspense fallback={null}>
-            <ambientLight intensity={3} />
-            <directionalLight position={[10, 10, 5]} intensity={10} />
+            <ambientLight intensity={30} />
+            {/* <directionalLight position={[10, 10, 5]} intensity={10} /> */}
             <Model objUrl="/model/model.obj" mtlUrl="/model/model.mtl" autoRotate={autoRotate} />
             <OrbitControls ref={controlsRef} enabled={controlsEnabled} enableZoom={controlsEnabled} onStart={() => {}} onEnd={() => {}} />
           </Suspense>
