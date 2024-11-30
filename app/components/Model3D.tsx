@@ -46,6 +46,7 @@ function Model({ objUrl, mtlUrl, autoRotate = false }: { objUrl: string; mtlUrl:
 
       modelRef.current.position.z -= 10;
       modelRef.current.position.x -= 5;
+      //modelRef.current.position.y -= 16;
 
       // Force update materials
       // modelRef.current.traverse((child) => {
@@ -90,7 +91,7 @@ function Model({ objUrl, mtlUrl, autoRotate = false }: { objUrl: string; mtlUrl:
 }
 
 export default function Model3D() {
-  const [autoRotate, setAutoRotate] = useState(false);
+  const [autoRotate, setAutoRotate] = useState(true);
   const [controlsEnabled, setControlsEnabled] = useState(false);
   const [fullscreen, setFullscreen] = useState(false);
   const controlsRef = useRef<OrbitControlsType>(null);
@@ -135,9 +136,10 @@ export default function Model3D() {
             <Fullscreen className="w-6 h-6" />
           </button>
         </div>
-        <Canvas camera={{ position: [0, 0, 5] }}>
+        <Canvas camera={{ position: [0, 0, 5] }} className={fullscreen ? " pointer-events-none" : ""}>
           <Suspense fallback={null}>
-            <ambientLight intensity={6} />
+            {/* <ambientLight intensity={6} /> */}
+            <ambientLight intensity={10} />
             {/* <directionalLight position={[10, 10, 5]} intensity={10} /> */}
             <Model objUrl="/model/model.obj" mtlUrl="/model/model.mtl" autoRotate={autoRotate} />
             <OrbitControls ref={controlsRef} enabled={controlsEnabled} enableZoom={controlsEnabled} onStart={() => {}} onEnd={() => {}} />
