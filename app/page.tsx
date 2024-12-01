@@ -7,12 +7,9 @@ import ImageGrid from "./components/ImageGrid";
 import Marquee from "./components/Marquee";
 import MemberItem from "./components/MemberItem";
 import Model3D from "./components/Model3D";
-import SliderCard from "./components/SliderCard";
 import UpcomingSection from "./components/UpcomingSection";
 import groupGlassImage from "@/app/images/group-glass.png";
 import groupImage from "@/app/images/group.jpg";
-import rissImg1 from "@/app/images/riss/z57_side_1.png";
-import rissImg2 from "@/app/images/riss/z57_side_2.png";
 
 // const generateRandomPolygonPoints = () => {
 //   const min = 10; // Minimum value for a point
@@ -78,10 +75,20 @@ export default function Home() {
           <div className="h-8" />
 
           <div className="px-4 md:px-8">
+            <div className="flex pb-8 justify-between items-center w-full border-t border-foreground pt-4">
+              <span className="text-2xl md:text-5xl">Das Atelier</span>
+              <a href="#top">
+                <CornerRightUp className="w-6 h-6 " />
+              </a>
+              {/* <div className="flex gap-2">
+                  <MailButton />
+                </div> */}
+            </div>
+
             <div className="flex md:flex-row flex-col gap-8  pb-8">
-              <div className="flex-none max-w-1/3 md:w-96  border-foreground border overflow-hidden relative rounded-3xl h-full bg-white flex items-center justify-center">
+              {/* <div className="flex-none max-w-1/3 md:w-96  border-foreground border overflow-hidden relative rounded-3xl h-full bg-white flex items-center justify-center">
                 <SliderCard images={[rissImg1, rissImg2]} />
-              </div>
+              </div> */}
               <p className=" text-2xl">
                 Das Atelier Z57 befindet sich im Herzen des 7. Bezirks an der Zieglergasse 57. Über den Dächern Wiens erstrecken sich die Räumlichkeiten über drei Dachgeschosse, wo sie einst als Architekturbüro in den 70er Jahren angelegt und für 40 Jahre eben diesem Zweck entsprechend genutzt wurden. Wer sich längere Zeit im geräumigen und doch verwinkelten Atelier aufhält, erkennt die verschiedenen Bauphasen, die der ausgebaute Dachboden über den langen Zeitraum der Entstehung erfahren hat und
                 welche ganz eigenen und unverwechselbaren Details er mit sich bringt. Herzstück bildet ein 200 qm großes Flachdach mit Dachgarten, das anstelle der zweiten Dachhälfte hofseitig angelegt wurde.
@@ -91,10 +98,6 @@ export default function Home() {
           </div>
 
           <div className="h-8" />
-
-          <div className="px-4 md:px-8">
-            <Model3D />
-          </div>
 
           {/* ABOUT */}
           {/* <div className="flex flex-col gap-8 px-4 md:px-8 pt-8">
@@ -150,12 +153,34 @@ export default function Home() {
 
           {/* MEMBERS */}
           <div className="flex flex-col gap-8 py-8 px-4 md:px-8">
+            <div className="flex justify-between items-center w-full border-t border-foreground pt-4">
+              <span className="text-2xl md:text-5xl">Wer wir sind</span>
+              <a href="#top">
+                <CornerRightUp className="w-6 h-6 " />
+              </a>
+              {/* <div className="flex gap-2">
+                  <MailButton />
+                </div> */}
+            </div>
             {shuffledMembers.map((member, index) => (
               <>
                 <MemberItem key={member.name} member={member} switched={index} />
                 {/* {index !== members.length - 1 && <hr className="border-foreground" />} */}
               </>
             ))}
+          </div>
+
+          <div className="px-4 md:px-8">
+            <div className="flex pb-8 justify-between items-center w-full border-t border-foreground pt-4">
+              <span className="text-2xl md:text-5xl">In drei Dimensionen</span>
+              <a href="#top">
+                <CornerRightUp className="w-6 h-6 " />
+              </a>
+              {/* <div className="flex gap-2">
+                  <MailButton />
+                </div> */}
+            </div>
+            <Model3D />
           </div>
 
           {/* KONTAKT */}
