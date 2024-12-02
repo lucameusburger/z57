@@ -18,7 +18,7 @@ export default function UpcomingSection() {
                 </div> */}
         </div>
         <div className="flex gap-8 w-full flex-col md:flex-row">
-          <a href="mailto:info@z57.at" className="order-2 md:order-1 flex-1 border-foreground hover:bg-background hover:text-foreground transition-colors w-full flex flex-col gap-4 justify-between text-woit bg-foreground border overflow-hidden relative rounded-3xl p-4">
+          <a href="mailto:atelier@z57.at" className="order-2 md:order-1 flex-1 border-foreground hover:bg-background hover:text-foreground transition-colors w-full flex flex-col gap-4 justify-between text-woit bg-foreground border overflow-hidden relative rounded-3xl p-4">
             <CandyCane className=" w-12 h-12" />
             <div className="flex flex-col gap-2">
               <span className="self-end text-xl">14. - 15. Dez 2024</span>

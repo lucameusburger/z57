@@ -196,11 +196,11 @@ export default function Home() {
                 </div> */}
               </div>
               <div className="flex gap-8 w-full flex-col md:flex-row">
-                <a href="mailto:info@z57.at" className="border-foreground hover:bg-background transition-colors hover:text-foreground w-full flex flex-col gap-4 justify-between text-woit bg-foreground border overflow-hidden relative rounded-3xl p-4">
+                <a href="mailto:atelier@z57.at" className="border-foreground hover:bg-background transition-colors hover:text-foreground w-full flex flex-col gap-4 justify-between text-woit bg-foreground border overflow-hidden relative rounded-3xl p-4">
                   <Mail className=" w-12 h-12" />
                   <div className="flex flex-col gap-2">
                     <hr className="border-current" />
-                    <span className="self-end text-xl">info@z57.at</span>
+                    <span className="self-end text-xl">atelier@z57.at</span>
                   </div>
                 </a>
                 <a href="https://www.instagram.com/z57.at/" className="border-foreground hover:bg-background transition-colors hover:text-foreground w-full flex flex-col gap-4 justify-between text-woit bg-foreground border overflow-hidden relative rounded-3xl p-4">
