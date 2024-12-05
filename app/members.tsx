@@ -73,7 +73,7 @@ const membersOG: Member[] = [
     image: lucaImage,
     title: "Webentwicklung",
     description: "Luca ist ein freiberuflicher Webentwickler und Designer, der mit modernen Technologien und aktuellen Standards arbeitet, um ästhetische und benutzerfreundliche digitale Lösungen zu schaffen. Sein Fokus liegt auf anspruchsvollen Projekten wie Dashboards und mobilen Apps, bei denen er sowohl die Frontend- und Backend-Entwicklung übernimmt als auch die Gestaltung von UI und UX. Viele seiner Arbeiten sind im Kultur- und Bildungsbereich angesiedelt.",
-    email: "luca@example.com",
+    email: "luca@meusburger.io",
     instagram: "https://www.instagram.com/luca.meusburgee/",
     website: "https://meusburger.io",
     projects: [
