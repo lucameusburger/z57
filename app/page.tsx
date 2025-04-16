@@ -228,8 +228,9 @@ export default function Home() {
           <hr className="border-foreground" />
           <div className="py-8 justify-between gap-4 flex flex-col md:flex-row">
             <div className="flex gap-2 flex-col md:flex-row">
-              <div>
-                <span className="text-xl rounded-full text-background bg-foreground py-1 px-2">Copyright z57 © 2024</span>
+              <div className="flex flex-col gap-2">
+                <span className="text-xl rounded-full text-background bg-foreground py-1 px-2">Copyright z57 © 2025</span>
+                <span className="text-xl rounded-full text-background bg-foreground py-1 px-2">ZVR 1169564571</span>
               </div>
               <div>
                 <span
@@ -243,6 +244,7 @@ export default function Home() {
                 </span>
               </div>
             </div>
+
             <div className="flex gap-2">
               <span className="text-xl text-foreground py-1 px-2">info</span>
               <span className="text-xl text-foreground py-1 px-2">cookies</span>
