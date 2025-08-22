@@ -25,7 +25,7 @@ const config: Config = {
         stella: "#C04021",
       },
       backgroundImage: {
-        glass: "url('./images/group-glass.png')",
+        glass: "url('./images/group-glass.jpg')",
       },
     },
   },

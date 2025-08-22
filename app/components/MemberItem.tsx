@@ -2,7 +2,7 @@ import { Globe, Instagram, Mail, MoveRight } from "lucide-react";
 
 import Image from "next/image";
 import { Member } from "../members";
-import groupGlassImage from "@/app/images/group-glass.png";
+import groupGlassImage from "@/app/images/group-glass.jpg";
 
 const RoundButton = ({ icon, href }: { icon: React.ReactNode; href: string }) => {
   return (

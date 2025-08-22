@@ -3,7 +3,7 @@
 import React, { CSSProperties, useRef } from "react";
 
 import Image from "next/image";
-import groupGlassImage from "@/app/images/group-glass.png";
+import groupGlassImage from "@/app/images/group-glass.jpg";
 import groupImage from "@/app/images/group.jpg";
 
 const GlassCardWithRevealEffect = () => {
