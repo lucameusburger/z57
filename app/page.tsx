@@ -8,7 +8,7 @@ import Marquee from "./components/Marquee";
 import MemberItem from "./components/MemberItem";
 import Model3D from "./components/Model3D";
 import UpcomingSection from "./components/UpcomingSection";
-import groupGlassImage from "@/app/images/group-glass.png";
+import groupGlassImage from "@/app/images/group-glass.jpg";
 import groupImage from "@/app/images/group.jpg";
 
 // const generateRandomPolygonPoints = () => {
@@ -68,7 +68,18 @@ export default function Home() {
           <div className="px-4 md:px-8">
             <Marquee
               className="bg-foreground text-background"
-              elements={["Renderings", "3D-Modelle", "Produktdesign", "Produktentwicklung", "Prototypenbau", "Möbelbau", "Innenarchitektur", "Gebäudeplanung", "Vermessung", "Plandarstellung", "Webentwicklung", "Softwareentwicklung", "Naildesign", "Fotografie", "Grafikdesign", "Reinigung von Konservierung & Restaurierung von Kunstwerken", "Reinigung-, Festigung-, Ergänzung und Retusche von Kunstwerken", "Dokumentationen", "Publikationen", "Keramikwerkstatt", "Holzwerkstatt", "Vermittlung"]}
+              elements={["co-working",
+                "workshops",
+                "exhibitions",
+                "events",
+                "design",
+                "architecture",
+                "photography",
+                "nailart",
+                "software development",
+                "UI/UX",
+                "restauration",
+                "conservation"]}
             />
           </div>
 
