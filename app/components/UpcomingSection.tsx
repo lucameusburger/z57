@@ -20,10 +20,14 @@ export default function UpcomingSection() {
           <a href="https://www.viennadesignweek.at/programm/cmd-shift-d-esign/" className="order-2 md:order-1 flex-1 border-foreground hover:bg-background hover:text-foreground transition-colors w-full flex flex-col gap-4 justify-between text-woit bg-foreground border overflow-hidden relative rounded-3xl p-4">
             <Badge className=" w-12 h-12" />
             <div className="flex flex-col gap-2">
-              <span className="self-end text-xl">27.9.–4.10.2025, 13–19 Uhr<br />
+              <span className="self-end text-right text-xl">
+                Opening Drinks & Concert: 27.9.2025, 16-20 Uhr<br />
                 Cocktail: 4.10.2025, 16–20 Uhr</span>
               <hr className="border-current" />
-              <span className="self-end text-xl font-bold">Vienna Design Week</span>
+              <div className="flex justify-between items-center">
+                <span className="self-end text-xl font-bold">Vienna Design Week</span>
+                <span className="text-xl">27.9.–4.10.2025, 13–19 Uhr</span>
+              </div>
             </div>
           </a>
           <div className="flex-1 h-auto relative">
