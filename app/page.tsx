@@ -6,7 +6,6 @@ import Image from "next/image";
 import ImageGrid from "./components/ImageGrid";
 import Marquee from "./components/Marquee";
 import MemberItem from "./components/MemberItem";
-import Model3D from "./components/Model3D";
 import UpcomingSection from "./components/UpcomingSection";
 import groupGlassImage from "@/app/images/group-glass.jpg";
 import groupImage from "@/app/images/group.jpg";
@@ -178,7 +177,7 @@ export default function Home() {
             ))}
           </div>
 
-          <div className="px-4 md:px-8">
+          {/* <div className="px-4 md:px-8">
             <div className="flex pb-8 justify-between items-center w-full border-t border-foreground pt-4">
               <span className="text-2xl md:text-5xl">In drei Dimensionen</span>
               <a href="#top">
@@ -186,7 +185,7 @@ export default function Home() {
               </a>
             </div>
             <Model3D />
-          </div>
+          </div> */}
 
           {/* KONTAKT */}
           <div className="flex flex-col gap-8 py-8 px-4 md:px-8">

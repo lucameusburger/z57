@@ -17,6 +17,7 @@ interface UpcomingEvent {
     src: StaticImageData;
     alt: string;
   };
+  cta?: string;
   color?: string;
   svg?: string;
 }
@@ -56,6 +57,7 @@ const events: UpcomingEvent[] = [
     //   src: adventImage,
     //   alt: "z57 Wintermarkt",
     // },
+    cta: "Jetzt bewerben",
     color: "#C04021",
     svg: NEWSVG,
   },
@@ -80,11 +82,11 @@ export default function UpcomingSection() {
           <div key={event.id} className="flex gap-8 w-full flex-col md:flex-row">
             <a
               href={event.href}
-              className="order-2 md:order-1 flex-1 border-foreground hover:bg-background hover:text-foreground transition-colors w-full flex flex-col gap-4 justify-between text-woit bg-foreground border overflow-hidden relative rounded-3xl p-4"
+              className="group order-2 md:order-1 flex-1 border-foreground hover:bg-background hover:text-foreground transition-colors w-full flex flex-col gap-4 justify-between text-woit bg-foreground border overflow-hidden relative rounded-3xl p-4"
             >
               {event.svg ? (
                 <div
-                  className="w-12 h-12"
+                  className="w-12 h-12 [&_svg]:fill-current [&_svg]:transition-colors"
                   dangerouslySetInnerHTML={{
                     __html: event.svg.replace(/id="[^"]*"/, `id="badge-svg-${event.id}"`).replace(
                       /<svg([^>]*)>/,
@@ -93,9 +95,14 @@ export default function UpcomingSection() {
                   }}
                 />
               ) : (
-                <Badge className=" w-12 h-12" />
+                <Badge className="w-12 h-12 group-hover:text-foreground transition-colors" />
               )}
               <div className="flex flex-col gap-2">
+                {event.cta && (
+                  <span className="self-end bg-background text-foreground text-right text-xl rounded-full px-4 py-2 group-hover:bg-foreground group-hover:text-background transition-colors">
+                    {event.cta}
+                  </span>
+                )}
                 {event.details && (
                   <span className="self-end text-right text-xl">
                     {event.details.split("\n").map((line, i, lines) => (
