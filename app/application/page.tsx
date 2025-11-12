@@ -33,6 +33,11 @@ export default function ApplicationPage() {
     const [termsAccepted, setTermsAccepted] = useState(false);
     const [willingToHelp, setWillingToHelp] = useState(false);
     const [validationErrors, setValidationErrors] = useState<string[]>([]);
+    const [fileSizeErrors, setFileSizeErrors] = useState<string[]>([]);
+
+    // File size limits (in bytes)
+    const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB per file
+    const MAX_TOTAL_SIZE = 10 * 1024 * 1024; // 10MB total
 
     // Create preview URLs for images
     useEffect(() => {
@@ -138,6 +143,35 @@ export default function ApplicationPage() {
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
             const newFiles = Array.from(e.target.files).filter((file) => file.type.startsWith("image/"));
+            const sizeErrors: string[] = [];
+
+            // Check file sizes
+            newFiles.forEach((file) => {
+                if (file.size > MAX_FILE_SIZE) {
+                    const sizeInMB = (file.size / (1024 * 1024)).toFixed(2);
+                    sizeErrors.push(`${file.name} ist zu groß (${sizeInMB} MB). Maximale Dateigröße: 5 MB.`);
+                }
+            });
+
+            // Check total size including existing images
+            const existingTotalSize = images.reduce((sum, img) => sum + img.size, 0);
+            const newTotalSize = newFiles.reduce((sum, file) => sum + file.size, 0);
+            const totalSize = existingTotalSize + newTotalSize;
+
+            if (totalSize > MAX_TOTAL_SIZE) {
+                const totalSizeInMB = (totalSize / (1024 * 1024)).toFixed(2);
+                sizeErrors.push(`Die Gesamtgröße aller Bilder (${totalSizeInMB} MB) überschreitet das Limit von 10 MB.`);
+            }
+
+            if (sizeErrors.length > 0) {
+                setFileSizeErrors(sizeErrors);
+                // Reset input so user can try again
+                e.target.value = "";
+                return;
+            }
+
+            // Clear file size errors if validation passes
+            setFileSizeErrors([]);
             setImages((prev) => [...prev, ...newFiles]);
             // Clear validation errors when user uploads images
             if (validationErrors.some(err => err.includes("Bild"))) {
@@ -177,6 +211,13 @@ export default function ApplicationPage() {
         // Validate that at least one image is uploaded
         if (images.length === 0) {
             errors.push("Bitte laden Sie mindestens ein Bild hoch.");
+        }
+
+        // Validate total file size
+        const totalSize = images.reduce((sum, img) => sum + img.size, 0);
+        if (totalSize > MAX_TOTAL_SIZE) {
+            const totalSizeInMB = (totalSize / (1024 * 1024)).toFixed(2);
+            errors.push(`Die Gesamtgröße aller Bilder (${totalSizeInMB} MB) überschreitet das Limit von 10 MB. Bitte entfernen Sie einige Bilder.`);
         }
 
         // Validate that terms are accepted
@@ -231,8 +272,25 @@ export default function ApplicationPage() {
             });
 
             if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.error || "Failed to submit application");
+                // Check for size limit errors first (413 status code)
+                if (response.status === 413) {
+                    throw new Error("Die Dateien sind zu groß. Bitte reduzieren Sie die Dateigröße und versuchen Sie es erneut.");
+                }
+
+                let errorData;
+                try {
+                    errorData = await response.json();
+                } catch {
+                    throw new Error("Fehler beim Absenden der Bewerbung. Bitte versuchen Sie es erneut.");
+                }
+
+                // Check for size limit errors in the error response
+                const errorMessage = errorData.error || "Failed to submit application";
+                if (errorMessage.toLowerCase().includes("too large") || errorMessage.toLowerCase().includes("size limit") || errorMessage.toLowerCase().includes("zu groß")) {
+                    throw new Error("Die Dateien sind zu groß. Bitte reduzieren Sie die Dateigröße und versuchen Sie es erneut.");
+                }
+
+                throw new Error(errorMessage);
             }
 
             setSubmitStatus("success");
@@ -255,6 +313,9 @@ export default function ApplicationPage() {
         } catch (error) {
             console.error("Submission error:", error);
             setSubmitStatus("error");
+            // Add error to validation errors to display it
+            const errorMessage = error instanceof Error ? error.message : "Fehler beim Absenden. Bitte versuchen Sie es erneut.";
+            setValidationErrors([errorMessage]);
         } finally {
             setIsSubmitting(false);
         }
@@ -383,14 +444,14 @@ export default function ApplicationPage() {
                         </div>
 
                         {/* Image Upload */}
-                        <div className="flex flex-col gap-4" data-validation-error={validationErrors.some(e => e.includes("Bild"))}>
+                        <div className="flex flex-col gap-4" data-validation-error={validationErrors.some(e => e.includes("Bild")) || fileSizeErrors.length > 0}>
                             <label className="text-xl font-bold">
                                 Fotos der Werke oder Arbeitsproben für die Promotion der Veranstaltungen inkl. Fotocredits <span className="font-bold">*</span>
                             </label>
                             <div className="flex flex-col gap-4">
                                 <label
                                     htmlFor="images"
-                                    className={`border-foreground border rounded-full px-6 py-4 bg-background text-foreground hover:bg-foreground hover:text-background transition-colors cursor-pointer flex items-center gap-4 ${validationErrors.some(e => e.includes("Bild")) ? "border-red-500" : ""}`}
+                                    className={`border-foreground border rounded-full px-6 py-4 bg-background text-foreground hover:bg-foreground hover:text-background transition-colors cursor-pointer flex items-center gap-4 ${validationErrors.some(e => e.includes("Bild")) || fileSizeErrors.length > 0 ? "border-red-500" : ""}`}
                                 >
                                     <Upload className="w-6 h-6" />
                                     <span>Bilder hochladen</span>
@@ -403,32 +464,51 @@ export default function ApplicationPage() {
                                     onChange={handleImageChange}
                                     className="hidden"
                                 />
+                                {fileSizeErrors.length > 0 && (
+                                    <div className="border-red-500 border rounded-full px-6 py-4 bg-red-50 text-red-700 flex items-start gap-4">
+                                        <AlertCircle className="w-6 h-6 flex-shrink-0 mt-0.5" />
+                                        <div className="flex flex-col gap-2 flex-1">
+                                            {fileSizeErrors.map((error, index) => (
+                                                <p key={index} className="text-lg">{error}</p>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
                                 {images.length > 0 && (
                                     <div className="flex flex-wrap gap-4">
-                                        {images.map((image, index) => (
-                                            <div
-                                                key={index}
-                                                className="relative border-foreground border rounded-3xl overflow-hidden bg-background w-full md:w-48 aspect-square"
-                                            >
-                                                <button
-                                                    type="button"
-                                                    onClick={() => removeImage(index)}
-                                                    className="absolute top-2 right-2 z-10 bg-foreground text-background p-1 hover:opacity-80"
+                                        {images.map((image, index) => {
+                                            const sizeInMB = (image.size / (1024 * 1024)).toFixed(2);
+                                            return (
+                                                <div
+                                                    key={index}
+                                                    className="relative border-foreground border rounded-3xl overflow-hidden bg-background w-full md:w-48 aspect-square"
                                                 >
-                                                    <X className="w-4 h-4" />
-                                                </button>
-                                                {imagePreviews[index] && (
-                                                    <img
-                                                        src={imagePreviews[index]}
-                                                        alt={image.name}
-                                                        className="w-full h-full object-cover"
-                                                    />
-                                                )}
-                                                <div className="absolute bottom-0 left-0 right-0 bg-foreground text-background text-xs p-2 truncate">
-                                                    {image.name}
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => {
+                                                            removeImage(index);
+                                                            // Clear file size errors when removing images
+                                                            if (fileSizeErrors.length > 0) {
+                                                                setFileSizeErrors([]);
+                                                            }
+                                                        }}
+                                                        className="absolute top-2 right-2 z-10 bg-foreground text-background p-1 hover:opacity-80"
+                                                    >
+                                                        <X className="w-4 h-4" />
+                                                    </button>
+                                                    {imagePreviews[index] && (
+                                                        <img
+                                                            src={imagePreviews[index]}
+                                                            alt={image.name}
+                                                            className="w-full h-full object-cover"
+                                                        />
+                                                    )}
+                                                    <div className="absolute bottom-0 left-0 right-0 bg-foreground text-background text-xs p-2 truncate">
+                                                        {image.name} ({sizeInMB} MB)
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        ))}
+                                            );
+                                        })}
                                     </div>
                                 )}
                             </div>
