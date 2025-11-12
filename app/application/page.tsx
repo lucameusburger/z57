@@ -129,6 +129,10 @@ export default function ApplicationPage() {
             // Otherwise, set the new value
             return { ...prev, [day]: value };
         });
+        // Clear validation errors when user makes a selection
+        if (validationErrors.some(e => e.includes("ausgewählten Termine"))) {
+            setValidationErrors((prev) => prev.filter(e => !e.includes("ausgewählten Termine")));
+        }
     };
 
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -158,6 +162,16 @@ export default function ApplicationPage() {
         // Validate that at least one day is selected
         if (selectedDays.length === 0) {
             errors.push("Bitte wählen Sie mindestens einen Termin aus.");
+        }
+
+        // Validate that all selected days have a Ja/Nein selection
+        if (selectedDays.length > 0) {
+            const missingSelections = selectedDays.filter(
+                (day) => !daysSelfSelling[day] || daysSelfSelling[day] === null
+            );
+            if (missingSelections.length > 0) {
+                errors.push("Bitte wählen Sie für alle ausgewählten Termine 'Ja' oder 'Nein' aus.");
+            }
         }
 
         // Validate that at least one image is uploaded
@@ -252,8 +266,10 @@ export default function ApplicationPage() {
             {submitStatus === "success" && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-background">
                     <div className="flex flex-col items-center justify-center gap-8 px-4">
-                        <div className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-foreground text-background flex items-center justify-center">
-                            <Check className="w-12 h-12 md:w-16 md:h-16 stroke-[3]" />
+                        <div className="w-24 h-24 md:w-32 md:h-32 rounded-full animate-bounce flex items-center justify-center">
+                            <svg id="Ebene_1" data-name="Ebene 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 445.54 441.24">
+                                <polygon className="fill-black" points="204.34 0 195.79 116.33 0 183.04 22.73 407.19 96.51 407.19 109.26 269.57 177.36 280.93 197.22 438.43 261.07 441.24 282.37 279.5 337.72 258.2 383.13 387.33 445.54 387.33 445.54 12.75 204.34 0" />
+                            </svg>
                         </div>
                         <div className="text-center">
                             <h2 className="text-3xl md:text-5xl font-bold mb-4">Bewerbung erfolgreich eingereicht!</h2>
@@ -488,11 +504,11 @@ export default function ApplicationPage() {
 
                         {/* Days Self Selling */}
                         {selectedDays.length > 0 && (
-                            <div className="flex flex-col gap-4">
-                                <label className="text-xl font-bold">
+                            <div className="flex flex-col gap-4" data-validation-error={validationErrors.some(e => e.includes("ausgewählten Termine"))}>
+                                <label className={`text-xl font-bold ${validationErrors.some(e => e.includes("ausgewählten Termine")) ? "text-red-500" : ""}`}>
                                     {category === "exhibit_only"
                                         ? "Ich bin an folgenden Tagen selbst vorort und übernehme die Verantwortung für meine Objekte"
-                                        : "Ich bin an folgenden Tagen selbst vorort und übernehme den Verkauf und die Verantwortung für meine Objekte"}
+                                        : "Ich bin an folgenden Tagen selbst vorort und übernehme den Verkauf und die Verantwortung für meine Objekte"} <span className="font-bold">*</span>
                                 </label>
                                 <div className="flex flex-col gap-4">
                                     {selectedDays
@@ -501,17 +517,20 @@ export default function ApplicationPage() {
                                             const dayInfo = ALL_DAYS.find((d) => d.value === day);
                                             const dayLabel = dayInfo?.label || day;
                                             const currentValue = daysSelfSelling[day] || null;
+                                            const hasError = validationErrors.some(e => e.includes("ausgewählten Termine")) && !currentValue;
 
                                             return (
                                                 <div key={day} className="flex flex-col gap-2">
-                                                    <span className="text-lg font-semibold">{dayLabel}</span>
+                                                    <span className={`text-lg font-semibold ${hasError ? "text-red-500" : ""}`}>{dayLabel}</span>
                                                     <div className="flex gap-4">
                                                         <button
                                                             type="button"
                                                             onClick={() => toggleDaySelfSelling(day, "ja")}
-                                                            className={`border-foreground transition-colors px-6 py-4 rounded-full border flex-1 ${currentValue === "ja"
-                                                                ? "bg-foreground text-background"
-                                                                : "bg-background text-foreground hover:bg-foreground hover:text-background"
+                                                            className={`transition-colors px-6 py-4 rounded-full border flex-1 ${currentValue === "ja"
+                                                                ? "bg-foreground text-background border-foreground"
+                                                                : hasError
+                                                                    ? "bg-background text-foreground border-red-500 hover:bg-red-50"
+                                                                    : "bg-background text-foreground border-foreground hover:bg-foreground hover:text-background"
                                                                 }`}
                                                         >
                                                             Ja
@@ -519,9 +538,11 @@ export default function ApplicationPage() {
                                                         <button
                                                             type="button"
                                                             onClick={() => toggleDaySelfSelling(day, "nein")}
-                                                            className={`border-foreground transition-colors px-6 py-4 rounded-full border flex-1 ${currentValue === "nein"
-                                                                ? "bg-foreground text-background"
-                                                                : "bg-background text-foreground hover:bg-foreground hover:text-background"
+                                                            className={`transition-colors px-6 py-4 rounded-full border flex-1 ${currentValue === "nein"
+                                                                ? "bg-foreground text-background border-foreground"
+                                                                : hasError
+                                                                    ? "bg-background text-foreground border-red-500 hover:bg-red-50"
+                                                                    : "bg-background text-foreground border-foreground hover:bg-foreground hover:text-background"
                                                                 }`}
                                                         >
                                                             Nein
