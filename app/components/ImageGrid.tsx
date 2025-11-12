@@ -1,10 +1,15 @@
 "use client";
 
-import { AnimatePresence, motion } from "motion/react";
-import { Candy, Carrot } from "lucide-react";
-import Image, { StaticImageData } from "next/image";
-import { useMemo, useState } from "react";
+import * as React from "react";
 
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+} from "@/app/components/ui/carousel";
+import Image, { StaticImageData } from "next/image";
+
+import Autoplay from "embla-carousel-autoplay";
 // Images from 20241126
 import img7534 from "@/app/images/house/20241126_Z57_NikoHavranek_web-7534.jpg";
 import img7535 from "@/app/images/house/20241126_Z57_NikoHavranek_web-7535.jpg";
@@ -96,14 +101,11 @@ import img8934 from "@/app/images/house/20241114_Z57_NikoHavranek_web-8934.jpg";
 import img8935 from "@/app/images/house/20241114_Z57_NikoHavranek_web-8935.jpg";
 import img8937 from "@/app/images/house/20241114_Z57_NikoHavranek_web-8937.jpg";
 import img8939 from "@/app/images/house/20241114_Z57_NikoHavranek_web-8939.jpg";
-
-// Keep all your existing imports...
+import { useMemo } from "react";
 
 export default function ImageGrid() {
-  const [day, setDay] = useState(0);
-
-  // Create arrays of day and night images
-  const dayImages = useMemo<StaticImageData[]>(
+  // Combine all images into one array
+  const allImages = useMemo<StaticImageData[]>(
     () => [
       img7534,
       img7535,
@@ -164,78 +166,66 @@ export default function ImageGrid() {
       img7810,
       img7815,
       img7820,
+      img8282,
+      img8283,
+      img8284,
+      img8286,
+      img8289,
+      img8290,
+      img8293,
+      img8884,
+      img8888,
+      img8891,
+      img8893,
+      img8895,
+      img8899,
+      img8901,
+      img8903,
+      img8905,
+      img8907,
+      img8908,
+      img8912,
+      img8913,
+      img8914,
+      img8915,
+      img8919,
+      img8921,
+      img8923,
+      img8930,
+      img8934,
+      img8935,
+      img8937,
+      img8939,
     ],
     []
   );
 
-  const nightImages = useMemo<StaticImageData[]>(() => [img8282, img8283, img8284, img8286, img8289, img8290, img8293, img8884, img8888, img8891, img8893, img8895, img8899, img8901, img8903, img8905, img8907, img8908, img8912, img8913, img8914, img8915, img8919, img8921, img8923, img8930, img8934, img8935, img8937, img8939], []);
-
-  // Function to get random images
-  const getRandomImage = (images: StaticImageData[]) => {
-    return images[Math.floor(Math.random() * images.length)];
-  };
-
-  // Get new random images when day/night changes
-  const [currentImages, setCurrentImages] = useState({
-    img1: getRandomImage(dayImages),
-    img2: getRandomImage(dayImages),
-    img3: getRandomImage(dayImages),
-  });
-
-  const updateImages = () => {
-    const images = day ? dayImages : nightImages;
-    setCurrentImages({
-      img1: getRandomImage(images),
-      img2: getRandomImage(images),
-      img3: getRandomImage(images),
-    });
-  };
+  const plugin = React.useRef(
+    Autoplay({ delay: 3000, stopOnInteraction: false })
+  );
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-      <AnimatePresence mode="wait">
-        {/* First image */}
-        <motion.div key={`img1-${day}`} initial={{ opacity: 0, x: -1000 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 1000 }} transition={{ duration: 0.5 }}>
-          <Image src={currentImages.img1} alt="image1" className="w-full object-cover rounded-2xl h-[40vh]" />
-        </motion.div>
-      </AnimatePresence>
-
-      {/* Second image (spans 2 columns) */}
-      <AnimatePresence mode="wait">
-        <motion.div key={`img2-${day}`} initial={{ opacity: 0, x: 1000 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -1000 }} transition={{ duration: 0.5 }} className="md:col-span-2">
-          <Image src={currentImages.img2} alt="image2" className="w-full object-cover rounded-2xl h-[40vh]" />
-        </motion.div>
-      </AnimatePresence>
-
-      {/* Third image (spans 2 columns) */}
-      <AnimatePresence mode="wait">
-        <motion.div key={`img3-${day}`} initial={{ opacity: 0, x: 1000 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -1000 }} transition={{ duration: 0.5 }} className="md:col-span-2">
-          <Image src={currentImages.img3} alt="image3" className="w-full object-cover rounded-2xl h-[40vh]" />
-        </motion.div>
-      </AnimatePresence>
-
-      {/* Toggle button */}
-      <motion.div
-        className={"flex items-center justify-center " + (day ? "h-full p-8 w-full bg-foreground rounded-2xl hover:bg-background transition-colors border border-foreground text-background hover:text-foreground cursor-pointer" : "h-full p-8 w-full bg-background rounded-2xl hover:bg-foreground transition-colors border border-foreground text-foreground hover:text-background cursor-pointer")}
-        onClick={() => {
-          setDay((prevDay) => (prevDay === 0 ? 1 : 0));
-          updateImages();
-        }}
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-      >
-        <AnimatePresence mode="wait">
-          {day === 0 ? (
-            <motion.div key="sun" initial={{ rotate: -180, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 180, opacity: 0 }} transition={{ duration: 0.5 }}>
-              <Candy className="w-12 h-12 md:w-32 md:h-32" />
-            </motion.div>
-          ) : (
-            <motion.div key="moon" initial={{ rotate: -180, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 180, opacity: 0 }} transition={{ duration: 0.5 }}>
-              <Carrot className="w-12 h-12 md:w-32 md:h-32" />
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </motion.div>
-    </div>
+    <Carousel
+      plugins={[plugin.current]}
+      opts={{
+        align: "start",
+        loop: true,
+      }}
+      className="w-full"
+    >
+      <CarouselContent>
+        {allImages.map((image, index) => (
+          <CarouselItem key={index}>
+            <div className="p-1">
+              <Image
+                src={image}
+                alt={`House image ${index + 1}`}
+                className="w-full object-cover rounded-2xl h-[40vh]"
+              />
+            </div>
+          </CarouselItem>
+        ))}
+      </CarouselContent>
+    </Carousel>
   );
 }

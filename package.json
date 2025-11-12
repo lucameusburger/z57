@@ -10,15 +10,21 @@
   },
   "dependencies": {
     "@gsap/react": "^2.1.1",
+    "@radix-ui/react-slot": "^1.2.4",
     "@react-three/drei": "^10.7.6",
     "@react-three/fiber": "^9.0.0",
     "@types/three": "^0.170.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "embla-carousel-autoplay": "^8.6.0",
+    "embla-carousel-react": "^8.6.0",
     "gsap": "^3.12.5",
     "lucide-react": "^0.451.0",
     "motion": "^11.11.17",
     "next": "16.0.1",
     "react": "19.2.0",
     "react-dom": "19.2.0",
+    "tailwind-merge": "^3.4.0",
     "three": "^0.170.0"
   },
   "devDependencies": {

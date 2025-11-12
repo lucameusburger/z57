@@ -93,7 +93,12 @@ export default function Model3D() {
   const [autoRotate, setAutoRotate] = useState(true);
   const [controlsEnabled, setControlsEnabled] = useState(false);
   const [fullscreen, setFullscreen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const controlsRef = useRef<OrbitControlsType>(null);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const resetModel = () => {
     if (controlsRef.current) {
@@ -135,15 +140,36 @@ export default function Model3D() {
             <Fullscreen className="w-6 h-6" />
           </button>
         </div>
-        <Canvas camera={{ position: [0, 0, 5] }} className={fullscreen ? " pointer-events-none" : ""}>
-          <Suspense fallback={null}>
-            {/* <ambientLight intensity={6} /> */}
-            <ambientLight intensity={10} />
-            {/* <directionalLight position={[10, 10, 5]} intensity={10} /> */}
-            <Model objUrl="/model/model.obj" mtlUrl="/model/model.mtl" autoRotate={autoRotate} />
-            <OrbitControls ref={controlsRef} enabled={controlsEnabled} enableZoom={controlsEnabled} onStart={() => { }} onEnd={() => { }} />
-          </Suspense>
-        </Canvas>
+        {!mounted ? (
+          <div className="h-full w-full flex items-center justify-center">
+            <div className="text-foreground">Loading...</div>
+          </div>
+        ) : (
+          <Canvas
+            camera={{ position: [0, 0, 5] }}
+            className={fullscreen ? " pointer-events-none" : ""}
+            gl={{
+              antialias: true,
+              alpha: false,
+              powerPreference: "default",
+              failIfMajorPerformanceCaveat: false,
+              preserveDrawingBuffer: false,
+              stencil: false,
+              depth: true,
+            }}
+            onCreated={({ gl }) => {
+              gl.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            }}
+          >
+            <Suspense fallback={null}>
+              {/* <ambientLight intensity={6} /> */}
+              <ambientLight intensity={10} />
+              {/* <directionalLight position={[10, 10, 5]} intensity={10} /> */}
+              <Model objUrl="/model/model.obj" mtlUrl="/model/model.mtl" autoRotate={autoRotate} />
+              <OrbitControls ref={controlsRef} enabled={controlsEnabled} enableZoom={controlsEnabled} onStart={() => { }} onEnd={() => { }} />
+            </Suspense>
+          </Canvas>
+        )}
       </div>
     </div>
   );
