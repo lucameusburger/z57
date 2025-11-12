@@ -12,7 +12,19 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const formData = await request.formData();
+    let formData;
+    try {
+      formData = await request.formData();
+    } catch (error) {
+      // Catch body size limit errors
+      if (error instanceof Error && (error.message.includes("too large") || error.message.includes("size limit") || error.message.includes("413"))) {
+        return NextResponse.json(
+          { error: "Die Dateien sind zu groß. Bitte reduzieren Sie die Dateigröße und versuchen Sie es erneut." },
+          { status: 413 }
+        );
+      }
+      throw error;
+    }
 
     // Extract form fields
     const name = formData.get("name") as string;
