@@ -589,7 +589,7 @@ export default function ApplicationPage() {
                                 </label>
                             </div>
                             <label htmlFor="willing_to_help" className="cursor-pointer flex-1 leading-relaxed">
-                                Ich wäre bereit, beim Wintermarkt zusätzliche Aufgaben zu übernehmen (z. B. beim Aufbau, Verkauf, in der Betreuung oder beim Punschstand) und gegen eine reduzierte oder kostenfreie Teilnahme.
+                                Ich wäre bereit, beim Wintermarkt zusätzliche Aufgaben zu übernehmen (z. B. beim Aufbau, Verkauf, in der Betreuung oder beim Punschstand) gegen eine reduzierte oder kostenfreie Teilnahme.
                             </label>
                         </div>
 
