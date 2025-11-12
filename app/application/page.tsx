@@ -1,6 +1,6 @@
 "use client";
 
-import { Check, CornerRightUp, Upload, X } from "lucide-react";
+import { Check, CornerRightUp, Upload, X, AlertCircle } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 
 type Category = "selling" | "exhibit_only";
@@ -31,6 +31,8 @@ export default function ApplicationPage() {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
     const [termsAccepted, setTermsAccepted] = useState(false);
+    const [willingToHelp, setWillingToHelp] = useState(false);
+    const [validationErrors, setValidationErrors] = useState<string[]>([]);
 
     // Create preview URLs for images
     useEffect(() => {
@@ -137,17 +139,34 @@ export default function ApplicationPage() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
+        // Reset validation errors
+        setValidationErrors([]);
+        const errors: string[] = [];
+
+        // Validate that at least one day is selected
+        if (selectedDays.length === 0) {
+            errors.push("Bitte wählen Sie mindestens einen Termin aus.");
+        }
+
         // Validate that at least one image is uploaded
         if (images.length === 0) {
-            setSubmitStatus("error");
-            alert("Bitte laden Sie mindestens ein Bild hoch.");
-            return;
+            errors.push("Bitte laden Sie mindestens ein Bild hoch.");
         }
 
         // Validate that terms are accepted
         if (!termsAccepted) {
+            errors.push("Bitte akzeptieren Sie die Teilnahmebedingungen.");
+        }
+
+        // If there are validation errors, show them and stop submission
+        if (errors.length > 0) {
+            setValidationErrors(errors);
             setSubmitStatus("error");
-            alert("Bitte akzeptieren Sie die Teilnahmebedingungen.");
+            // Scroll to first error
+            setTimeout(() => {
+                const firstError = document.querySelector('[data-validation-error]');
+                firstError?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 100);
             return;
         }
 
@@ -164,6 +183,7 @@ export default function ApplicationPage() {
             if (formData.instagram) submitFormData.append("instagram", formData.instagram);
             if (formData.space_needs) submitFormData.append("space_needs", formData.space_needs);
             if (formData.comment) submitFormData.append("comment", formData.comment);
+            if (willingToHelp) submitFormData.append("willing_to_help", "true");
             submitFormData.append("days", JSON.stringify(selectedDays));
 
             // Filter out null values and only include days that are selected
@@ -204,6 +224,8 @@ export default function ApplicationPage() {
             setImages([]);
             setCategory("selling");
             setTermsAccepted(false);
+            setWillingToHelp(false);
+            setValidationErrors([]);
         } catch (error) {
             console.error("Submission error:", error);
             setSubmitStatus("error");
@@ -311,14 +333,14 @@ export default function ApplicationPage() {
                     </div>
 
                     {/* Image Upload */}
-                    <div className="flex flex-col gap-4">
+                    <div className="flex flex-col gap-4" data-validation-error={validationErrors.some(e => e.includes("Bild"))}>
                         <label className="text-xl font-bold">
                             Fotos der Werke oder Arbeitsproben für die Promotion der Veranstaltungen inkl. Fotocredits <span className="font-bold">*</span>
                         </label>
                         <div className="flex flex-col gap-4">
                             <label
                                 htmlFor="images"
-                                className="border-foreground border rounded-full px-6 py-4 bg-background text-foreground hover:bg-foreground hover:text-background transition-colors cursor-pointer flex items-center gap-4"
+                                className={`border-foreground border rounded-full px-6 py-4 bg-background text-foreground hover:bg-foreground hover:text-background transition-colors cursor-pointer flex items-center gap-4 ${validationErrors.some(e => e.includes("Bild")) ? "border-red-500" : ""}`}
                             >
                                 <Upload className="w-6 h-6" />
                                 <span>Bilder hochladen</span>
@@ -394,7 +416,7 @@ export default function ApplicationPage() {
                     </div>
 
                     {/* Days Selection */}
-                    <div className="flex flex-col gap-4">
+                    <div className="flex flex-col gap-4" data-validation-error={validationErrors.some(e => e.includes("Termin"))}>
                         <label className="text-xl font-bold">
                             {category === "exhibit_only"
                                 ? "Ich stelle an folgenden Terminen aus"
@@ -407,7 +429,7 @@ export default function ApplicationPage() {
                                 className={`border-foreground transition-colors px-6 py-4 rounded-full border ${selectedDays.includes(WIEN_DAY.value)
                                     ? "bg-foreground text-background"
                                     : "bg-background text-foreground hover:bg-foreground hover:text-background"
-                                    }`}
+                                    } ${validationErrors.some(e => e.includes("Termin")) ? "border-red-500" : ""}`}
                             >
                                 {WIEN_DAY.label}
                             </button>
@@ -417,7 +439,7 @@ export default function ApplicationPage() {
                                 className={`border-foreground transition-colors px-6 py-4 rounded-full border ${FELDKIRCH_DAYS.every((d) => selectedDays.includes(d.value))
                                     ? "bg-foreground text-background"
                                     : "bg-background text-foreground hover:bg-foreground hover:text-background"
-                                    }`}
+                                    } ${validationErrors.some(e => e.includes("Termin")) ? "border-red-500" : ""}`}
                             >
                                 Feldkirch 18.-20-12
                             </button>
@@ -500,8 +522,35 @@ export default function ApplicationPage() {
                         </>
                     )}
 
-                    {/* Terms and Conditions Checkbox */}
+                    {/* Willing to Help Checkbox */}
                     <div className="flex items-start gap-4">
+                        <div className="relative flex-shrink-0">
+                            <input
+                                type="checkbox"
+                                id="willing_to_help"
+                                checked={willingToHelp}
+                                onChange={(e) => setWillingToHelp(e.target.checked)}
+                                className="sr-only"
+                            />
+                            <label
+                                htmlFor="willing_to_help"
+                                className={`flex items-center justify-center w-12 h-12 border-2 border-foreground rounded-full cursor-pointer transition-all duration-200 ${willingToHelp
+                                    ? "bg-foreground text-background"
+                                    : "bg-background text-foreground hover:bg-foreground/10"
+                                    }`}
+                            >
+                                {willingToHelp && (
+                                    <Check className="w-6 h-6 stroke-[3]" />
+                                )}
+                            </label>
+                        </div>
+                        <label htmlFor="willing_to_help" className="cursor-pointer flex-1 leading-relaxed">
+                            Ich wäre bereit, beim Wintermarkt zusätzliche Aufgaben zu übernehmen (z. B. beim Aufbau, Verkauf, in der Betreuung oder beim Punschstand) und gegen eine reduzierte oder kostenfreie Teilnahme.
+                        </label>
+                    </div>
+
+                    {/* Terms and Conditions Checkbox */}
+                    <div className="flex items-start gap-4" data-validation-error={validationErrors.some(e => e.includes("Teilnahmebedingungen"))}>
                         <div className="relative flex-shrink-0">
                             <input
                                 type="checkbox"
@@ -513,9 +562,11 @@ export default function ApplicationPage() {
                             />
                             <label
                                 htmlFor="terms"
-                                className={`flex items-center justify-center w-12 h-12 border-2 border-foreground rounded-full cursor-pointer transition-all duration-200 ${termsAccepted
-                                    ? "bg-foreground text-background"
-                                    : "bg-background text-foreground hover:bg-foreground/10"
+                                className={`flex items-center justify-center w-12 h-12 border-2 rounded-full cursor-pointer transition-all duration-200 ${termsAccepted
+                                    ? "bg-foreground text-background border-foreground"
+                                    : validationErrors.some(e => e.includes("Teilnahmebedingungen"))
+                                    ? "bg-background text-foreground border-red-500 hover:bg-red-50"
+                                    : "bg-background text-foreground border-foreground hover:bg-foreground/10"
                                     }`}
                             >
                                 {termsAccepted && (
@@ -523,10 +574,22 @@ export default function ApplicationPage() {
                                 )}
                             </label>
                         </div>
-                        <label htmlFor="terms" className="cursor-pointer flex-1 leading-relaxed">
+                        <label htmlFor="terms" className={`cursor-pointer flex-1 leading-relaxed ${validationErrors.some(e => e.includes("Teilnahmebedingungen")) ? "text-red-500" : ""}`}>
                             Mit dem Absenden meiner Bewerbung bestätige ich, dass ich im Falle einer Zusage verbindlich am z57 Wintermarkt zu den angegebenen Terminen teilnehme und die genannten Preiskonditionen akzeptiere. Darüber hinaus stimme ich der Verwendung des Bildmaterials im Rahmen der Veranstaltungsbewerbung zu, sofern dabei die entsprechenden Fotocredits sowie die Nennung und Markierung der*des Ausstellerin erfolgen.
                         </label>
                     </div>
+
+                    {/* Validation Errors */}
+                    {validationErrors.length > 0 && (
+                        <div className="border-red-500 border rounded-full px-6 py-4 bg-red-50 text-red-700 flex items-start gap-4">
+                            <AlertCircle className="w-6 h-6 flex-shrink-0 mt-0.5" />
+                            <div className="flex flex-col gap-2 flex-1">
+                                {validationErrors.map((error, index) => (
+                                    <p key={index} className="text-lg">{error}</p>
+                                ))}
+                            </div>
+                        </div>
+                    )}
 
                     {/* Submit Button */}
                     <button

@@ -31,7 +31,7 @@ function Model({ objUrl, mtlUrl, autoRotate = false }: { objUrl: string; mtlUrl:
     loader.setMaterials(materials);
   });
 
-  const modelRef = useRef<THREE.Group>();
+  const modelRef = useRef<THREE.Group | null>(null);
 
   useEffect(() => {
     if (modelRef.current) {
@@ -74,7 +74,6 @@ function Model({ objUrl, mtlUrl, autoRotate = false }: { objUrl: string; mtlUrl:
   });
 
   return (
-    // @ts-expect-error asd
     <group ref={modelRef}>
       <primitive object={obj} />
       {obj.children.map((child, index) => {
@@ -142,7 +141,7 @@ export default function Model3D() {
             <ambientLight intensity={10} />
             {/* <directionalLight position={[10, 10, 5]} intensity={10} /> */}
             <Model objUrl="/model/model.obj" mtlUrl="/model/model.mtl" autoRotate={autoRotate} />
-            <OrbitControls ref={controlsRef} enabled={controlsEnabled} enableZoom={controlsEnabled} onStart={() => {}} onEnd={() => {}} />
+            <OrbitControls ref={controlsRef} enabled={controlsEnabled} enableZoom={controlsEnabled} onStart={() => { }} onEnd={() => { }} />
           </Suspense>
         </Canvas>
       </div>
