@@ -677,6 +677,7 @@ export type Z57Applications = {
   user_created?: string | DirectusUsers | null;
   user_updated?: string | DirectusUsers | null;
   website?: string | null;
+  willing_to_help?: boolean | null;
 };
 
 export type Z57ApplicationsFiles = {
