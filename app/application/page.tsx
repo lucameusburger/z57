@@ -1,6 +1,6 @@
 "use client";
 
-import { Check, CornerRightUp, Upload, X, AlertCircle } from "lucide-react";
+import { AlertCircle, Check, CornerRightUp, Upload, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 
 type Category = "selling" | "exhibit_only";
@@ -57,6 +57,10 @@ export default function ApplicationPage() {
         } else {
             setSelectedDays((prev) => [...prev, wienValue]);
         }
+        // Clear validation errors when user selects a day
+        if (validationErrors.some(e => e.includes("Termin"))) {
+            setValidationErrors((prev) => prev.filter(e => !e.includes("Termin")));
+        }
     };
 
     const totalCost = useMemo(() => {
@@ -107,6 +111,10 @@ export default function ApplicationPage() {
                 return newDays;
             });
         }
+        // Clear validation errors when user selects a day
+        if (validationErrors.some(e => e.includes("Termin"))) {
+            setValidationErrors((prev) => prev.filter(e => !e.includes("Termin")));
+        }
     };
 
     const toggleDaySelfSelling = (day: string, value: "ja" | "nein") => {
@@ -127,6 +135,10 @@ export default function ApplicationPage() {
         if (e.target.files) {
             const newFiles = Array.from(e.target.files).filter((file) => file.type.startsWith("image/"));
             setImages((prev) => [...prev, ...newFiles]);
+            // Clear validation errors when user uploads images
+            if (validationErrors.some(err => err.includes("Bild"))) {
+                setValidationErrors((prev) => prev.filter(err => !err.includes("Bild")));
+            }
         }
         // Reset input so same file can be selected again
         e.target.value = "";
@@ -557,7 +569,13 @@ export default function ApplicationPage() {
                                 id="terms"
                                 required
                                 checked={termsAccepted}
-                                onChange={(e) => setTermsAccepted(e.target.checked)}
+                                onChange={(e) => {
+                                    setTermsAccepted(e.target.checked);
+                                    // Clear validation errors when user accepts terms
+                                    if (e.target.checked && validationErrors.some(err => err.includes("Teilnahmebedingungen"))) {
+                                        setValidationErrors((prev) => prev.filter(err => !err.includes("Teilnahmebedingungen")));
+                                    }
+                                }}
                                 className="sr-only"
                             />
                             <label
@@ -565,8 +583,8 @@ export default function ApplicationPage() {
                                 className={`flex items-center justify-center w-12 h-12 border-2 rounded-full cursor-pointer transition-all duration-200 ${termsAccepted
                                     ? "bg-foreground text-background border-foreground"
                                     : validationErrors.some(e => e.includes("Teilnahmebedingungen"))
-                                    ? "bg-background text-foreground border-red-500 hover:bg-red-50"
-                                    : "bg-background text-foreground border-foreground hover:bg-foreground/10"
+                                        ? "bg-background text-foreground border-red-500 hover:bg-red-50"
+                                        : "bg-background text-foreground border-foreground hover:bg-foreground/10"
                                     }`}
                             >
                                 {termsAccepted && (
