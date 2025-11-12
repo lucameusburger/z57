@@ -22,6 +22,7 @@ export async function POST(request: NextRequest) {
     const instagram = formData.get("instagram") as string | null;
     const space_needs = formData.get("space_needs") as string | null;
     const comment = formData.get("comment") as string | null;
+    const willing_to_help = formData.get("willing_to_help") === "true";
     const daysStr = formData.get("days") as string;
     const days = daysStr ? JSON.parse(daysStr) : [];
     const daysSelfSellingStr = formData.get("days_self_selling") as string | null;
@@ -118,6 +119,7 @@ export async function POST(request: NextRequest) {
       instagram: instagram || null,
       space_needs: space_needs || null,
       comment: comment || null,
+      willing_to_help: willing_to_help || false,
       days,
       days_self_selling: days_self_selling || null,
     };

@@ -82,7 +82,19 @@ export default function UpcomingSection() {
               href={event.href}
               className="order-2 md:order-1 flex-1 border-foreground hover:bg-background hover:text-foreground transition-colors w-full flex flex-col gap-4 justify-between text-woit bg-foreground border overflow-hidden relative rounded-3xl p-4"
             >
-              <Badge className=" w-12 h-12" />
+              {event.svg ? (
+                <div
+                  className="w-12 h-12"
+                  dangerouslySetInnerHTML={{
+                    __html: event.svg.replace(/id="[^"]*"/, `id="badge-svg-${event.id}"`).replace(
+                      /<svg([^>]*)>/,
+                      '<svg$1 style="width: 100%; height: 100%;" preserveAspectRatio="xMidYMid meet">'
+                    ),
+                  }}
+                />
+              ) : (
+                <Badge className=" w-12 h-12" />
+              )}
               <div className="flex flex-col gap-2">
                 {event.details && (
                   <span className="self-end text-right text-xl">
