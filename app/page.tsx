@@ -6,6 +6,7 @@ import Image from "next/image";
 import ImageGrid from "./components/ImageGrid";
 import Marquee from "./components/Marquee";
 import MemberItem from "./components/MemberItem";
+import Model3D from "./components/Model3D";
 import UpcomingSection from "./components/UpcomingSection";
 import groupGlassImage from "@/app/images/group-glass.jpg";
 import groupImage from "@/app/images/group.jpg";
@@ -100,7 +101,7 @@ export default function Home() {
                 <SliderCard images={[rissImg1, rissImg2]} />
               </div> */}
               <p className=" text-2xl">
-                Das Atelier Z57 befindet sich im Herzen des 7. Bezirks an der Zieglergasse 57. Über den Dächern Wiens erstrecken sich die Räumlichkeiten über drei Dachgeschosse, wo sie einst als Architekturbüro in den 70er Jahren angelegt und für 40 Jahre eben diesem Zweck entsprechend genutzt wurden. Wer sich längere Zeit im geräumigen und doch verwinkelten Atelier aufhält, erkennt die verschiedenen Bauphasen, die der ausgebaute Dachboden über den langen Zeitraum der Entstehung erfahren hat und
+                Das Atelier z57 befindet sich im Herzen des 7. Bezirks an der Zieglergasse 57. Über den Dächern Wiens erstrecken sich die Räumlichkeiten über drei Dachgeschosse, wo sie einst als Architekturbüro in den 70er Jahren angelegt und für 40 Jahre eben diesem Zweck entsprechend genutzt wurden. Wer sich längere Zeit im geräumigen und doch verwinkelten Atelier aufhält, erkennt die verschiedenen Bauphasen, die der ausgebaute Dachboden über den langen Zeitraum der Entstehung erfahren hat und
                 welche ganz eigenen und unverwechselbaren Details er mit sich bringt. Herzstück bildet ein 200 qm großes Flachdach mit Dachgarten, das anstelle der zweiten Dachhälfte hofseitig angelegt wurde.
               </p>
             </div>
@@ -173,14 +174,11 @@ export default function Home() {
                 </div> */}
             </div>
             {shuffledMembers.map((member, index) => (
-              <>
-                <MemberItem key={member.name} member={member} switched={index} />
-                {/* {index !== members.length - 1 && <hr className="border-foreground" />} */}
-              </>
+              <MemberItem key={member.name} member={member} switched={index} />
             ))}
           </div>
 
-          {/* <div className="px-4 md:px-8">
+          <div className="px-4 md:px-8">
             <div className="flex pb-8 justify-between items-center w-full border-t border-foreground pt-4">
               <span className="text-2xl md:text-5xl">In drei Dimensionen</span>
               <a href="#top">
@@ -188,7 +186,7 @@ export default function Home() {
               </a>
             </div>
             <Model3D />
-          </div> */}
+          </div>
 
           {/* KONTAKT */}
           <div className="flex flex-col gap-8 py-8 px-4 md:px-8">

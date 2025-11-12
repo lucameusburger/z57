@@ -16,7 +16,8 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Z57 - Atelier and Studio Space",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"),
+  title: "z57 - Atelier and Studio Space",
   description: "We are an Atelier and Studio Space in the heart of Vienna",
   openGraph: {
     images: [

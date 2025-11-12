@@ -1,9 +1,69 @@
-import { Badge, CornerRightUp } from "lucide-react";
+import { ArrowRight, Badge, CornerRightUp } from "lucide-react";
+import Image, { StaticImageData } from "next/image";
 
-import Image from "next/image";
+import adventImage from "@/app/images/events/advent.jpg";
 import imgBg from "@/app/images/house/20241114_Z57_NikoHavranek_web-8289.jpg";
 
+type EventStatus = "active" | "past";
+
+interface UpcomingEvent {
+  id: string;
+  status: EventStatus;
+  href: string;
+  title: string;
+  dateRange: string;
+  details?: string;
+  image?: {
+    src: StaticImageData;
+    alt: string;
+  };
+  color?: string;
+  svg?: string;
+}
+
+const NEWSVG = `<svg id="Ebene_1" data-name="Ebene 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 445.54 441.24">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+      }
+    </style>
+  </defs>
+  <polygon class="cls-1" points="204.34 0 195.79 116.33 0 183.04 22.73 407.19 96.51 407.19 109.26 269.57 177.36 280.93 197.22 438.43 261.07 441.24 282.37 279.5 337.72 258.2 383.13 387.33 445.54 387.33 445.54 12.75 204.34 0"/>
+</svg>`;
+
+const events: UpcomingEvent[] = [
+  {
+    id: "vienna-design-week",
+    status: "past",
+    href: "https://www.viennadesignweek.at/programm/cmd-shift-d-esign/",
+    title: "Vienna Design Week",
+    dateRange: "27.9.–4.10.2025, 13–19 Uhr",
+    details: "Opening Drinks & Concert: 27.9.2025, 16-20 Uhr\nCocktail: 4.10.2025, 16–20 Uhr",
+    image: {
+      src: imgBg,
+      alt: "Vienna Design Week",
+    },
+  },
+  {
+    id: "weihnachtsmarkt",
+    status: "active",
+    href: "/application",
+    title: "z57 Wintermarkt",
+    dateRange: "06.12. Wien, 18.–20.12. Feldkirch",
+    details: "Aussteller:innen gesucht!\nOpen Call für Designer:innen und Künstler:innen\nWien @z57.at & Feldkirch, Vorarlberg",
+    // image: {
+    //   src: adventImage,
+    //   alt: "z57 Wintermarkt",
+    // },
+    color: "#C04021",
+    svg: NEWSVG,
+  },
+];
+
 export default function UpcomingSection() {
+  const activeEvents = events.filter((event) => event.status === "active");
+
   return (
     <div className="flex flex-col gap-8 px-4 md:px-8">
       <div className=" flex items-start flex-col gap-4 md:col-span-2 justify-start relative ">
@@ -16,55 +76,64 @@ export default function UpcomingSection() {
                   <MailButton />
                 </div> */}
         </div>
-        <div className="flex gap-8 w-full flex-col md:flex-row">
-          <a href="https://www.viennadesignweek.at/programm/cmd-shift-d-esign/" className="order-2 md:order-1 flex-1 border-foreground hover:bg-background hover:text-foreground transition-colors w-full flex flex-col gap-4 justify-between text-woit bg-foreground border overflow-hidden relative rounded-3xl p-4">
-            <Badge className=" w-12 h-12" />
-            <div className="flex flex-col gap-2">
-              <span className="self-end text-right text-xl">
-                Opening Drinks & Concert: 27.9.2025, 16-20 Uhr<br />
-                Cocktail: 4.10.2025, 16–20 Uhr</span>
-              <hr className="border-current" />
-              <div className="flex justify-between items-center">
-                <span className="self-end text-xl font-bold">Vienna Design Week</span>
-                <span className="text-xl">27.9.–4.10.2025, 13–19 Uhr</span>
-              </div>
-            </div>
-          </a>
-          <div className="flex-1 h-auto relative">
-            {/* <SliderCard images={[adventImage, adventImage2]} /> */}
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              data-name="Ebene 1"
-              viewBox="0 0 281.85 168"
-              className="absolute top-0 left-0 w-full h-full p-8"
+        {activeEvents.map((event) => (
+          <div key={event.id} className="flex gap-8 w-full flex-col md:flex-row">
+            <a
+              href={event.href}
+              className="order-2 md:order-1 flex-1 border-foreground hover:bg-background hover:text-foreground transition-colors w-full flex flex-col gap-4 justify-between text-woit bg-foreground border overflow-hidden relative rounded-3xl p-4"
             >
-              <defs>
-                <clipPath id="a">
-                  <path
-                    d="m33.88 0-7.91 24.82h-.38L17.69 0H0l18.45 46.11h14.67L51.57 0H33.88Zm21.74 46.11h17.31V0H55.62v46.11ZM81.06 0v46.11h32.55v-12.6h-15.1v-4.53h13.34V16.99H98.51v-4.4h14.6V0H81.07Zm71.89 0 .14 24.17L138.36 0h-16.62v46.11h16.56l-.08-23.47 14.74 23.47h16.56V0h-16.56Zm55.91 0 .14 24.17L194.27 0h-16.62v46.11h16.55l-.08-23.47 14.74 23.47h16.55V0h-16.55Zm36.84 0-16.56 46.11h18.33l1.39-5.75h13.08l1.58 5.75h18.32L264.85 0H245.7Zm9.42 15.35h.63l3.16 14.07h-6.95l3.16-14.07ZM218.08 61h16.62l14.74 24.17-.15-24.17h16.56v46.12h-16.56l-14.74-23.48.08 23.48h-16.55V61Zm-216.3-.06h17.63c15.99 0 28.25 6.79 28.25 23.73 0 13.7-9.98 22.38-23.95 22.38H1.78V60.93ZM19.1 93.23h1.08c5.75 0 10.17-2.57 10.17-8.62 0-6.48-3.86-9.23-10.17-9.23H19.1v17.86Zm34.54-32.29h32.04v12.6h-14.6v4.4h13.34v11.99H71.08v4.52h15.1v12.6H53.63V60.93Zm42.92 29.6.88.67c3.1 2.32 6.83 4.22 10.81 4.22 1.71 0 4.43-.67 4.43-2.75s-2.28-2.26-3.86-2.57l-3.48-.61c-6.76-1.17-12.45-5.02-12.45-12.23 0-10.95 10.31-17.07 20.67-17.07 5.43 0 10.43 1.28 15.1 4.04l-4.68 11.8c-2.97-1.96-6.32-3.48-10.05-3.48-1.52 0-3.73.55-3.73 2.45 0 1.71 2.14 1.96 3.47 2.26l3.93.86c7.33 1.59 12.63 5.38 12.63 13.21 0 11.01-10.36 16.45-20.66 16.45-6 0-12.96-1.59-18.33-4.22l5.31-13.02Zm39.81 16.52h17.32V60.94h-17.32v46.12Zm75.6-27.16c-.12 7.53-.12 13.82-5.75 19.69-5.05 5.32-12.82 8.2-20.22 8.2-14.53 0-26.29-8.68-26.29-23.49s11.44-24.1 26.41-24.1c8.28 0 19.66 3.98 23.38 11.87l-16.18 5.75c-1.33-2.32-3.79-3.55-6.57-3.55-6.19 0-9.61 5.14-9.61 10.7 0 5.08 3.29 9.85 8.91 9.85 2.72 0 6.2-1.23 7.02-4.04h-7.84V79.89h26.73ZM58.05 121.88l-6.38 24.93h-.38l-6.9-24.93h-12.5l-6.9 24.93h-.38l-6.39-24.93H.66L16.96 168H31.3l6.45-24.87h.57l6.2 24.87h14.72l16.43-46.12H58.04Zm21.48 0V168h32.54v-12.6h-15.1v-4.53h13.34v-11.99H96.97v-4.4h14.6v-12.6H79.53Zm40.35 0V168h32.55v-12.6h-15.1v-4.53h13.33v-11.99h-13.33v-4.4h14.6v-12.6h-32.04Zm67.97 0-10.74 20h-.38l.38-20h-16.87V168h16.87l-.38-19.33h.38L188.23 168h20.1l-16.5-23.67 14.92-22.45h-18.9Z"
-                    style={{
-                      fill: "none",
-                    }}
-                  />
-                </clipPath>
-              </defs>
-              <g
-                style={{
-                  clipPath: "url(#a)",
-                }}
-              >
-                <path
-                  d="m33.88 0-7.91 24.82h-.38L17.69 0H0l18.45 46.11h14.67L51.57 0H33.88Zm21.74 46.12h17.31V0H55.62v46.12ZM81.06 0v46.11h32.55v-12.6h-15.1v-4.53h13.34V16.99H98.51v-4.4h14.6V0H81.07Zm71.89 0 .14 24.17L138.36 0h-16.62v46.11h16.56l-.08-23.47 14.74 23.47h16.56V0h-16.56Zm55.91 0 .14 24.17L194.27 0h-16.62v46.11h16.55l-.08-23.47 14.74 23.47h16.55V0h-16.55Zm36.84 0-16.56 46.11h18.33l1.39-5.75h13.08l1.58 5.75h18.32L264.85 0H245.7Zm9.42 15.35h.63l3.16 14.07h-6.95l3.16-14.07ZM218.08 61h16.62l14.74 24.17-.15-24.17h16.56v46.11h-16.56l-14.74-23.48.08 23.48h-16.55V61Zm-216.3-.06h17.63c15.99 0 28.25 6.79 28.25 23.73 0 13.7-9.98 22.38-23.95 22.38H1.78V60.93ZM19.1 93.23h1.08c5.75 0 10.17-2.57 10.17-8.62 0-6.48-3.86-9.24-10.17-9.24H19.1v17.86Zm34.54-32.29h32.04v12.6h-14.6v4.4h13.34v11.99H71.08v4.52h15.1v12.6H53.63V60.93Zm42.92 29.6.88.67c3.1 2.32 6.83 4.22 10.81 4.22 1.71 0 4.43-.67 4.43-2.75s-2.28-2.26-3.86-2.57l-3.48-.61c-6.76-1.17-12.45-5.02-12.45-12.23 0-10.95 10.31-17.07 20.67-17.07 5.43 0 10.43 1.28 15.1 4.04l-4.68 11.8c-2.97-1.96-6.32-3.49-10.05-3.49-1.52 0-3.73.55-3.73 2.45 0 1.71 2.14 1.96 3.47 2.26l3.93.86c7.33 1.59 12.63 5.38 12.63 13.21 0 11.01-10.36 16.45-20.66 16.45-6 0-12.96-1.59-18.33-4.22l5.31-13.03Zm39.81 16.52h17.32V60.94h-17.32v46.12Zm75.6-27.16c-.12 7.53-.12 13.82-5.75 19.69-5.05 5.32-12.82 8.2-20.22 8.2-14.53 0-26.29-8.68-26.29-23.49s11.44-24.1 26.41-24.1c8.28 0 19.66 3.98 23.38 11.87l-16.18 5.75c-1.33-2.32-3.79-3.55-6.57-3.55-6.19 0-9.61 5.14-9.61 10.7 0 5.08 3.29 9.85 8.91 9.85 2.72 0 6.2-1.22 7.02-4.04h-7.84V79.89h26.73ZM58.05 121.88l-6.38 24.93h-.38l-6.9-24.93h-12.5l-6.9 24.93h-.38l-6.39-24.93H.66L16.96 168H31.3l6.45-24.87h.57l6.2 24.87h14.72l16.43-46.12H58.04Zm21.48 0V168h32.54v-12.6h-15.1v-4.53h13.34v-11.99H96.97v-4.4h14.6v-12.6H79.53Zm40.35 0V168h32.55v-12.6h-15.1v-4.53h13.33v-11.99h-13.33v-4.4h14.6v-12.6h-32.04Zm67.97 0-10.74 20h-.38l.38-20h-16.87V168h16.87l-.38-19.33h.38L188.23 168h20.1l-16.5-23.67 14.92-22.45h-18.9Z"
-                  fill="white"
-                  style={{
-                    fillRule: "evenodd",
-                  }}
-                />
-              </g>
-            </svg>
-            <Image src={imgBg} alt="Frühlingsmarkt" className="object-cover rounded-3xl" />
+              <Badge className=" w-12 h-12" />
+              <div className="flex flex-col gap-2">
+                {event.details && (
+                  <span className="self-end text-right text-xl">
+                    {event.details.split("\n").map((line, i, lines) => (
+                      <span key={i}>
+                        {line}
+                        {i < lines.length - 1 && <br />}
+                      </span>
+                    ))}
+                  </span>
+                )}
+                <hr className="border-current" />
+                <div className="flex justify-between items-center">
+                  <span className="self-end text-xl font-bold">{event.title}</span>
+                  <span className="text-xl">{event.dateRange}</span>
+                </div>
+              </div>
+            </a>
+            <a
+              href={event.href}
+              className="flex-1 h-auto relative group cursor-pointer"
+            >
+              {/* <SliderCard images={[adventImage, adventImage2]} /> */}
+              {event.image ? (
+                <Image src={event.image.src} alt={event.image.alt} className="object-cover rounded-3xl" />
+              ) : event.color ? (
+                <div className="w-full min-h-[400px] rounded-3xl relative" style={{ backgroundColor: event.color }}>
+                  {event.svg && (
+                    <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
+                      <div
+                        className="w-full h-full"
+                        style={{ maxWidth: 'calc(100% - 4rem)', maxHeight: 'calc(100% - 4rem)' }}
+                        dangerouslySetInnerHTML={{
+                          __html: event.svg.replace(/id="[^"]*"/, `id="svg-${event.id}"`).replace(
+                            /<svg([^>]*)>/,
+                            '<svg$1 style="width: 100%; height: 100%; max-width: 100%; max-height: 100%;" preserveAspectRatio="xMidYMid meet">'
+                          ),
+                        }}
+                      />
+                    </div>
+                  )}
+                </div>
+              ) : null}
+              {event.href && (
+                <div className="absolute bottom-4 right-4 z-20 bg-foreground text-background p-3 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
+                  <ArrowRight className="w-5 h-5" />
+                </div>
+              )}
+            </a>
           </div>
-        </div>
+        ))}
       </div>
     </div>
   );
