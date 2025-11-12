@@ -301,7 +301,7 @@ export default function ApplicationPage() {
                                         : "bg-background text-foreground hover:bg-foreground hover:text-background"
                                         }`}
                                 >
-                                    <span className="text-xl font-bold">Nur Ausstellung</span>
+                                    <span className="text-xl font-bold">Ausstellung</span>
                                 </button>
                             </div>
                         </div>
