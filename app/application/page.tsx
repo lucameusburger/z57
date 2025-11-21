@@ -355,6 +355,11 @@ export default function ApplicationPage() {
                         </a>
                     </div>
 
+                    <p className="flex flex-col gap-6 md:flex-row">
+                        <span className="flex-1">Diesen Winter laden wir erneut Designer:innen und Künstler:innen dazu ein, am 06.12. bei uns in der Zieglergasse 57 am Dach auszustellen und ihre Werke zu verkaufen. Zusätzlich gibt es die Möglichkeit von 18.-20.12. Teil des z57 Wintermakts im Innenhof der Kreuzgasse 16 im Herzen der Feldkircher Innenstadt (Vorarlberg) nur wenige Schritte entfernt vom gut besuchten Christkindlmarkt zu sein. Wir kümmern uns um die gesamte Organisation und Bewerbung der Veranstaltungen, um Punsch und Musik und bei Bedarf um den Verkauf der Werke, den Transport von Wien nach Vorarlberg und um einen Rücktransport der nicht verkauften Objekte in der ersten Jännerwoche 2026.</span>
+                        <span className="flex-1">Für jeden Tag gibt es eine Grundgebühr von 30€ und zusätzlich nochmal 30€ optional für jeden Tag an dem wir den Verkauf und die Verantwortung für deine Objekte übernehmen. Wer bei allen Terminen dabei ist bekommt 15% Ermäßigung. Gerne berücksichtigen wir Einzelfälle und abweichende Anfragen individuell.</span>
+                    </p>
+
                     <form onSubmit={handleSubmit} className="w-full flex flex-col gap-8 max-w-4xl">
                         {/* Category Toggle Cards */}
                         <div className="flex flex-col gap-4">
