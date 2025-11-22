@@ -69,7 +69,7 @@ export default function ApplicationPage() {
     };
 
     const totalCost = useMemo(() => {
-        const baseCost = (selectedDays.length * 20) + Object.values(daysSelfSelling).filter((value) => value === "nein").length * 20
+        const baseCost = (selectedDays.length * 30) + Object.values(daysSelfSelling).filter((value) => value === "nein").length * 20
         return Math.round(baseCost);
     }, [selectedDays, daysSelfSelling]);
 
