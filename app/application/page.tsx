@@ -73,12 +73,6 @@ export default function ApplicationPage() {
         return Math.round(baseCost);
     }, [selectedDays, daysSelfSelling]);
 
-    const rabatt = useMemo(() => {
-        // Check if all available Feldkirch days are selected (since Wien is closed)
-        const allFeldkirchSelected = FELDKIRCH_DAYS.every((d) => selectedDays.includes(d.value));
-        return (allFeldkirchSelected ? totalCost * 0.15 : 0);
-    }, [selectedDays, totalCost]);
-
     // Check if all selected days have a yes/no toggle set
     const allTogglesSet = useMemo(() => {
         if (selectedDays.length === 0) return false;
@@ -359,7 +353,7 @@ export default function ApplicationPage() {
 
                     <p className="flex flex-col gap-6 md:flex-row">
                         <span className="flex-1">Diesen Winter laden wir erneut Designer:innen und Künstler:innen dazu ein, am 06.12. bei uns in der Zieglergasse 57 am Dach auszustellen und ihre Werke zu verkaufen. Zusätzlich gibt es die Möglichkeit von 18.-20.12. Teil des z57 Wintermakts im Innenhof der Kreuzgasse 16 im Herzen der Feldkircher Innenstadt (Vorarlberg) nur wenige Schritte entfernt vom gut besuchten Christkindlmarkt zu sein. Wir kümmern uns um die gesamte Organisation und Bewerbung der Veranstaltungen, um Punsch und Musik und bei Bedarf um den Verkauf der Werke, den Transport von Wien nach Vorarlberg und um einen Rücktransport der nicht verkauften Objekte in der ersten Jännerwoche 2026.</span>
-                        <span className="flex-1">Für jeden Tag gibt es eine Grundgebühr von 30€ und zusätzlich nochmal 20€ optional für jeden Tag an dem wir den Verkauf und die Verantwortung für deine Objekte übernehmen. Wer bei allen Terminen dabei ist bekommt 15% Ermäßigung. Gerne berücksichtigen wir Einzelfälle und abweichende Anfragen individuell.</span>
+                        <span className="flex-1">Für jeden Tag gibt es eine Grundgebühr von 30€ und zusätzlich nochmal 20€ optional für jeden Tag an dem wir den Verkauf und die Verantwortung für deine Objekte übernehmen. Gerne berücksichtigen wir Einzelfälle und abweichende Anfragen individuell.</span>
                     </p>
 
                     <form onSubmit={handleSubmit} className="w-full flex flex-col gap-8 max-w-4xl">
@@ -658,11 +652,11 @@ export default function ApplicationPage() {
                                 <p >
                                     Anhand deiner Angaben verrechnen wir die folgenden Kosten:
                                     <br />
-                                    <span className="">{totalCost}€</span> {rabatt > 0 ? `- 15% Rabatt` : ''} = <span className="font-bold ml-2">{totalCost - rabatt}€</span>
+                                    <span className="font-bold ml-2">{totalCost}€</span>
                                 </p>
 
                                 <p>
-                                    <span className="font-bold mr-2">*</span>Für jeden Tag entseht eine Grundgebühr von 30€. Jeden Tag and dem wir den Verkauf und Verantwortung für deine Objekte übernehmen, verrechnen wir 40€. Wenn du an allen Terminen teilnimmst, erhältst du 15% Rabatt. Einzelfälle werden individuell betrachtet.
+                                    <span className="font-bold mr-2">*</span>Für jeden Tag entseht eine Grundgebühr von 30€. Jeden Tag and dem wir den Verkauf und Verantwortung für deine Objekte übernehmen, verrechnen wir 40€. Einzelfälle werden individuell betrachtet.
                                 </p>
                             </>
                         )}
