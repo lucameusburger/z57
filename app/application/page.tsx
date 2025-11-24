@@ -50,7 +50,8 @@ export default function ApplicationPage() {
         };
     }, [images]);
 
-    const toggleWien = () => {
+    // Remove Wien from selectedDays if it's already there (since registration is closed)
+    useEffect(() => {
         const wienValue = WIEN_DAY.value;
         if (selectedDays.includes(wienValue)) {
             setSelectedDays((prev) => prev.filter((d) => d !== wienValue));
@@ -59,13 +60,12 @@ export default function ApplicationPage() {
                 delete updated[wienValue];
                 return updated;
             });
-        } else {
-            setSelectedDays((prev) => [...prev, wienValue]);
         }
-        // Clear validation errors when user selects a day
-        if (validationErrors.some(e => e.includes("Termin"))) {
-            setValidationErrors((prev) => prev.filter(e => !e.includes("Termin")));
-        }
+    }, []);
+
+    const toggleWien = () => {
+        // Wien registration is closed, do nothing
+        return;
     };
 
     const totalCost = useMemo(() => {
@@ -74,7 +74,9 @@ export default function ApplicationPage() {
     }, [selectedDays, daysSelfSelling]);
 
     const rabatt = useMemo(() => {
-        return (selectedDays.length === ALL_DAYS.length ? totalCost * 0.15 : 0);
+        // Check if all available Feldkirch days are selected (since Wien is closed)
+        const allFeldkirchSelected = FELDKIRCH_DAYS.every((d) => selectedDays.includes(d.value));
+        return (allFeldkirchSelected ? totalCost * 0.15 : 0);
     }, [selectedDays, totalCost]);
 
     // Check if all selected days have a yes/no toggle set
@@ -357,7 +359,7 @@ export default function ApplicationPage() {
 
                     <p className="flex flex-col gap-6 md:flex-row">
                         <span className="flex-1">Diesen Winter laden wir erneut Designer:innen und Künstler:innen dazu ein, am 06.12. bei uns in der Zieglergasse 57 am Dach auszustellen und ihre Werke zu verkaufen. Zusätzlich gibt es die Möglichkeit von 18.-20.12. Teil des z57 Wintermakts im Innenhof der Kreuzgasse 16 im Herzen der Feldkircher Innenstadt (Vorarlberg) nur wenige Schritte entfernt vom gut besuchten Christkindlmarkt zu sein. Wir kümmern uns um die gesamte Organisation und Bewerbung der Veranstaltungen, um Punsch und Musik und bei Bedarf um den Verkauf der Werke, den Transport von Wien nach Vorarlberg und um einen Rücktransport der nicht verkauften Objekte in der ersten Jännerwoche 2026.</span>
-                        <span className="flex-1">Für jeden Tag gibt es eine Grundgebühr von 30€ und zusätzlich nochmal 30€ optional für jeden Tag an dem wir den Verkauf und die Verantwortung für deine Objekte übernehmen. Wer bei allen Terminen dabei ist bekommt 15% Ermäßigung. Gerne berücksichtigen wir Einzelfälle und abweichende Anfragen individuell.</span>
+                        <span className="flex-1">Für jeden Tag gibt es eine Grundgebühr von 30€ und zusätzlich nochmal 20€ optional für jeden Tag an dem wir den Verkauf und die Verantwortung für deine Objekte übernehmen. Wer bei allen Terminen dabei ist bekommt 15% Ermäßigung. Gerne berücksichtigen wir Einzelfälle und abweichende Anfragen individuell.</span>
                     </p>
 
                     <form onSubmit={handleSubmit} className="w-full flex flex-col gap-8 max-w-4xl">
@@ -552,24 +554,21 @@ export default function ApplicationPage() {
 
                         {/* Days Selection */}
                         <div className="flex flex-col gap-4" data-validation-error={validationErrors.some(e => e.includes("Termin"))}>
-                            <label className="text-xl font-bold">
-                                {category === "exhibit_only"
-                                    ? "Ich stelle an folgenden Terminen aus"
-                                    : "Ich nehme an folgenden Terminen teil"} <span className="font-bold">*</span>
-                            </label>
+                            <div className="flex flex-col gap-2">
+                                <label className="text-xl font-bold">
+                                    {category === "exhibit_only"
+                                        ? "Ich stelle an folgenden Terminen aus"
+                                        : "Ich nehme an folgenden Terminen teil"} <span className="font-bold">*</span>
+                                </label>
+                                <span className="text-sm text-foreground/70">Wien 06.12. - Anmeldung geschlossen</span>
+                            </div>
                             <div className="flex flex-wrap gap-4">
                                 <button
                                     type="button"
-                                    onClick={toggleWien}
-                                    className={`border-foreground w-full md:w-auto transition-colors py-3 px-8 rounded-full border flex items-center gap-3 justify-between ${selectedDays.includes(WIEN_DAY.value)
-                                        ? "bg-foreground text-background"
-                                        : "bg-background text-foreground hover:bg-foreground hover:text-background"
-                                        } ${validationErrors.some(e => e.includes("Termin")) ? "border-red-500" : ""}`}
+                                    disabled
+                                    className={`border-foreground w-full md:w-auto transition-colors py-3 px-8 rounded-full border flex items-center gap-3 justify-between opacity-50 cursor-not-allowed bg-background text-foreground`}
                                 >
                                     <span className="text-xl font-bold">{WIEN_DAY.label}</span>
-                                    {selectedDays.includes(WIEN_DAY.value) && (
-                                        <Check className="w-5 h-5 stroke-[3] -mr-2" />
-                                    )}
                                 </button>
                                 <button
                                     type="button"
