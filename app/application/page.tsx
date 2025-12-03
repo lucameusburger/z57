@@ -185,6 +185,9 @@ export default function ApplicationPage() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
+        // Application is closed - prevent submission
+        return;
+
         // Reset validation errors
         setValidationErrors([]);
         const errors: string[] = [];
@@ -306,11 +309,11 @@ export default function ApplicationPage() {
             setTermsAccepted(false);
             setWillingToHelp(false);
             setValidationErrors([]);
-        } catch (error) {
-            console.error("Submission error:", error);
+        } catch (err) {
+            console.error("Submission error:", err);
             setSubmitStatus("error");
             // Add error to validation errors to display it
-            const errorMessage = error instanceof Error ? error.message : "Fehler beim Absenden. Bitte versuchen Sie es erneut.";
+            const errorMessage = (err as Error)?.message || "Fehler beim Absenden. Bitte versuchen Sie es erneut.";
             setValidationErrors([errorMessage]);
         } finally {
             setIsSubmitting(false);
@@ -743,10 +746,10 @@ export default function ApplicationPage() {
                         {/* Submit Button */}
                         <button
                             type="submit"
-                            disabled={isSubmitting}
-                            className="border-foreground border rounded-full px-6 py-4 bg-foreground text-background hover:bg-background hover:text-foreground transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-xl font-bold"
+                            disabled={true}
+                            className="border-foreground border rounded-full px-6 py-4 bg-foreground text-background opacity-50 cursor-not-allowed text-xl font-bold"
                         >
-                            {isSubmitting ? "Wird gesendet..." : "Bewerbung absenden"}
+                            Bewerbung geschlossen
                         </button>
 
                         {/* Status Messages */}

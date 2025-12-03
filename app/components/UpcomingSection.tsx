@@ -1,4 +1,4 @@
-import { ArrowRight, Badge, CornerRightUp } from "lucide-react";
+import { Badge, CornerRightUp } from "lucide-react";
 import Image, { StaticImageData } from "next/image";
 
 import adventImage from "@/app/images/events/advent.jpg";
@@ -52,12 +52,11 @@ const events: UpcomingEvent[] = [
     href: "/application",
     title: "z57 Wintermarkt",
     dateRange: "06.12. Wien, 18.–20.12. Feldkirch",
-    details: "Aussteller:innen gesucht!\nOpen Call für Designer:innen und Künstler:innen\nWien @z57.at & Feldkirch, Vorarlberg",
+    details: "06.12. Zieglergasse 57, 1070 Wien, 12-20 Uhr\n18.-20. Kreuzgasse 16. 6800 Feldkirch\nDo + Fr 12-20 Uhr, Sa 10-17 Uhr",
     // image: {
     //   src: adventImage,
     //   alt: "z57 Wintermarkt",
     // },
-    cta: "Jetzt bewerben",
     color: "#C04021",
     svg: NEWSVG,
   },
@@ -80,9 +79,8 @@ export default function UpcomingSection() {
         </div>
         {activeEvents.map((event) => (
           <div key={event.id} className="flex gap-8 w-full flex-col md:flex-row">
-            <a
-              href={event.href}
-              className="group order-2 md:order-1 flex-1 border-foreground hover:bg-background hover:text-foreground transition-colors w-full flex flex-col gap-4 justify-between text-woit bg-foreground border overflow-hidden relative rounded-3xl p-4"
+            <div
+              className="group order-2 md:order-1 flex-1 border-foreground w-full flex flex-col gap-4 justify-between text-woit bg-foreground border overflow-hidden relative rounded-3xl p-4"
             >
               {event.svg ? (
                 <div
@@ -98,11 +96,6 @@ export default function UpcomingSection() {
                 <Badge className="w-12 h-12 group-hover:text-foreground transition-colors" />
               )}
               <div className="flex flex-col gap-2">
-                {event.cta && (
-                  <span className="self-end bg-background text-foreground text-right text-xl rounded-full px-4 py-2 group-hover:bg-foreground group-hover:text-background transition-colors">
-                    {event.cta}
-                  </span>
-                )}
                 {event.details && (
                   <span className="self-end text-right text-xl">
                     {event.details.split("\n").map((line, i, lines) => (
@@ -119,10 +112,9 @@ export default function UpcomingSection() {
                   <span className="text-xl">{event.dateRange}</span>
                 </div>
               </div>
-            </a>
-            <a
-              href={event.href}
-              className="flex-1 h-auto relative group cursor-pointer"
+            </div>
+            <div
+              className="flex-1 h-auto relative group"
             >
               {/* <SliderCard images={[adventImage, adventImage2]} /> */}
               {event.image ? (
@@ -145,12 +137,7 @@ export default function UpcomingSection() {
                   )}
                 </div>
               ) : null}
-              {event.href && (
-                <div className="absolute bottom-4 right-4 z-20 bg-foreground text-background p-3 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
-                  <ArrowRight className="w-5 h-5" />
-                </div>
-              )}
-            </a>
+            </div>
           </div>
         ))}
       </div>
