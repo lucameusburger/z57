@@ -175,8 +175,8 @@ const membersOG: Member[] = [
     title: "Architektur",
     image: victorImage,
     description:
-      "Victor ist freischaffender Architekt aus Berlin mit langjähriger Erfahrung in kollektiver Architekturpraxis und Innenausbau. Als Leiter des Architektur-Labors beim Poolbar Generator beweist er alljährlich seine Vermittlungskompetenz, während er als Bauleiter des Poolbar Festivals die Zusammenarbeit auf Augenhöhe mit über 20 Mitarbeitenden zu koordinieren vermag. Wer Victor nicht mit Akku-Schrauber sondern doch mal mit Kochlöffel erwischt, erahnt schnell seine ursprüngliche Erstausbildung aus Koch.",
-    email: "victor@example.com",
+      "Victor hat in Berlin Koch gelernt und in Wien Architektur studiert. Er baut gern Dinge, am liebsten aus Holz.",
+    email: "doelle@poolbar.at",
     projects: [
       {
         name: "Architektur Workshop",

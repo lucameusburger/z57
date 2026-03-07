@@ -1,9 +1,8 @@
 import "server-only";
 
-import fs from "node:fs";
-import path from "node:path";
 import { cache } from "react";
 
+import rawGalleryManifest from "@/app/content/post-galleries.json";
 import rawPosts from "@/app/content/posts.json";
 
 export type PostKind = "event" | "space" | "project";
@@ -36,45 +35,17 @@ export interface Post extends Omit<PostRecord, "dateLabel"> {
 }
 
 const posts = rawPosts as PostRecord[];
-
-const IMAGE_EXTENSIONS = new Set([".jpg", ".jpeg", ".png", ".webp", ".avif"]);
+const galleryManifest = rawGalleryManifest as Record<string, string[]>;
 
 function encodePathSegments(input: string) {
   return input
-    .split(path.sep)
+    .split("/")
     .map((segment) => encodeURIComponent(segment))
     .join("/");
 }
 
-function readGalleryFiles(directory: string, nestedPath = ""): string[] {
-  const targetDirectory = path.join(directory, nestedPath);
-
-  return fs
-    .readdirSync(targetDirectory, { withFileTypes: true })
-    .flatMap((entry) => {
-      const relativePath = path.join(nestedPath, entry.name);
-
-      if (entry.isDirectory()) {
-        return readGalleryFiles(directory, relativePath);
-      }
-
-      if (!IMAGE_EXTENSIONS.has(path.extname(entry.name).toLowerCase())) {
-        return [];
-      }
-
-      return [relativePath];
-    })
-    .sort((left, right) => left.localeCompare(right, "de", { numeric: true }));
-}
-
 function getGalleryImages(galleryDir: string, title: string): PostImage[] {
-  const directory = path.join(process.cwd(), "public", "images", "events", galleryDir);
-
-  if (!fs.existsSync(directory)) {
-    return [];
-  }
-
-  return readGalleryFiles(directory).map((relativeFile, index) => ({
+  return (galleryManifest[galleryDir] ?? []).map((relativeFile, index) => ({
     src: `/images/events/${encodeURIComponent(galleryDir)}/${encodePathSegments(relativeFile)}`,
     alt: `${title} ${index + 1}`,
   }));
