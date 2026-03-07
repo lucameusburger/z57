@@ -3,6 +3,7 @@ import irisImage from "@/app/images/iris.jpg";
 import liliImage from "@/app/images/lili.jpg";
 import lucaImage from "@/app/images/luca.jpg";
 import nikoImage from "@/app/images/niko.jpg";
+import paulImage from "@/app/images/paul.jpg";
 import robertImage from "@/app/images/robert.jpg";
 import stellaImage from "@/app/images/stella.jpg";
 import victorImage from "@/app/images/victor.jpg";
@@ -53,6 +54,15 @@ const membersOG: Member[] = [
         url: "http://www.west68.at",
       },
     ],
+  },
+  {
+    name: "Paul Jürgens",
+    image: paulImage,
+    title: "Grafik",
+    description:
+      "Paul ist ein Grafiker und Designer in Wien.",
+    email: "kontakt@paul-juergens.de",
+    website: "https://www.paul-juergens.de",
   },
   {
     name: "Lilian Furrer",

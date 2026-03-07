@@ -9,7 +9,6 @@ import { Suspense, useEffect, useRef, useState } from "react";
 
 import { MTLLoader } from "three/addons/loaders/MTLLoader.js";
 import { OBJLoader } from "three/addons/loaders/OBJLoader.js";
-import { OrbitControls as OrbitControlsType } from "three-stdlib";
 
 // import bgImage from "@/app/images/bg.jpg";
 
@@ -94,7 +93,7 @@ export default function Model3D() {
   const [controlsEnabled, setControlsEnabled] = useState(false);
   const [fullscreen, setFullscreen] = useState(false);
   const [mounted, setMounted] = useState(false);
-  const controlsRef = useRef<OrbitControlsType>(null);
+  const controlsRef = useRef<any>(null);
 
   useEffect(() => {
     setMounted(true);

@@ -1,108 +1,74 @@
-import { Globe, Instagram, Mail, MoveRight } from "lucide-react";
+import { Globe, Instagram, Mail } from "lucide-react";
 
 import Image from "next/image";
+import Badge from "./Badge";
 import { Member } from "../members";
-import groupGlassImage from "@/app/images/group-glass.jpg";
 
 const RoundButton = ({ icon, href }: { icon: React.ReactNode; href: string }) => {
   return (
-    <a target="_blank" href={href} className="bg-foreground rounded-full h-12 w-12 aspect-square flex items-center justify-center hover:bg-glass bg-cover">
+    <a
+      target="_blank"
+      rel="noreferrer"
+      href={href}
+      className="flex h-12 w-12 aspect-square items-center justify-center rounded-full border border-foreground transition-colors hover:bg-foreground hover:text-background"
+    >
       {icon}
     </a>
   );
 };
 
 const MemberItem = ({ member, switched }: { member: Member; switched: number }) => {
-  // const randomPolygonPoints = generateRandomPolygonPoints();
+  const isSwitched = switched % 2 !== 0;
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 w-full gap-4 md:gap-8">
-      {switched % 2 !== 0 ? (
-        <>
-          <div className="member-content flex items-start flex-col gap-4 md:col-span-2 justify-start relative order-3 md:order-1">
-            <div className="flex justify-between items-center w-full md:border-t md:border-foreground md:pt-4">
-              <span className="text-2xl md:text-5xl">{member.name}</span>
-              <div className="flex gap-2">
-                {member.email && <RoundButton icon={<Mail className="text-woit w-12 h-6" />} href={`mailto:${member.email}`} />}
-                {member.instagram && <RoundButton icon={<Instagram className="text-woit w-12 h-6" />} href={member.instagram} />}
-                {member.website && <RoundButton icon={<Globe className="text-woit w-12 h-6" />} href={member.website} />}
-              </div>
+    <article className="grid w-full grid-cols-1 gap-5 rounded-3xl border border-foreground bg-background p-4 md:grid-cols-3 md:gap-8 md:p-6">
+      <div className={`member-image flex w-full aspect-square items-start ${isSwitched ? "order-1 md:order-2" : "order-1 md:order-1"}`}>
+        <div className="group relative h-full w-full overflow-hidden rounded-3xl border border-foreground">
+          <Image
+            src={member.image}
+            alt={member.name}
+            width={1080}
+            height={1080}
+            className="h-full w-full object-cover filter grayscalesss contrast-2 transition-transform duration-300 group-hover:scale-105"
+          />
+        </div>
+      </div>
+
+      <div className={`member-content relative flex flex-col justify-between gap-5 md:col-span-2 ${isSwitched ? "order-2 md:order-1" : "order-2 md:order-2"}`}>
+        <div className="space-y-5">
+          <div className="flex flex-wrap items-start justify-between gap-4">
+            <div className="space-y-4">
+              <Badge>{member.title}</Badge>
+              <h2 className="text-2xl md:text-5xl">{member.name}</h2>
             </div>
-            <div className="border-foreground border overflow-hidden relative rounded-3xl w-full p-4">
-              <span
-                style={{
-                  backgroundImage: `url(${groupGlassImage.src})`,
-                  backgroundSize: "cover",
-                }}
-                className="text-xl rounded-full text-background bg-foreground py-1 px-2"
+
+            <div className="flex gap-2">
+              {member.email && <RoundButton icon={<Mail className="h-6 w-6" />} href={`mailto:${member.email}`} />}
+              {member.instagram && <RoundButton icon={<Instagram className="h-6 w-6" />} href={member.instagram} />}
+              {member.website && <RoundButton icon={<Globe className="h-6 w-6" />} href={member.website} />}
+            </div>
+          </div>
+
+          <p className="text-lg leading-relaxed md:text-xl">{member.description}</p>
+        </div>
+
+        {member.projects?.length ? (
+          <div className="flex flex-wrap gap-2">
+            {member.projects.map((project, index) => (
+              <Badge
+                key={index}
+                href={project.url}
+                target="_blank"
+                rel="noreferrer"
+                className="whitespace-nowrap"
               >
-                {member.title}
-              </span>
-              <span className="text-xl py-1 px-2">{member.description}</span>
-              {/* <svg className="absolute -z-10 bottom-0 right-0 w-96 h-96 text-blue-700" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="50" cy="50" r="15" fill="currentColor" />
-                <polygon points={randomPolygonPoints} fill="currentColor" />
-              </svg> */}
-            </div>
-            <div className="flex gap-2 flex-wrap">
-              {member.projects?.map((project, index) => (
-                <a key={index} className="hover:bg-background hover:text-foreground border border-foreground text-base rounded-full text-background bg-foreground py-0.5 px-2 whitespace-nowrap flex gap-1 items-center" href={project.url}>
-                  <span>{project.name}</span>
-                  <MoveRight className="w-3 h-3" />
-                </a>
-              ))}
-            </div>
+                {project.name}
+              </Badge>
+            ))}
           </div>
-          <div className="member-image justify-between w-full aspect-square items-start p-0 flex order-1 md:order-3">
-            <div className="relative w-full h-full rounded-3xl overflow-hidden group">
-              <Image src={member.image} alt={member.name} width={1080} height={1080} className="w-full h-full rounded-3xl object-cover filter grayscalesss contrast-2 group-hover:scale-110 transition-all transform" />
-            </div>
-          </div>
-        </>
-      ) : (
-        <>
-          <div className="member-image justify-between w-full aspect-square items-start p-0 flex">
-            <div className="relative w-full h-full rounded-3xl overflow-hidden group">
-              <Image src={member.image} alt={member.name} width={1080} height={1080} className="w-full h-full rounded-3xl object-cover filter grayscalesss contrast-2 group-hover:scale-110 transition-all transform" />
-            </div>
-          </div>
-          <div className="member-content flex items-start flex-col gap-4 md:col-span-2 justify-start relative">
-            <div className="flex justify-between items-center w-full md:border-t md:border-foreground md:pt-4">
-              <span className="text-2xl md:text-5xl">{member.name}</span>
-              <div className="flex gap-2">
-                {member.email && <RoundButton icon={<Mail className="text-woit w-12 h-6" />} href={`mailto:${member.email}`} />}
-                {member.instagram && <RoundButton icon={<Instagram className="text-woit w-12 h-6" />} href={member.instagram} />}
-                {member.website && <RoundButton icon={<Globe className="text-woit w-12 h-6" />} href={member.website} />}
-              </div>
-            </div>
-            <div className="border-foreground border overflow-hidden relative rounded-3xl w-full p-4">
-              <span
-                style={{
-                  backgroundImage: `url(${groupGlassImage.src})`,
-                  backgroundSize: "cover",
-                }}
-                className="text-xl rounded-full text-background bg-foreground py-1 px-2"
-              >
-                {member.title}
-              </span>
-              <span className="text-xl py-1 px-2">{member.description}</span>
-              {/* <svg className="absolute -z-10 bottom-0 right-0 w-96 h-96 text-blue-700" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="50" cy="50" r="15" fill="currentColor" />
-                <polygon points={randomPolygonPoints} fill="currentColor" />
-              </svg> */}
-            </div>
-            <div className="flex gap-2 flex-wrap">
-              {member.projects?.map((project, index) => (
-                <a key={index} className="hover:bg-background hover:text-foreground border border-foreground text-base rounded-full text-background bg-foreground py-0.5 px-2 whitespace-nowrap flex gap-1 items-center" href={project.url}>
-                  <span>{project.name}</span>
-                  <MoveRight className="w-3 h-3" />
-                </a>
-              ))}
-            </div>
-          </div>
-        </>
-      )}
-    </div>
+        ) : null}
+      </div>
+    </article>
   );
 };
 

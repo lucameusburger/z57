@@ -1,13 +1,11 @@
 import { CornerRightUp, Instagram, Mail, User } from "lucide-react";
 import { Member, members } from "./members";
 
-import GlassCardWithRevealEffect from "./components/GlassCardWithRevealEffect";
+import HeroPathSection from "./components/HeroPathSection";
 import Image from "next/image";
-import ImageGrid from "./components/ImageGrid";
-import Marquee from "./components/Marquee";
 import MemberItem from "./components/MemberItem";
-import UpcomingSection from "./components/UpcomingSection";
-import groupGlassImage from "@/app/images/group-glass.jpg";
+import PostsSection from "./components/PostsSection";
+import SiteFooter from "./components/SiteFooter";
 import groupImage from "@/app/images/group.jpg";
 
 // const generateRandomPolygonPoints = () => {
@@ -33,38 +31,14 @@ export default function Home() {
       <div className="items-center justify-items-center gap-16 font-[family-name:var(--font-geist-sans)]">
         <main className="flex flex-col w-full">
           {/* FRONT */}
-          <div className="flex flex-col md:grid grid-cols-1 md:grid-cols-3 w-full gap-8  p-4 md:p-8 min-full-viewport-height">
-            {/* full-viewport-height */}
-            <div className="flex items-end justify-end flex-col text-4xl md:text-5xl flex-1">
-              <span>Grafik</span>
-
-              <span>Nailart</span>
-
-              <span>Architektur</span>
-
-              <span>Webentwicklung</span>
-
-              <span>Fotografie</span>
-
-              <span>Design</span>
-            </div>
-            {/* <AnimatedText /> */}
-            <div className=" md:col-span-2 aspect-square md:aspect-auto w-full justify-items-end flex items-end justify-end relative ">
-              <span className="text-woit z-50 absolute bottom-8 right-8 font-black text-8xl tracking-tight pointer-events-none">Z57</span>
-              <GlassCardWithRevealEffect />
-              {/* <div className="relative overflow-hidden rounded-3xl glassCard w-full h-full items-end justify-end p-8 flex ">
-                <Image src={groupGlassImage} alt={"Gruppenfoto"} width={800} height={1920} className=" z-10 absolute left-0 right-0 bottom-0 top-0 w-full h-full rounded-3xl object-cover filter grayscalesss contrast-2 group-hover:scale-110 transition-all transform" />
-                <Image src={groupImage} alt={"Gruppenfoto"} width={800} height={1920} className=" absolute left-0 right-0 bottom-0 top-0 w-full h-full rounded-3xl object-cover filter grayscalesss contrast-2 group-hover:scale-110 transition-all transform" />
-                
-              </div> */}
-            </div>
+          <div className="p-4 md:p-8">
+            <HeroPathSection />
           </div>
 
-          {/* UPCOMING */}
-          <UpcomingSection />
+          <PostsSection showAllPostsLink />
 
           <div className="h-8" />
-          <div className="px-4 md:px-8">
+          {/* <div className="px-4 md:px-8">
             <Marquee
               className="bg-foreground text-background"
               elements={["co-working",
@@ -80,32 +54,7 @@ export default function Home() {
                 "restauration",
                 "conservation"]}
             />
-          </div>
-
-          <div className="h-8" />
-
-          <div className="px-4 md:px-8">
-            <div className="flex pb-8 justify-between items-center w-full border-t border-foreground pt-4">
-              <span className="text-2xl md:text-5xl">Das Atelier</span>
-              <a href="#top">
-                <CornerRightUp className="w-6 h-6 " />
-              </a>
-              {/* <div className="flex gap-2">
-                  <MailButton />
-                </div> */}
-            </div>
-
-            <div className="flex md:flex-row flex-col gap-8  pb-8">
-              {/* <div className="flex-none max-w-1/3 md:w-96  border-foreground border overflow-hidden relative rounded-3xl h-full bg-white flex items-center justify-center">
-                <SliderCard images={[rissImg1, rissImg2]} />
-              </div> */}
-              <p className=" text-2xl">
-                Das Atelier z57 befindet sich im Herzen des 7. Bezirks an der Zieglergasse 57. Über den Dächern Wiens erstrecken sich die Räumlichkeiten über drei Dachgeschosse, wo sie einst als Architekturbüro in den 70er Jahren angelegt und für 40 Jahre eben diesem Zweck entsprechend genutzt wurden. Wer sich längere Zeit im geräumigen und doch verwinkelten Atelier aufhält, erkennt die verschiedenen Bauphasen, die der ausgebaute Dachboden über den langen Zeitraum der Entstehung erfahren hat und
-                welche ganz eigenen und unverwechselbaren Details er mit sich bringt. Herzstück bildet ein 200 qm großes Flachdach mit Dachgarten, das anstelle der zweiten Dachhälfte hofseitig angelegt wurde.
-              </p>
-            </div>
-            <ImageGrid />
-          </div>
+          </div> */}
 
           <div className="h-8" />
 
@@ -163,7 +112,7 @@ export default function Home() {
 
           {/* MEMBERS */}
           <div className="flex flex-col gap-8 py-8 px-4 md:px-8">
-            <div className="flex justify-between items-center w-full border-t border-foreground pt-4">
+            <div className="flex justify-between items-center w-full">
               <span className="text-2xl md:text-5xl">Wer wir sind</span>
               <a href="#top">
                 <CornerRightUp className="w-6 h-6 " />
@@ -190,7 +139,7 @@ export default function Home() {
           {/* KONTAKT */}
           <div className="flex flex-col gap-8 py-8 px-4 md:px-8">
             <div className="member-content flex items-start flex-col gap-4 md:col-span-2 justify-start relative">
-              <div className="flex justify-between items-center w-full border-t border-foreground pt-4">
+              <div className="flex justify-between items-center w-full ">
                 <span className="text-2xl md:text-5xl">Get in touch</span>
                 <a href="#top">
                   <CornerRightUp className="w-6 h-6 " />
@@ -228,34 +177,7 @@ export default function Home() {
             </div>
           </div>
         </main>
-        <footer className="px-4 md:px-8 w-full">
-          <hr className="border-foreground" />
-          <div className="py-8 justify-between gap-4 flex flex-col md:flex-row">
-            <div className="flex gap-2 flex-col md:flex-row">
-              <div className="flex flex-col gap-2">
-                <span className="text-xl rounded-full text-background bg-foreground py-1 px-2">Copyright z57 © 2025</span>
-                <span className="text-xl rounded-full text-background bg-foreground py-1 px-2">ZVR 1169564571</span>
-              </div>
-              <div>
-                <span
-                  style={{
-                    backgroundImage: `url(${groupGlassImage.src})`,
-                    backgroundSize: "cover",
-                  }}
-                  className="text-xl rounded-full text-background bg-foreground py-1 px-2"
-                >
-                  Website by Luca Meusburger
-                </span>
-              </div>
-            </div>
-
-            <div className="flex gap-2">
-              <span className="text-xl text-foreground py-1 px-2">info</span>
-              <span className="text-xl text-foreground py-1 px-2">cookies</span>
-              <span className="text-xl text-foreground py-1 px-2">contact</span>
-            </div>
-          </div>
-        </footer>
+        <SiteFooter />
 
         {/* <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
         <a className="flex items-center gap-2 hover:underline hover:underline-offset-4" href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app" target="_blank" rel="noopener noreferrer">
