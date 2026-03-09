@@ -60,9 +60,10 @@ const membersOG: Member[] = [
     image: paulImage,
     title: "Grafik",
     description:
-      "Paul ist ein Grafiker und Designer in Wien.",
+      "Paul ist Grafiker in Wien.",
     email: "kontakt@paul-juergens.de",
     website: "https://www.paul-juergens.de",
+    instagram: "https://www.instagram.com/pauljuer/",
   },
   {
     name: "Lilian Furrer",
