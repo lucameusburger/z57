@@ -179,12 +179,8 @@ const membersOG: Member[] = [
     email: "doelle@poolbar.at",
     projects: [
       {
-        name: "Architektur Workshop",
+        name: "Festival-Architektur",
         url: "https://poolbar.at",
-      },
-      {
-        name: "Benu Bestattung",
-        url: "https://www.benu.at/",
       },
     ],
   },
