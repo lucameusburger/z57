@@ -4,6 +4,7 @@ import { Member, members } from "./members";
 import HeroPathSection from "./components/HeroPathSection";
 import Image from "next/image";
 import MemberItem from "./components/MemberItem";
+import Model3D from "./components/Model3D";
 import PostsSection from "./components/PostsSection";
 import SiteFooter from "./components/SiteFooter";
 import groupImage from "@/app/images/group.jpg";
@@ -55,6 +56,18 @@ export default function Home() {
                 "conservation"]}
             />
           </div> */}
+
+          <div className="h-8" />
+
+          <div className="px-4 md:px-8">
+            <div className="flex pb-8 justify-between items-center w-full pt-4">
+              <span className="text-2xl md:text-5xl">In drei Dimensionen</span>
+              <a href="#top">
+                <CornerRightUp className="w-6 h-6 " />
+              </a>
+            </div>
+            <Model3D />
+          </div>
 
           <div className="h-8" />
 
@@ -125,16 +138,6 @@ export default function Home() {
               <MemberItem key={member.name} member={member} switched={index} />
             ))}
           </div>
-
-          {/* <div className="px-4 md:px-8">
-            <div className="flex pb-8 justify-between items-center w-full border-t border-foreground pt-4">
-              <span className="text-2xl md:text-5xl">In drei Dimensionen</span>
-              <a href="#top">
-                <CornerRightUp className="w-6 h-6 " />
-              </a>
-            </div>
-            <Model3D />
-          </div> */}
 
           {/* KONTAKT */}
           <div className="flex flex-col gap-8 py-8 px-4 md:px-8">

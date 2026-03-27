@@ -19,7 +19,7 @@ export default function PostsSection({
   return (
     <section className="flex flex-col gap-8 px-4 md:px-8">
       <div className="flex items-start flex-col gap-4 justify-start relative">
-        <div className="flex w-full flex-col gap-8">
+        <div className="w-full grid grid-cols-1 2xl:grid-cols-2 gap-8">
           {posts.map((post) => (
             <article
               key={post.id}
@@ -35,7 +35,7 @@ export default function PostsSection({
                   </div>
                   <div className="space-y-3">
                     <h2 className="text-3xl md:text-5xl">{post.title}</h2>
-                    <p className="max-w-4xl text-lg leading-relaxed md:text-xl">
+                    <p className="max-w-4xl text-lg leading-relaxed md:text-xl h-48">
                       {post.summary}
                     </p>
                   </div>
