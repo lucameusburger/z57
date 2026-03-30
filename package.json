@@ -3,14 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "predev": "node scripts/generate-post-gallery-manifest.mjs",
     "dev": "next dev",
-    "prebuild": "node scripts/generate-post-gallery-manifest.mjs",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "einblick:generate": "einblick-sdk generate --output app/lib/einblick.generated.ts"
   },
   "dependencies": {
+    "@einblick/sdk": "^0.2.0",
     "@gsap/react": "^2.1.1",
     "@radix-ui/react-slot": "^1.2.4",
     "@react-three/drei": "^10.7.6",

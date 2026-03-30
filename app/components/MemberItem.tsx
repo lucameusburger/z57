@@ -1,8 +1,8 @@
 import { Globe, Instagram, Mail } from "lucide-react";
 
 import Image from "next/image";
+import type { Member } from "@/app/types/members";
 import Badge from "./Badge";
-import { Member } from "../members";
 
 const RoundButton = ({ icon, href }: { icon: React.ReactNode; href: string }) => {
   return (
@@ -24,13 +24,19 @@ const MemberItem = ({ member, switched }: { member: Member; switched: number }) 
     <article className="grid w-full grid-cols-1 gap-5 rounded-3xl border border-foreground bg-background p-4 md:grid-cols-3 md:gap-8 md:p-6">
       <div className={`member-image flex w-full aspect-square items-start ${isSwitched ? "order-1 md:order-2" : "order-1 md:order-1"}`}>
         <div className="group relative h-full w-full overflow-hidden rounded-3xl border border-foreground">
-          <Image
-            src={member.image}
-            alt={member.name}
-            width={1080}
-            height={1080}
-            className="h-full w-full object-cover filter grayscalesss contrast-2 transition-transform duration-300 group-hover:scale-105"
-          />
+          {member.image ? (
+            <Image
+              src={member.image}
+              alt={member.name}
+              width={1080}
+              height={1080}
+              className="h-full w-full object-cover filter grayscalesss contrast-2 transition-transform duration-300 group-hover:scale-105"
+            />
+          ) : (
+            <div className="flex h-full w-full items-center justify-center bg-foreground/5 text-sm uppercase tracking-[0.16em] text-foreground/40">
+              Kein Bild
+            </div>
+          )}
         </div>
       </div>
 

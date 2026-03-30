@@ -2,10 +2,13 @@ import "server-only";
 
 import { cache } from "react";
 
-import rawGalleryManifest from "@/app/content/post-galleries.json";
-import rawPosts from "@/app/content/posts.json";
+import {
+  getCmsPost,
+  getCmsPosts,
+  type CmsPostFields,
+} from "@/app/lib/cms";
 
-export type PostKind = "event" | "space" | "project";
+export type PostKind = string;
 
 interface PostRecord {
   id: string;
@@ -17,9 +20,8 @@ interface PostRecord {
   summary: string;
   content: string;
   dateLabels?: string[];
-  dateLabel?: string;
   locationLabel?: string;
-  galleryDir: string;
+  galleryImages?: PostImage[];
   tags?: string[];
 }
 
@@ -28,71 +30,99 @@ export interface PostImage {
   alt: string;
 }
 
-export interface Post extends Omit<PostRecord, "dateLabel"> {
+export interface Post extends Omit<PostRecord, "galleryImages"> {
   href: string;
   galleryImages: PostImage[];
   coverImage?: PostImage;
-}
-
-const posts = rawPosts as PostRecord[];
-const galleryManifest = rawGalleryManifest as Record<string, string[]>;
-
-function encodePathSegments(input: string) {
-  return input
-    .split("/")
-    .map((segment) => encodeURIComponent(segment))
-    .join("/");
-}
-
-function getGalleryImages(galleryDir: string, title: string): PostImage[] {
-  return (galleryManifest[galleryDir] ?? []).map((relativeFile, index) => ({
-    src: `/images/events/${encodeURIComponent(galleryDir)}/${encodePathSegments(relativeFile)}`,
-    alt: `${title} ${index + 1}`,
-  }));
 }
 
 function byNewest(left: PostRecord, right: PostRecord) {
   return new Date(right.publishedAt).getTime() - new Date(left.publishedAt).getTime();
 }
 
-export const getAllPosts = cache((): Post[] => {
-  return [...posts]
-    .sort((left, right) => {
-      if (left.pinned === right.pinned) {
-        return byNewest(left, right);
-      }
+function toPost(record: PostRecord): Post {
+  const { galleryImages = [], ...rest } = record;
 
-      return left.pinned ? -1 : 1;
-    })
-    .map((post) => {
-      const { dateLabel, ...rest } = post;
-      const galleryImages = getGalleryImages(post.galleryDir, post.title);
-      const dateLabels = rest.dateLabels ?? (dateLabel ? [dateLabel] : undefined);
+  return {
+    ...rest,
+    href: `/post/${record.slug}`,
+    galleryImages,
+    coverImage: galleryImages[0],
+  };
+}
 
-      return {
-        ...rest,
-        dateLabels,
-        href: `/post/${post.slug}`,
-        galleryImages,
-        coverImage: galleryImages[0],
-      };
-    });
+function getCmsGalleryImages(
+  images: CmsPostFields["images"] | undefined,
+  title: string,
+): PostImage[] {
+  return (images ?? []).map((image, index) => ({
+    src: image.url,
+    alt: image.fileName || `${title} ${index + 1}`,
+  }));
+}
+
+function cmsRecordToPostRecord(cmsRecord: {
+  id: string;
+  slug?: string;
+  fields: CmsPostFields;
+}): PostRecord {
+  return {
+    id: cmsRecord.id,
+    slug: cmsRecord.slug ?? "",
+    title: cmsRecord.fields.title ?? "Untitled",
+    kind: cmsRecord.fields.kind ?? "post",
+    pinned: cmsRecord.fields.pinned ?? false,
+    publishedAt: cmsRecord.fields.published_at ?? "",
+    summary: cmsRecord.fields.description ?? "",
+    content: cmsRecord.fields.content ?? "",
+    dateLabels: cmsRecord.fields.date_labels,
+    locationLabel: cmsRecord.fields.location_label,
+    galleryImages: getCmsGalleryImages(
+      cmsRecord.fields.images,
+      cmsRecord.fields.title ?? "Post",
+    ),
+    tags: cmsRecord.fields.tags,
+  };
+}
+
+function sortPosts(records: PostRecord[]): PostRecord[] {
+  return [...records].sort((left, right) => {
+    if (left.pinned === right.pinned) return byNewest(left, right);
+    return left.pinned ? -1 : 1;
+  });
+}
+
+export const getAllPosts = cache(async (): Promise<Post[]> => {
+  const cmsData = await getCmsPosts();
+  if (!cmsData) {
+    return [];
+  }
+
+  const records = cmsData.records.map(cmsRecordToPostRecord);
+  return sortPosts(records).map(toPost);
 });
 
-export function getHomepagePosts(): Post[] {
-  const allPosts = getAllPosts();
+export async function getHomepagePosts(): Promise<Post[]> {
+  const allPosts = await getAllPosts();
   const pinnedPosts = allPosts.filter((post) => post.pinned);
   const latestPosts = allPosts.filter((post) => !post.pinned).slice(0, 3);
-
   return [...pinnedPosts, ...latestPosts];
 }
 
-export function getPostBySlug(slug: string): Post | undefined {
-  return getAllPosts().find((post) => post.slug === slug);
+export async function getPostBySlug(
+  slug: string,
+): Promise<Post | undefined> {
+  const cmsData = await getCmsPost(slug);
+  if (!cmsData) {
+    return undefined;
+  }
+
+  return toPost(cmsRecordToPostRecord(cmsData.record));
 }
 
-export function getPostSlugs(): string[] {
-  return getAllPosts().map((post) => post.slug);
+export async function getPostSlugs(): Promise<string[]> {
+  const allPosts = await getAllPosts();
+  return allPosts.map((post) => post.slug);
 }
 
 export function formatPublishedDate(date: string): string {

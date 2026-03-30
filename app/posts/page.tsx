@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-
 import PostPageHeader from "@/app/components/PostPageHeader";
 import PostsSection from "@/app/components/PostsSection";
 import SiteFooter from "@/app/components/SiteFooter";
@@ -10,8 +9,8 @@ export const metadata: Metadata = {
   description: "Alle Posts, Rückblicke und Einblicke aus dem Atelier z57.",
 };
 
-export default function PostsPage() {
-  const posts = getAllPosts();
+export default async function PostsPage() {
+  const posts = await getAllPosts();
 
   return (
     <div className="items-center justify-items-center gap-16 font-[family-name:var(--font-geist-sans)]">

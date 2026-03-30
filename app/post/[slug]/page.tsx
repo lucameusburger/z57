@@ -1,20 +1,19 @@
-import { MapPin } from "lucide-react";
-
-import Badge from "@/app/components/Badge";
-import Link from "next/link";
-import type { Metadata } from "next";
-import ReactMarkdown from "react-markdown";
-import { notFound } from "next/navigation";
-import remarkGfm from "remark-gfm";
-
-import PostGallery from "@/app/components/PostGallery";
-import PostPageHeader from "@/app/components/PostPageHeader";
-import SiteFooter from "@/app/components/SiteFooter";
 import {
   formatPublishedDate,
   getPostBySlug,
   getPostSlugs,
 } from "@/app/types/posts";
+
+import Badge from "@/app/components/Badge";
+import Link from "next/link";
+import { MapPin } from "lucide-react";
+import type { Metadata } from "next";
+import PostGallery from "@/app/components/PostGallery";
+import PostPageHeader from "@/app/components/PostPageHeader";
+import ReactMarkdown from "react-markdown";
+import SiteFooter from "@/app/components/SiteFooter";
+import { notFound } from "next/navigation";
+import remarkGfm from "remark-gfm";
 
 interface PostPageProps {
   params: Promise<{
@@ -40,13 +39,14 @@ function getRenderablePostContent(content: string, title: string) {
   return content.slice(headingMatch[0].length).replace(/^\s+/, "");
 }
 
-export function generateStaticParams() {
-  return getPostSlugs().map((slug) => ({ slug }));
+export async function generateStaticParams() {
+  const slugs = await getPostSlugs();
+  return slugs.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const post = getPostBySlug(slug);
+  const post = await getPostBySlug(slug);
 
   if (!post) {
     return {
@@ -68,7 +68,7 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
 
 export default async function PostPage({ params }: PostPageProps) {
   const { slug } = await params;
-  const post = getPostBySlug(slug);
+  const post = await getPostBySlug(slug);
 
   if (!post) {
     notFound();

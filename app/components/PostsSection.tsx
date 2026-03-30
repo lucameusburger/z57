@@ -1,19 +1,18 @@
 import {
   type Post,
   formatPublishedDate,
-  getHomepagePosts,
 } from "@/app/types/posts";
 
 import Badge from "@/app/components/Badge";
 import PostGallery from "@/app/components/PostGallery";
 
 interface PostsSectionProps {
-  posts?: Post[];
+  posts: Post[];
   showAllPostsLink?: boolean;
 }
 
 export default function PostsSection({
-  posts = getHomepagePosts(),
+  posts,
   showAllPostsLink = false,
 }: PostsSectionProps) {
   return (

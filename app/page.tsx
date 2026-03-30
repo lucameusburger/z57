@@ -1,5 +1,4 @@
 import { CornerRightUp, Instagram, Mail, User } from "lucide-react";
-import { Member, members } from "./members";
 
 import HeroPathSection from "./components/HeroPathSection";
 import Image from "next/image";
@@ -7,6 +6,8 @@ import MemberItem from "./components/MemberItem";
 import Model3D from "./components/Model3D";
 import PostsSection from "./components/PostsSection";
 import SiteFooter from "./components/SiteFooter";
+import { getMembers, type Member } from "@/app/types/members";
+import { getHomepagePosts } from "@/app/types/posts";
 import groupImage from "@/app/images/group.jpg";
 
 // const generateRandomPolygonPoints = () => {
@@ -16,7 +17,9 @@ import groupImage from "@/app/images/group.jpg";
 //   return points;
 // };
 
-export default function Home() {
+export default async function Home() {
+  const homepagePosts = await getHomepagePosts();
+  const members = await getMembers();
   function shuffleArray(array: Member[]) {
     for (let i = array.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -36,7 +39,7 @@ export default function Home() {
             <HeroPathSection />
           </div>
 
-          <PostsSection showAllPostsLink />
+          <PostsSection posts={homepagePosts} showAllPostsLink />
 
           <div className="h-8" />
           {/* <div className="px-4 md:px-8">
