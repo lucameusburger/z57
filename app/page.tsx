@@ -175,7 +175,7 @@ export default async function Home() {
                     <span className="text-xl">Schreib uns!</span>
                   </div>
                 </div>
-                <Image src={groupImage} alt={"Grupenfoto"} width={200} height={200} className="w-full h-64 rounded-3xl object-cover filter grayscalesss contrast-2 group-hover:scale-110 transition-all transform" />
+                <Image unoptimized src={groupImage} alt={"Grupenfoto"} width={200} height={200} className="w-full h-64 rounded-3xl object-cover filter grayscalesss contrast-2 group-hover:scale-110 transition-all transform" />
               </div>
               {/* <div className="border-foreground border overflow-hidden relative rounded-3xl w-full p-4">
                 <span className="text-xl py-1 px-2">Hallo</span>

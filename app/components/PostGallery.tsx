@@ -109,6 +109,7 @@ export default function PostGallery({
             >
               <div className="relative aspect-[4/5] overflow-hidden rounded-3xl border border-foreground bg-background">
                 <Image
+                  unoptimized
                   src={image.src}
                   alt={image.alt || `${title} ${index + 1}`}
                   fill

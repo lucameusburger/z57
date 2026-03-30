@@ -1,8 +1,8 @@
 import { Globe, Instagram, Mail } from "lucide-react";
 
+import Badge from "./Badge";
 import Image from "next/image";
 import type { Member } from "@/app/types/members";
-import Badge from "./Badge";
 
 const RoundButton = ({ icon, href }: { icon: React.ReactNode; href: string }) => {
   return (
@@ -26,6 +26,7 @@ const MemberItem = ({ member, switched }: { member: Member; switched: number }) 
         <div className="group relative h-full w-full overflow-hidden rounded-3xl border border-foreground">
           {member.image ? (
             <Image
+              unoptimized
               src={member.image}
               alt={member.name}
               width={1080}
