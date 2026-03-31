@@ -20,9 +20,6 @@ export default function EinblickEditBoot({
   return (
     <EinblickEditProvider
       siteKey={process.env.NEXT_PUBLIC_EINBLICK_SITE_KEY}
-      // appOrigin={
-      //   process.env.NEXT_PUBLIC_EINBLICK_APP_URL || "https://app.einblick.xyz"
-      // }
       onSave={handleSave}
     >
       {children}
