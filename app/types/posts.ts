@@ -7,6 +7,10 @@ import {
   getCmsPosts,
   type CmsPostFields,
 } from "@/app/lib/cms";
+import {
+  createEditableBinding,
+  type EinblickEditableBinding,
+} from "@einblick/sdk/react";
 
 export type PostKind = string;
 
@@ -23,6 +27,18 @@ interface PostRecord {
   locationLabel?: string;
   galleryImages?: PostImage[];
   tags?: string[];
+  bindings: {
+    region?: EinblickEditableBinding;
+    title?: EinblickEditableBinding<string>;
+    kind?: EinblickEditableBinding<string>;
+    publishedAt?: EinblickEditableBinding<string>;
+    summary?: EinblickEditableBinding<string>;
+    content?: EinblickEditableBinding<string>;
+    dateLabels?: EinblickEditableBinding<string[]>;
+    locationLabel?: EinblickEditableBinding<string>;
+    gallery?: EinblickEditableBinding<CmsPostFields["images"]>;
+    tags?: EinblickEditableBinding<string[]>;
+  };
 }
 
 export interface PostImage {
@@ -82,6 +98,102 @@ function cmsRecordToPostRecord(cmsRecord: {
       cmsRecord.fields.title ?? "Post",
     ),
     tags: cmsRecord.fields.tags,
+    bindings: {
+      region: createEditableBinding({
+        resourceSlug: "posts",
+        recordId: cmsRecord.id,
+        label: cmsRecord.fields.title ?? "Post",
+        displayMode: "drawer",
+      }),
+      title: createEditableBinding({
+        resourceSlug: "posts",
+        recordId: cmsRecord.id,
+        fieldKey: "title",
+        fieldType: "string",
+        label: "Title",
+        value: cmsRecord.fields.title ?? "Untitled",
+      }),
+      kind: cmsRecord.fields.kind
+        ? createEditableBinding({
+            resourceSlug: "posts",
+            recordId: cmsRecord.id,
+            fieldKey: "kind",
+            fieldType: "select",
+            label: "Kind",
+            value: cmsRecord.fields.kind,
+          })
+        : undefined,
+      publishedAt: cmsRecord.fields.published_at
+        ? createEditableBinding({
+            resourceSlug: "posts",
+            recordId: cmsRecord.id,
+            fieldKey: "published_at",
+            fieldType: "date",
+            displayMode: "drawer",
+            label: "Published at",
+          })
+        : undefined,
+      summary: cmsRecord.fields.description
+        ? createEditableBinding({
+            resourceSlug: "posts",
+            recordId: cmsRecord.id,
+            fieldKey: "description",
+            fieldType: "text",
+            label: "Summary",
+            value: cmsRecord.fields.description,
+          })
+        : undefined,
+      content: cmsRecord.fields.content
+        ? createEditableBinding({
+            resourceSlug: "posts",
+            recordId: cmsRecord.id,
+            fieldKey: "content",
+            fieldType: "markdown",
+            displayMode: "drawer",
+            label: "Content",
+          })
+        : undefined,
+      dateLabels: cmsRecord.fields.date_labels
+        ? createEditableBinding({
+            resourceSlug: "posts",
+            recordId: cmsRecord.id,
+            fieldKey: "date_labels",
+            fieldType: "tags",
+            displayMode: "drawer",
+            label: "Date labels",
+          })
+        : undefined,
+      locationLabel: cmsRecord.fields.location_label
+        ? createEditableBinding({
+            resourceSlug: "posts",
+            recordId: cmsRecord.id,
+            fieldKey: "location_label",
+            fieldType: "string",
+            label: "Location",
+            value: cmsRecord.fields.location_label,
+          })
+        : undefined,
+      gallery: cmsRecord.fields.images
+        ? createEditableBinding({
+            resourceSlug: "posts",
+            recordId: cmsRecord.id,
+            fieldKey: "images",
+            fieldType: "files",
+            displayMode: "drawer",
+            label: "Gallery",
+          })
+        : undefined,
+      tags: cmsRecord.fields.tags
+        ? createEditableBinding({
+            resourceSlug: "posts",
+            recordId: cmsRecord.id,
+            fieldKey: "tags",
+            fieldType: "tags",
+            displayMode: "drawer",
+            label: "Tags",
+          })
+        : undefined,
+    },
   };
 }
 

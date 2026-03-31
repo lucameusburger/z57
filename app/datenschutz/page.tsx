@@ -1,13 +1,17 @@
 import type { Metadata } from "next";
 
 import LegalPage from "@/app/components/LegalPage";
+import { EditableText } from "@einblick/sdk/react";
+import { getSiteInfos } from "@/app/types/infos";
 
 export const metadata: Metadata = {
   title: "Datenschutz | z57",
   description: "Datenschutzhinweise der Website von z57.",
 };
 
-export default function DatenschutzPage() {
+export default async function DatenschutzPage() {
+  const siteInfos = await getSiteInfos();
+
   return (
     <LegalPage
       title="Datenschutz"
@@ -27,9 +31,13 @@ export default function DatenschutzPage() {
         <p>Zieglergasse 57, 1070 Wien, Österreich</p>
         <p>
           E-Mail:{" "}
-          <a className="underline underline-offset-4" href="mailto:atelier@z57.at">
-            atelier@z57.at
-          </a>
+          {siteInfos.emailHref && siteInfos.email ? (
+            <a className="underline underline-offset-4" href={siteInfos.emailHref}>
+              <EditableText as="span" binding={siteInfos.bindings.email}>
+                {siteInfos.email}
+              </EditableText>
+            </a>
+          ) : null}
         </p>
       </section>
 

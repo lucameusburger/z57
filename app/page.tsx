@@ -1,4 +1,4 @@
-import { CornerRightUp, Instagram, Mail, User } from "lucide-react";
+import { CornerRightUp, Globe, Instagram, Mail } from "lucide-react";
 
 import HeroPathSection from "./components/HeroPathSection";
 import Image from "next/image";
@@ -6,6 +6,8 @@ import MemberItem from "./components/MemberItem";
 import Model3D from "./components/Model3D";
 import PostsSection from "./components/PostsSection";
 import SiteFooter from "./components/SiteFooter";
+import { EditableText } from "@einblick/sdk/react";
+import { getSiteInfos } from "@/app/types/infos";
 import { getMembers, type Member } from "@/app/types/members";
 import { getHomepagePosts } from "@/app/types/posts";
 import groupImage from "@/app/images/group.jpg";
@@ -20,6 +22,7 @@ import groupImage from "@/app/images/group.jpg";
 export default async function Home() {
   const homepagePosts = await getHomepagePosts();
   const members = await getMembers();
+  const siteInfos = await getSiteInfos();
   function shuffleArray(array: Member[]) {
     for (let i = array.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -155,26 +158,64 @@ export default async function Home() {
                 </div> */}
               </div>
               <div className="flex gap-8 w-full flex-col md:flex-row">
-                <a href="mailto:atelier@z57.at" className="border-foreground hover:bg-background transition-colors hover:text-foreground w-full flex flex-col gap-4 justify-between text-woit bg-foreground border overflow-hidden relative rounded-3xl p-4">
-                  <Mail className=" w-12 h-12" />
-                  <div className="flex flex-col gap-2">
-                    <hr className="border-current" />
-                    <span className="self-end text-xl">atelier@z57.at</span>
-                  </div>
-                </a>
-                <a href="https://www.instagram.com/z57.at/" className="border-foreground hover:bg-background transition-colors hover:text-foreground w-full flex flex-col gap-4 justify-between text-woit bg-foreground border overflow-hidden relative rounded-3xl p-4">
-                  <Instagram className=" w-12 h-12" />
-                  <div className="flex flex-col gap-2">
-                    <hr className="border-current" />
-                    <span className="self-end text-xl">z57.at</span>
-                  </div>
-                </a>
-                <div className="border-foreground w-full flex flex-col gap-4 justify-between border overflow-hidden relative rounded-3xl p-4">
-                  <User className=" w-12 h-12" />
-                  <div className="flex flex-col gap-2">
-                    <span className="text-xl">Schreib uns!</span>
-                  </div>
-                </div>
+                {siteInfos.emailHref && siteInfos.email ? (
+                  <a
+                    href={siteInfos.emailHref}
+                    className="border-foreground hover:bg-background transition-colors hover:text-foreground w-full flex flex-col gap-4 justify-between text-woit bg-foreground border overflow-hidden relative rounded-3xl p-4"
+                  >
+                    <Mail className="w-12 h-12" />
+                    <div className="flex flex-col gap-2">
+                      <hr className="border-current" />
+                      <EditableText
+                        as="span"
+                        binding={siteInfos.bindings.email}
+                        className="self-end text-xl"
+                      >
+                        {siteInfos.email}
+                      </EditableText>
+                    </div>
+                  </a>
+                ) : null}
+                {siteInfos.instagramHref ? (
+                  <a
+                    href={siteInfos.instagramHref}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="border-foreground hover:bg-background transition-colors hover:text-foreground w-full flex flex-col gap-4 justify-between text-woit bg-foreground border overflow-hidden relative rounded-3xl p-4"
+                  >
+                    <Instagram className="w-12 h-12" />
+                    <div className="flex flex-col gap-2">
+                      <hr className="border-current" />
+                      <EditableText
+                        as="span"
+                        binding={siteInfos.bindings.instagram}
+                        className="self-end text-xl"
+                      >
+                        {siteInfos.instagramLabel ?? "Instagram"}
+                      </EditableText>
+                    </div>
+                  </a>
+                ) : null}
+                {siteInfos.websiteHref ? (
+                  <a
+                    href={siteInfos.websiteHref}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="border-foreground hover:bg-background transition-colors hover:text-foreground w-full flex flex-col gap-4 justify-between text-woit bg-foreground border overflow-hidden relative rounded-3xl p-4"
+                  >
+                    <Globe className="w-12 h-12" />
+                    <div className="flex flex-col gap-2">
+                      <hr className="border-current" />
+                      <EditableText
+                        as="span"
+                        binding={siteInfos.bindings.website}
+                        className="self-end text-xl"
+                      >
+                        {siteInfos.websiteLabel ?? "Website"}
+                      </EditableText>
+                    </div>
+                  </a>
+                ) : null}
                 <Image unoptimized src={groupImage} alt={"Grupenfoto"} width={200} height={200} className="w-full h-64 rounded-3xl object-cover filter grayscalesss contrast-2 group-hover:scale-110 transition-all transform" />
               </div>
               {/* <div className="border-foreground border overflow-hidden relative rounded-3xl w-full p-4">

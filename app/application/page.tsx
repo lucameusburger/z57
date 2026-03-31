@@ -1,8 +1,12 @@
 import { ArrowLeft } from "lucide-react";
 
 import Link from "next/link";
+import { EditableText } from "@einblick/sdk/react";
+import { getSiteInfos } from "@/app/types/infos";
 
-export default function ApplicationPage() {
+export default async function ApplicationPage() {
+  const siteInfos = await getSiteInfos();
+
   return (
     <div className="items-center justify-items-center gap-16 font-[family-name:var(--font-geist-sans)]">
       <main className="flex min-h-screen w-full flex-col px-4 py-8 md:px-8">
@@ -26,9 +30,13 @@ export default function ApplicationPage() {
           <p className="text-lg leading-relaxed text-background/80 md:text-xl">
             Das Bewerbungsformular bleibt vorerst nur als Archivseite bestehen und ist aktuell
             nicht aktiv. Wenn ihr mit z57 in Kontakt treten möchtet, schreibt direkt an{" "}
-            <a className="underline underline-offset-4" href="mailto:atelier@z57.at">
-              atelier@z57.at
-            </a>
+            {siteInfos.emailHref && siteInfos.email ? (
+              <a className="underline underline-offset-4" href={siteInfos.emailHref}>
+                <EditableText as="span" binding={siteInfos.bindings.email}>
+                  {siteInfos.email}
+                </EditableText>
+              </a>
+            ) : null}
             .
           </p>
         </div>

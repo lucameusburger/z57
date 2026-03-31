@@ -3,6 +3,7 @@ import "server-only";
 import { cache } from "react";
 
 import type {
+  InfosFields,
   MembersFields,
   PostsFields,
 } from "@/app/lib/einblick.generated";
@@ -18,6 +19,7 @@ export type CmsSingleRecordResponse<T extends Record<string, unknown>> =
   EinblickSingleRecordResponse<T>;
 
 export type CmsMemberFields = MembersFields;
+export type CmsInfosFields = InfosFields;
 export type CmsPostFields = PostsFields;
 
 const REVALIDATE_FETCH = {
@@ -70,6 +72,23 @@ export const getCmsMembers = cache(
       });
     } catch (error) {
       logCmsError("getCmsMembers", error);
+      return null;
+    }
+  }
+);
+
+export const getCmsInfos = cache(
+  async (): Promise<CmsSingleRecordResponse<CmsInfosFields> | null> => {
+    if (!isCmsConfigured()) {
+      return null;
+    }
+
+    try {
+      return await getClient().request("infos", {
+        fetch: REVALIDATE_FETCH,
+      });
+    } catch (error) {
+      logCmsError("getCmsInfos", error);
       return null;
     }
   }

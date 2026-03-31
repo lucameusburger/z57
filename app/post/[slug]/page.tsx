@@ -12,6 +12,10 @@ import PostGallery from "@/app/components/PostGallery";
 import PostPageHeader from "@/app/components/PostPageHeader";
 import ReactMarkdown from "react-markdown";
 import SiteFooter from "@/app/components/SiteFooter";
+import {
+  EditableRegion,
+  EditableText,
+} from "@einblick/sdk/react";
 import { notFound } from "next/navigation";
 import remarkGfm from "remark-gfm";
 
@@ -83,44 +87,82 @@ export default async function PostPage({ params }: PostPageProps) {
           <PostPageHeader fallbackHref="/posts" />
 
           <div className="flex flex-col gap-6 px-4 py-8 md:px-8">
-            <section className="rounded-3xl border border-foreground bg-background p-4 md:p-6">
+            <EditableRegion
+              as="section"
+              binding={post.bindings.region}
+              className="rounded-3xl border border-foreground bg-background p-4 md:p-6"
+            >
               <div className="mb-6 flex flex-col gap-4">
                 <div className="flex flex-wrap gap-2 text-sm">
-                  <Badge>{post.kind}</Badge>
-                  <Badge>{formatPublishedDate(post.publishedAt)}</Badge>
+                  <Badge>
+                    <EditableText as="span" binding={post.bindings.kind}>
+                      {post.kind}
+                    </EditableText>
+                  </Badge>
+                  <Badge>
+                    <EditableText as="span" binding={post.bindings.publishedAt}>
+                      {formatPublishedDate(post.publishedAt)}
+                    </EditableText>
+                  </Badge>
                   {post.dateLabels?.map((dateLabel) => (
-                    <Badge key={dateLabel}>{dateLabel}</Badge>
+                    <Badge key={dateLabel}>
+                      <EditableText as="span" binding={post.bindings.dateLabels}>
+                        {dateLabel}
+                      </EditableText>
+                    </Badge>
                   ))}
                 </div>
 
                 <div className="space-y-3">
-                  <h1 className="text-4xl md:text-6xl">{post.title}</h1>
-                  <p className="max-w-5xl text-lg leading-relaxed md:text-xl">
+                  <EditableText
+                    as="h1"
+                    binding={post.bindings.title}
+                    className="text-4xl md:text-6xl"
+                  >
+                    {post.title}
+                  </EditableText>
+                  <EditableText
+                    as="p"
+                    binding={post.bindings.summary}
+                    className="max-w-5xl text-lg leading-relaxed md:text-xl"
+                  >
                     {post.summary}
-                  </p>
+                  </EditableText>
                 </div>
 
                 {post.locationLabel && (
                   <div className="flex items-start gap-3 text-base md:text-lg">
                     <MapPin className="mt-0.5 h-5 w-5 flex-none" />
-                    <span>{post.locationLabel}</span>
+                    <EditableText as="span" binding={post.bindings.locationLabel}>
+                      {post.locationLabel}
+                    </EditableText>
                   </div>
                 )}
               </div>
 
-              <PostGallery
-                images={post.galleryImages}
-                title={post.title}
-                priorityFirstImage
-              />
-            </section>
+              <EditableRegion as="div" binding={post.bindings.gallery}>
+                <PostGallery
+                  images={post.galleryImages}
+                  title={post.title}
+                  priorityFirstImage
+                />
+              </EditableRegion>
+            </EditableRegion>
 
-            <section className="rounded-3xl border border-foreground bg-background px-5 py-6 md:px-8 md:py-8">
+            <EditableRegion
+              as="section"
+              binding={post.bindings.content}
+              className="rounded-3xl border border-foreground bg-background px-5 py-6 md:px-8 md:py-8"
+            >
               {post.tags && post.tags.length > 0 && (
                 <div className="mb-6 flex flex-wrap gap-2 text-sm text-foreground/65">
                   <div className="flex flex-wrap gap-2">
                     {post.tags.map((tag) => (
-                      <Badge key={tag}>{tag}</Badge>
+                      <Badge key={tag}>
+                        <EditableText as="span" binding={post.bindings.tags}>
+                          {tag}
+                        </EditableText>
+                      </Badge>
                     ))}
                   </div>
                 </div>
@@ -172,7 +214,7 @@ export default async function PostPage({ params }: PostPageProps) {
                   {renderableContent}
                 </ReactMarkdown>
               </div>
-            </section>
+            </EditableRegion>
           </div>
         </main>
 

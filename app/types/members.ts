@@ -3,6 +3,10 @@ import "server-only";
 import { cache } from "react";
 
 import { getCmsMembers, type CmsMemberFields } from "@/app/lib/cms";
+import {
+  createEditableBinding,
+  type EinblickEditableBinding,
+} from "@einblick/sdk/react";
 
 export interface Project {
   name: string;
@@ -18,6 +22,17 @@ export interface Member {
   website?: string;
   instagram?: string;
   projects: Project[];
+  bindings: {
+    region?: EinblickEditableBinding;
+    name?: EinblickEditableBinding<string>;
+    image?: EinblickEditableBinding<CmsMemberFields["image"]>;
+    title?: EinblickEditableBinding<string>;
+    description?: EinblickEditableBinding<string>;
+    email?: EinblickEditableBinding<string>;
+    website?: EinblickEditableBinding<string>;
+    instagram?: EinblickEditableBinding<string>;
+    projects?: EinblickEditableBinding<CmsMemberFields["projects"]>;
+  };
 }
 
 function isNonEmptyString(value: unknown): value is string {
@@ -61,6 +76,84 @@ function cmsRecordToMember(cmsRecord: {
     website: cmsRecord.fields.website ?? undefined,
     instagram: cmsRecord.fields.instagram ?? undefined,
     projects: parseProjects(cmsRecord.fields.projects),
+    bindings: {
+      region: createEditableBinding({
+        resourceSlug: "members",
+        recordId: cmsRecord.id,
+        label: cmsRecord.fields.name,
+        displayMode: "drawer",
+      }),
+      name: createEditableBinding({
+        resourceSlug: "members",
+        recordId: cmsRecord.id,
+        fieldKey: "name",
+        fieldType: "string",
+        label: "Name",
+        value: cmsRecord.fields.name,
+      }),
+      image: cmsRecord.fields.image
+        ? createEditableBinding({
+            resourceSlug: "members",
+            recordId: cmsRecord.id,
+            fieldKey: "image",
+            fieldType: "image",
+            label: "Member image",
+            displayMode: "drawer",
+          })
+        : undefined,
+      title: createEditableBinding({
+        resourceSlug: "members",
+        recordId: cmsRecord.id,
+        fieldKey: "title",
+        fieldType: "string",
+        label: "Title",
+        value: cmsRecord.fields.title,
+      }),
+      description: createEditableBinding({
+        resourceSlug: "members",
+        recordId: cmsRecord.id,
+        fieldKey: "description",
+        fieldType: "text",
+        label: "Description",
+        value: cmsRecord.fields.description,
+      }),
+      email: createEditableBinding({
+        resourceSlug: "members",
+        recordId: cmsRecord.id,
+        fieldKey: "email",
+        fieldType: "string",
+        label: "Email",
+        value: cmsRecord.fields.email,
+      }),
+      website: cmsRecord.fields.website
+        ? createEditableBinding({
+            resourceSlug: "members",
+            recordId: cmsRecord.id,
+            fieldKey: "website",
+            fieldType: "string",
+            label: "Website",
+            value: cmsRecord.fields.website,
+          })
+        : undefined,
+      instagram: cmsRecord.fields.instagram
+        ? createEditableBinding({
+            resourceSlug: "members",
+            recordId: cmsRecord.id,
+            fieldKey: "instagram",
+            fieldType: "string",
+            label: "Instagram",
+            value: cmsRecord.fields.instagram,
+          })
+        : undefined,
+      projects: createEditableBinding({
+        resourceSlug: "members",
+        recordId: cmsRecord.id,
+        fieldKey: "projects",
+        fieldType: "json",
+        label: "Projects",
+        displayMode: "drawer",
+      }),
+    },
   };
 }
 
