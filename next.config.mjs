@@ -1,4 +1,10 @@
 /** @type {import('next').NextConfig} */
+const einblickApiUrl =
+  process.env.EINBLICK_API_URL ??
+  process.env.NEXT_PUBLIC_EINBLICK_API_URL ??
+  "https://actions.einblick.xyz";
+const einblickApiHostname = new URL(einblickApiUrl).hostname;
+
 const nextConfig = {
   experimental: {
     serverActions: {
@@ -10,6 +16,10 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "**.r2.cloudflarestorage.com",
+      },
+      {
+        protocol: "https",
+        hostname: einblickApiHostname,
       },
     ],
   },
