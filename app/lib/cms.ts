@@ -7,6 +7,10 @@ import type {
   MembersFields,
   PostsFields,
 } from "@/app/lib/einblick.generated";
+import {
+  EINBLICK_CMS_TAGS,
+  getEinblickCmsTags,
+} from "@/app/lib/einblick-cache";
 import { createGeneratedEinblickClient } from "@/app/lib/einblick.generated";
 import type {
   EinblickListResponse,
@@ -22,11 +26,16 @@ export type CmsMemberFields = MembersFields;
 export type CmsInfosFields = InfosFields;
 export type CmsPostFields = PostsFields;
 
-const REVALIDATE_FETCH = {
-  next: {
-    revalidate: 60,
-  },
-};
+const REVALIDATE_SECONDS = 60;
+
+function getRevalidatedFetch(tags: string[]) {
+  return {
+    next: {
+      revalidate: REVALIDATE_SECONDS,
+      tags,
+    },
+  };
+}
 
 function getClient() {
   return createGeneratedEinblickClient();
@@ -50,7 +59,7 @@ export const getCmsPosts = cache(
     try {
       return await getClient().request("posts", {
         limit: 100,
-        fetch: REVALIDATE_FETCH,
+        fetch: getRevalidatedFetch(getEinblickCmsTags("posts")),
       });
     } catch (error) {
       logCmsError("getCmsPosts", error);
@@ -68,7 +77,7 @@ export const getCmsMembers = cache(
     try {
       return await getClient().request("members", {
         limit: 100,
-        fetch: REVALIDATE_FETCH,
+        fetch: getRevalidatedFetch(getEinblickCmsTags("members")),
       });
     } catch (error) {
       logCmsError("getCmsMembers", error);
@@ -85,7 +94,7 @@ export const getCmsInfos = cache(
 
     try {
       return await getClient().request("infos", {
-        fetch: REVALIDATE_FETCH,
+        fetch: getRevalidatedFetch(getEinblickCmsTags("infos")),
       });
     } catch (error) {
       logCmsError("getCmsInfos", error);
@@ -103,7 +112,10 @@ export const getCmsPost = cache(
     try {
       return await getClient().request("posts", {
         slug,
-        fetch: REVALIDATE_FETCH,
+        fetch: getRevalidatedFetch([
+          ...getEinblickCmsTags("posts"),
+          `${EINBLICK_CMS_TAGS.posts}:${slug}`,
+        ]),
       });
     } catch (error) {
       logCmsError(`getCmsPost(${slug})`, error);

@@ -1,19 +1,31 @@
 "use client";
 
-import { startTransition, useEffectEvent } from "react";
+import { useEffectEvent } from "react";
 
 import { EinblickEditProvider } from "@einblick/sdk/react";
-import { useRouter } from "next/navigation";
 
 export default function EinblickEditBoot({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const router = useRouter();
-  const handleSave = useEffectEvent(() => {
-    startTransition(() => {
-      router.refresh();
+  const handleSave = useEffectEvent((event: {
+    binding: {
+      resourceSlug: string;
+    };
+  }) => {
+    void fetch("/api/einblick/revalidate", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({
+        resourceSlug: event.binding.resourceSlug,
+      }),
+      cache: "no-store",
+      keepalive: true,
+    }).catch(() => {
+      // Keep the optimistic edit state even if background revalidation fails.
     });
   });
 
