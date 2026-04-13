@@ -15,6 +15,8 @@ interface PostsSectionProps {
   showAllPostsLink?: boolean;
 }
 
+const enableInlinePostFieldEditing = false;
+
 export default function PostsSection({
   posts,
   showAllPostsLink = false,
@@ -34,13 +36,19 @@ export default function PostsSection({
                 <div className="space-y-4">
                   <div className="flex flex-wrap gap-2 text-sm">
                     <Badge>
-                      <EditableText as="span" binding={post.bindings.kind}>
+                      <EditableText
+                        as="span"
+                        binding={enableInlinePostFieldEditing ? post.bindings.kind : undefined}
+                      >
                         {post.kind}
                       </EditableText>
                     </Badge>
                     {post.dateLabels?.map((dateLabel) => (
                       <Badge key={dateLabel}>
-                        <EditableText as="span" binding={post.bindings.dateLabels}>
+                        <EditableText
+                          as="span"
+                          binding={enableInlinePostFieldEditing ? post.bindings.dateLabels : undefined}
+                        >
                           {dateLabel}
                         </EditableText>
                       </Badge>
@@ -49,14 +57,14 @@ export default function PostsSection({
                   <div className="space-y-3">
                     <EditableText
                       as="h2"
-                      binding={post.bindings.title}
+                      binding={enableInlinePostFieldEditing ? post.bindings.title : undefined}
                       className="text-3xl md:text-5xl"
                     >
                       {post.title}
                     </EditableText>
                     <EditableText
                       as="p"
-                      binding={post.bindings.summary}
+                      binding={enableInlinePostFieldEditing ? post.bindings.summary : undefined}
                       className="max-w-4xl text-lg leading-relaxed md:text-xl h-48"
                     >
                       {post.summary}
@@ -66,14 +74,17 @@ export default function PostsSection({
 
                 <EditableText
                   as="span"
-                  binding={post.bindings.publishedAt}
+                  binding={enableInlinePostFieldEditing ? post.bindings.publishedAt : undefined}
                   className="hidden text-sm tracking-[0.04em] text-foreground/60 md:block"
                 >
                   {formatPublishedDate(post.publishedAt)}
                 </EditableText>
               </div>
 
-              <EditableRegion as="div" binding={post.bindings.gallery}>
+              <EditableRegion
+                as="div"
+                binding={enableInlinePostFieldEditing ? post.bindings.gallery : undefined}
+              >
                 <PostGallery
                   images={post.galleryImages}
                   title={post.title}
@@ -84,7 +95,7 @@ export default function PostsSection({
               <div className="mt-5 flex items-center justify-between gap-4">
                 <EditableText
                   as="span"
-                  binding={post.bindings.publishedAt}
+                  binding={enableInlinePostFieldEditing ? post.bindings.publishedAt : undefined}
                   className="text-sm tracking-[0.04em] text-foreground/60 md:hidden"
                 >
                   {formatPublishedDate(post.publishedAt)}

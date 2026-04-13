@@ -10,7 +10,7 @@
     "einblick:generate": "einblick-sdk generate --output app/lib/einblick.generated.ts"
   },
   "dependencies": {
-    "@einblick/sdk": "^0.3.12",
+    "@einblick/sdk": "^0.3.16",
     "@gsap/react": "^2.1.1",
     "@radix-ui/react-slot": "^1.2.4",
     "@react-three/drei": "^10.7.6",

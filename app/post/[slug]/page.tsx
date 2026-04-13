@@ -25,6 +25,8 @@ interface PostPageProps {
   }>;
 }
 
+const enableInlinePostFieldEditing = false;
+
 function normalizeHeadingText(value: string) {
   return value.trim().replace(/\s+/g, " ").toLowerCase();
 }
@@ -86,27 +88,40 @@ export default async function PostPage({ params }: PostPageProps) {
         <main className="flex w-full flex-1 flex-col" id="top">
           <PostPageHeader fallbackHref="/posts" />
 
-          <div className="flex flex-col gap-6 px-4 py-8 md:px-8">
+          <EditableRegion
+            as="div"
+            binding={post.bindings.region}
+            className="flex flex-col gap-6 px-4 py-8 md:px-8"
+          >
             <EditableRegion
               as="section"
-              binding={post.bindings.region}
+              binding={enableInlinePostFieldEditing ? post.bindings.region : undefined}
               className="rounded-3xl border border-foreground bg-background p-4 md:p-6"
             >
               <div className="mb-6 flex flex-col gap-4">
                 <div className="flex flex-wrap gap-2 text-sm">
                   <Badge>
-                    <EditableText as="span" binding={post.bindings.kind}>
+                    <EditableText
+                      as="span"
+                      binding={enableInlinePostFieldEditing ? post.bindings.kind : undefined}
+                    >
                       {post.kind}
                     </EditableText>
                   </Badge>
                   <Badge>
-                    <EditableText as="span" binding={post.bindings.publishedAt}>
+                    <EditableText
+                      as="span"
+                      binding={enableInlinePostFieldEditing ? post.bindings.publishedAt : undefined}
+                    >
                       {formatPublishedDate(post.publishedAt)}
                     </EditableText>
                   </Badge>
                   {post.dateLabels?.map((dateLabel) => (
                     <Badge key={dateLabel}>
-                      <EditableText as="span" binding={post.bindings.dateLabels}>
+                      <EditableText
+                        as="span"
+                        binding={enableInlinePostFieldEditing ? post.bindings.dateLabels : undefined}
+                      >
                         {dateLabel}
                       </EditableText>
                     </Badge>
@@ -116,14 +131,14 @@ export default async function PostPage({ params }: PostPageProps) {
                 <div className="space-y-3">
                   <EditableText
                     as="h1"
-                    binding={post.bindings.title}
+                    binding={enableInlinePostFieldEditing ? post.bindings.title : undefined}
                     className="text-4xl md:text-6xl"
                   >
                     {post.title}
                   </EditableText>
                   <EditableText
                     as="p"
-                    binding={post.bindings.summary}
+                    binding={enableInlinePostFieldEditing ? post.bindings.summary : undefined}
                     className="max-w-5xl text-lg leading-relaxed md:text-xl"
                   >
                     {post.summary}
@@ -133,14 +148,20 @@ export default async function PostPage({ params }: PostPageProps) {
                 {post.locationLabel && (
                   <div className="flex items-start gap-3 text-base md:text-lg">
                     <MapPin className="mt-0.5 h-5 w-5 flex-none" />
-                    <EditableText as="span" binding={post.bindings.locationLabel}>
+                    <EditableText
+                      as="span"
+                      binding={enableInlinePostFieldEditing ? post.bindings.locationLabel : undefined}
+                    >
                       {post.locationLabel}
                     </EditableText>
                   </div>
                 )}
               </div>
 
-              <EditableRegion as="div" binding={post.bindings.gallery}>
+              <EditableRegion
+                as="div"
+                binding={enableInlinePostFieldEditing ? post.bindings.gallery : undefined}
+              >
                 <PostGallery
                   images={post.galleryImages}
                   title={post.title}
@@ -151,7 +172,7 @@ export default async function PostPage({ params }: PostPageProps) {
 
             <EditableRegion
               as="section"
-              binding={post.bindings.content}
+              binding={enableInlinePostFieldEditing ? post.bindings.content : undefined}
               className="rounded-3xl border border-foreground bg-background px-5 py-6 md:px-8 md:py-8"
             >
               {post.tags && post.tags.length > 0 && (
@@ -159,7 +180,10 @@ export default async function PostPage({ params }: PostPageProps) {
                   <div className="flex flex-wrap gap-2">
                     {post.tags.map((tag) => (
                       <Badge key={tag}>
-                        <EditableText as="span" binding={post.bindings.tags}>
+                        <EditableText
+                          as="span"
+                          binding={enableInlinePostFieldEditing ? post.bindings.tags : undefined}
+                        >
                           {tag}
                         </EditableText>
                       </Badge>
@@ -215,7 +239,7 @@ export default async function PostPage({ params }: PostPageProps) {
                 </ReactMarkdown>
               </div>
             </EditableRegion>
-          </div>
+          </EditableRegion>
         </main>
 
         <SiteFooter />
