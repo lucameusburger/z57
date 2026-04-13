@@ -39,11 +39,11 @@ const MemberItem = ({ member, switched }: { member: Member; switched: number }) 
         >
           {member.image ? (
             <Image
-              unoptimized
               src={member.image}
               alt={member.name}
               width={1080}
               height={1080}
+              sizes="(max-width: 768px) 100vw, 33vw"
               className="h-full w-full object-cover filter grayscalesss contrast-2 transition-transform duration-300 group-hover:scale-105"
             />
           ) : (

@@ -12,6 +12,8 @@ const nextConfig = {
     },
   },
   images: {
+    loader: "custom",
+    loaderFile: "./app/lib/einblick-image-loader.ts",
     remotePatterns: [
       {
         protocol: "https",

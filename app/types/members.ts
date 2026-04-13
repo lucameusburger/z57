@@ -2,6 +2,7 @@ import "server-only";
 
 import { cache } from "react";
 
+import { getEinblickAssetUrl } from "@/app/lib/assets";
 import { getCmsMembers, type CmsMemberFields } from "@/app/lib/cms";
 import {
   createEditableBinding,
@@ -69,7 +70,7 @@ function cmsRecordToMember(cmsRecord: {
 }): Member {
   return {
     name: cmsRecord.fields.name,
-    image: cmsRecord.fields.image?.url ?? undefined,
+    image: getEinblickAssetUrl(cmsRecord.fields.image) ?? undefined,
     title: cmsRecord.fields.title,
     description: cmsRecord.fields.description,
     email: cmsRecord.fields.email,

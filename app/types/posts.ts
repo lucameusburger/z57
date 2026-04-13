@@ -2,6 +2,7 @@ import "server-only";
 
 import { cache } from "react";
 
+import { getEinblickAssetUrl } from "@/app/lib/assets";
 import {
   getCmsPost,
   getCmsPosts,
@@ -71,10 +72,19 @@ function getCmsGalleryImages(
   images: CmsPostFields["images"] | undefined,
   title: string,
 ): PostImage[] {
-  return (images ?? []).map((image, index) => ({
-    src: image.url,
-    alt: image.fileName || `${title} ${index + 1}`,
-  }));
+  return (images ?? []).flatMap((image, index) => {
+    const src = getEinblickAssetUrl(image);
+    if (!src) {
+      return [];
+    }
+
+    return [
+      {
+        src,
+        alt: image.fileName || `${title} ${index + 1}`,
+      },
+    ];
+  });
 }
 
 function cmsRecordToPostRecord(cmsRecord: {
