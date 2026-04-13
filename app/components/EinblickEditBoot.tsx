@@ -1,7 +1,5 @@
 "use client";
 
-import { useEffectEvent } from "react";
-
 import { EinblickEditProvider } from "@einblick/sdk/react";
 
 export default function EinblickEditBoot({
@@ -9,7 +7,7 @@ export default function EinblickEditBoot({
 }: {
   children: React.ReactNode;
 }) {
-  const handleSave = useEffectEvent((event: {
+  const handleSave = (event: {
     binding: {
       resourceSlug: string;
     };
@@ -27,7 +25,7 @@ export default function EinblickEditBoot({
     }).catch(() => {
       // Keep the optimistic edit state even if background revalidation fails.
     });
-  });
+  };
 
   return (
     <EinblickEditProvider
