@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@einblick/sdk':
-        specifier: ^0.3.18
-        version: 0.3.18(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+        specifier: ^0.3.20
+        version: 0.3.20(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       '@gsap/react':
         specifier: ^2.1.1
         version: 2.1.2(gsap@3.14.2)(react@19.2.0)
@@ -171,9 +171,9 @@ packages:
     resolution: {integrity: sha512-LwdZHpScM4Qz8Xw2iKSzS+cfglZzJGvofQICy7W7v4caru4EaAmyUuO6BGrbyQ2mYV11W0U8j5mBhd14dd3B0A==}
     engines: {node: '>=6.9.0'}
 
-  '@einblick/sdk@0.3.18':
-    resolution: {integrity: sha512-2b8es50RdyZaNrRJXpPnUTnJOToLzrgV3YlFoYYmzzWEGEzIVsnvXVK8AX59xWgggTCAWVWV04cENLOu0Pj1mA==}
-    engines: {node: '>=20.0.0'}
+  '@einblick/sdk@0.3.20':
+    resolution: {integrity: sha512-NY73hBdqNVvtqdGK83SDq7K3A5E7ANBX7cnpdqyPeCHJ5LctaNd/o07lZ6UroikwpN9oFHl2Hvc8b6NGk0AikA==}
+    engines: {node: '>=24.0.0'}
     hasBin: true
     peerDependencies:
       react: '>=18.2.0'
@@ -2742,7 +2742,7 @@ snapshots:
       '@babel/helper-string-parser': 7.27.1
       '@babel/helper-validator-identifier': 7.28.5
 
-  '@einblick/sdk@0.3.18(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
+  '@einblick/sdk@0.3.20(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
     dependencies:
       dotenv: 17.3.1
       react: 19.2.0
