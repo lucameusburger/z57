@@ -26,6 +26,7 @@ interface PostRecord {
   content: string;
   dateLabels?: string[];
   locationLabel?: string;
+  image?: PostImage;
   galleryImages?: PostImage[];
   tags?: string[];
   bindings: {
@@ -37,6 +38,7 @@ interface PostRecord {
     content?: EinblickEditableBinding<string>;
     dateLabels?: EinblickEditableBinding<string[]>;
     locationLabel?: EinblickEditableBinding<string>;
+    image?: EinblickEditableBinding<CmsPostFields["image"]>;
     gallery?: EinblickEditableBinding<CmsPostFields["images"]>;
     tags?: EinblickEditableBinding<string[]>;
   };
@@ -45,6 +47,8 @@ interface PostRecord {
 export interface PostImage {
   src: string;
   alt: string;
+  width?: number;
+  height?: number;
 }
 
 export interface Post extends Omit<PostRecord, "galleryImages"> {
@@ -58,13 +62,31 @@ function byNewest(left: PostRecord, right: PostRecord) {
 }
 
 function toPost(record: PostRecord): Post {
-  const { galleryImages = [], ...rest } = record;
+  const { galleryImages = [], image, ...rest } = record;
 
   return {
     ...rest,
+    image,
     href: `/post/${record.slug}`,
     galleryImages,
-    coverImage: galleryImages[0],
+    coverImage: image ?? galleryImages[0],
+  };
+}
+
+function getCmsImage(
+  image: CmsPostFields["image"] | undefined,
+  title: string,
+): PostImage | undefined {
+  const src = getEinblickAssetUrl(image);
+  if (!src) {
+    return undefined;
+  }
+
+  return {
+    src,
+    alt: image?.fileName || title,
+    width: image?.width,
+    height: image?.height,
   };
 }
 
@@ -82,6 +104,8 @@ function getCmsGalleryImages(
       {
         src,
         alt: image.fileName || `${title} ${index + 1}`,
+        width: image.width,
+        height: image.height,
       },
     ];
   });
@@ -92,27 +116,30 @@ function cmsRecordToPostRecord(cmsRecord: {
   slug?: string;
   fields: CmsPostFields;
 }): PostRecord {
+  const { fields } = cmsRecord;
+
   return {
     id: cmsRecord.id,
     slug: cmsRecord.slug ?? "",
-    title: cmsRecord.fields.title ?? "Untitled",
-    kind: cmsRecord.fields.kind ?? "post",
-    pinned: cmsRecord.fields.pinned ?? false,
-    publishedAt: cmsRecord.fields.published_at ?? "",
-    summary: cmsRecord.fields.description ?? "",
-    content: cmsRecord.fields.content ?? "",
-    dateLabels: cmsRecord.fields.date_labels,
-    locationLabel: cmsRecord.fields.location_label,
+    title: fields.title ?? "Untitled",
+    kind: fields.kind ?? "post",
+    pinned: fields.pinned ?? false,
+    publishedAt: fields.published_at ?? "",
+    summary: fields.description ?? "",
+    content: fields.content ?? "",
+    dateLabels: fields.date_labels,
+    locationLabel: fields.location_label,
+    image: getCmsImage(fields.image, fields.title ?? "Post"),
     galleryImages: getCmsGalleryImages(
-      cmsRecord.fields.images,
-      cmsRecord.fields.title ?? "Post",
+      fields.images,
+      fields.title ?? "Post",
     ),
-    tags: cmsRecord.fields.tags,
+    tags: fields.tags,
     bindings: {
       region: createEditableBinding({
         resourceSlug: "posts",
         recordId: cmsRecord.id,
-        label: cmsRecord.fields.title ?? "Post",
+        label: fields.title ?? "Post",
         displayMode: "drawer",
       }),
       title: createEditableBinding({
@@ -121,19 +148,19 @@ function cmsRecordToPostRecord(cmsRecord: {
         fieldKey: "title",
         fieldType: "string",
         label: "Title",
-        value: cmsRecord.fields.title ?? "Untitled",
+        value: fields.title ?? "Untitled",
       }),
-      kind: cmsRecord.fields.kind
+      kind: fields.kind
         ? createEditableBinding({
             resourceSlug: "posts",
             recordId: cmsRecord.id,
             fieldKey: "kind",
             fieldType: "select",
             label: "Kind",
-            value: cmsRecord.fields.kind,
+            value: fields.kind,
           })
         : undefined,
-      publishedAt: cmsRecord.fields.published_at
+      publishedAt: fields.published_at
         ? createEditableBinding({
             resourceSlug: "posts",
             recordId: cmsRecord.id,
@@ -143,17 +170,17 @@ function cmsRecordToPostRecord(cmsRecord: {
             label: "Published at",
           })
         : undefined,
-      summary: cmsRecord.fields.description
+      summary: fields.description
         ? createEditableBinding({
             resourceSlug: "posts",
             recordId: cmsRecord.id,
             fieldKey: "description",
             fieldType: "text",
             label: "Summary",
-            value: cmsRecord.fields.description,
+            value: fields.description,
           })
         : undefined,
-      content: cmsRecord.fields.content
+      content: fields.content
         ? createEditableBinding({
             resourceSlug: "posts",
             recordId: cmsRecord.id,
@@ -163,7 +190,7 @@ function cmsRecordToPostRecord(cmsRecord: {
             label: "Content",
           })
         : undefined,
-      dateLabels: cmsRecord.fields.date_labels
+      dateLabels: fields.date_labels
         ? createEditableBinding({
             resourceSlug: "posts",
             recordId: cmsRecord.id,
@@ -173,17 +200,27 @@ function cmsRecordToPostRecord(cmsRecord: {
             label: "Date labels",
           })
         : undefined,
-      locationLabel: cmsRecord.fields.location_label
+      locationLabel: fields.location_label
         ? createEditableBinding({
             resourceSlug: "posts",
             recordId: cmsRecord.id,
             fieldKey: "location_label",
             fieldType: "string",
             label: "Location",
-            value: cmsRecord.fields.location_label,
+            value: fields.location_label,
           })
         : undefined,
-      gallery: cmsRecord.fields.images
+      image: fields.image
+        ? createEditableBinding({
+            resourceSlug: "posts",
+            recordId: cmsRecord.id,
+            fieldKey: "image",
+            fieldType: "image",
+            label: "Image",
+            displayMode: "drawer",
+          })
+        : undefined,
+      gallery: fields.images
         ? createEditableBinding({
             resourceSlug: "posts",
             recordId: cmsRecord.id,
@@ -193,7 +230,7 @@ function cmsRecordToPostRecord(cmsRecord: {
             label: "Gallery",
           })
         : undefined,
-      tags: cmsRecord.fields.tags
+      tags: fields.tags
         ? createEditableBinding({
             resourceSlug: "posts",
             recordId: cmsRecord.id,

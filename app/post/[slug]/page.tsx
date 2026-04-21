@@ -5,8 +5,8 @@ import {
 } from "@/app/types/posts";
 
 import Badge from "@/app/components/Badge";
+import Image from "next/image";
 import Link from "next/link";
-import { MapPin } from "lucide-react";
 import type { Metadata } from "next";
 import PostGallery from "@/app/components/PostGallery";
 import PostPageHeader from "@/app/components/PostPageHeader";
@@ -81,6 +81,8 @@ export default async function PostPage({ params }: PostPageProps) {
   }
 
   const renderableContent = getRenderablePostContent(post.content, post.title);
+  const standaloneImage = post.image;
+  const hasGallery = post.galleryImages.length > 0;
 
   return (
     <div className="items-center justify-items-center gap-16 font-[family-name:var(--font-geist-sans)]">
@@ -99,33 +101,50 @@ export default async function PostPage({ params }: PostPageProps) {
               className="rounded-3xl border border-foreground bg-background p-4 md:p-6"
             >
               <div className="mb-6 flex flex-col gap-4">
-                <div className="flex flex-wrap gap-2 text-sm">
-                  <Badge>
-                    <EditableText
-                      as="span"
-                      binding={enableInlinePostFieldEditing ? post.bindings.kind : undefined}
-                    >
-                      {post.kind}
-                    </EditableText>
-                  </Badge>
-                  <Badge>
-                    <EditableText
-                      as="span"
-                      binding={enableInlinePostFieldEditing ? post.bindings.publishedAt : undefined}
-                    >
-                      {formatPublishedDate(post.publishedAt)}
-                    </EditableText>
-                  </Badge>
-                  {post.dateLabels?.map((dateLabel) => (
-                    <Badge key={dateLabel}>
+                <div className="flex flex-wrap items-start justify-between gap-4">
+                  <div className="flex flex-wrap gap-2 text-sm">
+                    <Badge>
                       <EditableText
                         as="span"
-                        binding={enableInlinePostFieldEditing ? post.bindings.dateLabels : undefined}
+                        binding={enableInlinePostFieldEditing ? post.bindings.kind : undefined}
                       >
-                        {dateLabel}
+                        {post.kind}
                       </EditableText>
                     </Badge>
-                  ))}
+                    <Badge>
+                      <EditableText
+                        as="span"
+                        binding={enableInlinePostFieldEditing ? post.bindings.publishedAt : undefined}
+                      >
+                        {formatPublishedDate(post.publishedAt)}
+                      </EditableText>
+                    </Badge>
+                    {post.locationLabel && (
+                      <Badge>
+                        <EditableText
+                          as="span"
+                          binding={enableInlinePostFieldEditing ? post.bindings.locationLabel : undefined}
+                        >
+                          {post.locationLabel}
+                        </EditableText>
+                      </Badge>
+                    )}
+                  </div>
+
+                  {post.dateLabels?.length ? (
+                    <div className="flex flex-wrap justify-end gap-2 text-sm md:max-w-[45%]">
+                      {post.dateLabels.map((dateLabel) => (
+                        <Badge key={dateLabel}>
+                          <EditableText
+                            as="span"
+                            binding={enableInlinePostFieldEditing ? post.bindings.dateLabels : undefined}
+                          >
+                            {dateLabel}
+                          </EditableText>
+                        </Badge>
+                      ))}
+                    </div>
+                  ) : null}
                 </div>
 
                 <div className="space-y-3">
@@ -144,30 +163,42 @@ export default async function PostPage({ params }: PostPageProps) {
                     {post.summary}
                   </EditableText>
                 </div>
-
-                {post.locationLabel && (
-                  <div className="flex items-start gap-3 text-base md:text-lg">
-                    <MapPin className="mt-0.5 h-5 w-5 flex-none" />
-                    <EditableText
-                      as="span"
-                      binding={enableInlinePostFieldEditing ? post.bindings.locationLabel : undefined}
-                    >
-                      {post.locationLabel}
-                    </EditableText>
-                  </div>
-                )}
               </div>
 
-              <EditableRegion
-                as="div"
-                binding={enableInlinePostFieldEditing ? post.bindings.gallery : undefined}
-              >
-                <PostGallery
-                  images={post.galleryImages}
-                  title={post.title}
-                  priorityFirstImage
-                />
-              </EditableRegion>
+              {standaloneImage || hasGallery ? (
+                <div className="space-y-6">
+                  {standaloneImage ? (
+                    <EditableRegion
+                      as="div"
+                      binding={enableInlinePostFieldEditing ? post.bindings.image : undefined}
+                      className="w-full overflow-hidden rounded-3xl border border-foreground bg-background md:w-1/3"
+                    >
+                      <Image
+                        src={standaloneImage.src}
+                        alt={standaloneImage.alt || post.title}
+                        width={standaloneImage.width ?? 1600}
+                        height={standaloneImage.height ?? 2000}
+                        priority
+                        sizes="(max-width: 768px) 100vw, 80vw"
+                        className="block h-auto w-full"
+                      />
+                    </EditableRegion>
+                  ) : null}
+
+                  {hasGallery ? (
+                    <EditableRegion
+                      as="div"
+                      binding={enableInlinePostFieldEditing ? post.bindings.gallery : undefined}
+                    >
+                      <PostGallery
+                        images={post.galleryImages}
+                        title={post.title}
+                        priorityFirstImage={!standaloneImage}
+                      />
+                    </EditableRegion>
+                  ) : null}
+                </div>
+              ) : null}
             </EditableRegion>
 
             <EditableRegion
