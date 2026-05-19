@@ -1,4 +1,4 @@
-import { revalidateTag } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { NextResponse } from "next/server";
 
 import { getEinblickCmsTags } from "@/app/lib/einblick-cache";
@@ -31,9 +31,11 @@ export async function POST(request: Request) {
   for (const tag of tags) {
     revalidateTagImmediately(tag, { expire: 0 });
   }
+  revalidatePath("/", "layout");
 
   return NextResponse.json({
     ok: true,
     tags,
+    paths: ["/"],
   });
 }
