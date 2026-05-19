@@ -3,7 +3,21 @@ import { NextResponse } from "next/server";
 
 import { getEinblickCmsTags } from "@/app/lib/einblick-cache";
 
+const revalidateTagImmediately = revalidateTag as (
+  tag: string,
+  profile: { expire: 0 }
+) => void;
+
 export async function POST(request: Request) {
+  const secret = process.env.EINBLICK_REVALIDATE_SECRET;
+  const providedSecret =
+    request.headers.get("x-einblick-revalidate-secret") ??
+    new URL(request.url).searchParams.get("secret");
+
+  if (secret && providedSecret !== secret) {
+    return NextResponse.json({ ok: false, error: "unauthorized" }, { status: 401 });
+  }
+
   let resourceSlug: string | undefined;
 
   try {
@@ -15,7 +29,7 @@ export async function POST(request: Request) {
 
   const tags = getEinblickCmsTags(resourceSlug);
   for (const tag of tags) {
-    revalidateTag(tag, "max");
+    revalidateTagImmediately(tag, { expire: 0 });
   }
 
   return NextResponse.json({

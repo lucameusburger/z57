@@ -9,6 +9,7 @@ export default function EinblickEditBoot({
   children: React.ReactNode;
 }) {
   const siteKey = process.env.NEXT_PUBLIC_EINBLICK_SITE_KEY;
+  const revalidateSecret = process.env.NEXT_PUBLIC_EINBLICK_REVALIDATE_SECRET;
   const router = useRouter();
 
   const handleSave = async (event: {
@@ -21,6 +22,9 @@ export default function EinblickEditBoot({
         method: "POST",
         headers: {
           "content-type": "application/json",
+          ...(revalidateSecret
+            ? { "x-einblick-revalidate-secret": revalidateSecret }
+            : {}),
         },
         body: JSON.stringify({
           resourceSlug: event.binding.resourceSlug,
