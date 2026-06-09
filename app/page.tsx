@@ -6,7 +6,11 @@ import MemberItem from "./components/MemberItem";
 import Model3D from "./components/Model3D";
 import PostsSection from "./components/PostsSection";
 import SiteFooter from "./components/SiteFooter";
-import { EditableText } from "@einblick/sdk/react";
+import {
+  EditableCollection,
+  EditableText,
+  createEditableCollectionBinding,
+} from "@einblick/sdk/react";
 import { getSiteInfos } from "@/app/types/infos";
 import { getMembers, type Member } from "@/app/types/members";
 import { getHomepagePosts } from "@/app/types/posts";
@@ -140,9 +144,18 @@ export default async function Home() {
                   <MailButton />
                 </div> */}
             </div>
-            {shuffledMembers.map((member, index) => (
-              <MemberItem key={member.name} member={member} switched={index} />
-            ))}
+            <EditableCollection
+              as="div"
+              binding={createEditableCollectionBinding({
+                resourceSlug: "members",
+                label: "Members",
+              })}
+              className="flex flex-col gap-8"
+            >
+              {shuffledMembers.map((member, index) => (
+                <MemberItem key={member.name} member={member} switched={index} />
+              ))}
+            </EditableCollection>
           </div>
 
           {/* KONTAKT */}

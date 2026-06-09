@@ -6,8 +6,10 @@ import Badge from "@/app/components/Badge";
 import Image from "next/image";
 import PostGallery from "@/app/components/PostGallery";
 import {
+  EditableCollection,
   EditableRegion,
   EditableText,
+  createEditableCollectionBinding,
 } from "@einblick/sdk/react";
 
 interface PostsSectionProps {
@@ -24,7 +26,14 @@ export default function PostsSection({
   return (
     <section className="flex flex-col gap-8 px-4 md:px-8">
       <div className="flex items-start flex-col gap-4 justify-start relative">
-        <div className="w-full grid grid-cols-1 2xl:grid-cols-2 gap-8">
+        <EditableCollection
+          as="div"
+          binding={createEditableCollectionBinding({
+            resourceSlug: "posts",
+            label: "Posts",
+          })}
+          className="w-full grid grid-cols-1 2xl:grid-cols-2 gap-8"
+        >
           {posts.map((post) => {
             const standaloneImage = post.image;
             const hasGallery = post.galleryImages.length > 0;
@@ -200,7 +209,7 @@ export default function PostsSection({
               </EditableRegion>
             );
           })}
-        </div>
+        </EditableCollection>
 
         {showAllPostsLink && (
           <div className="flex w-full justify-end">
