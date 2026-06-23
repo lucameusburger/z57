@@ -150,6 +150,7 @@ export default async function Home() {
                 resourceSlug: "members",
                 label: "Members",
               })}
+              showCreateButton
               className="flex flex-col gap-8"
             >
               {shuffledMembers.map((member, index) => (

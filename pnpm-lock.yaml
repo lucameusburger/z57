@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@einblick/sdk':
-        specifier: ^0.6.2
-        version: 0.6.2(next@16.2.6(@babel/core@7.29.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+        specifier: ^0.7.0
+        version: 0.7.0(next@16.2.6(@babel/core@7.29.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       '@gsap/react':
         specifier: ^2.1.1
         version: 2.1.2(gsap@3.14.2)(react@19.2.0)
@@ -171,8 +171,8 @@ packages:
     resolution: {integrity: sha512-LwdZHpScM4Qz8Xw2iKSzS+cfglZzJGvofQICy7W7v4caru4EaAmyUuO6BGrbyQ2mYV11W0U8j5mBhd14dd3B0A==}
     engines: {node: '>=6.9.0'}
 
-  '@einblick/sdk@0.6.2':
-    resolution: {integrity: sha512-JirnzqKgXpj2iJeX15/Xiz9WXWTm/BQz55+ivbhKdsjH/BvNld5xWvkCfUv35NTZc3/K/MQqc34U9bbH68vxcg==}
+  '@einblick/sdk@0.7.0':
+    resolution: {integrity: sha512-PkuANzAy1cZ8YMzM93cMNYjq2qYyZCkDfJXp4uktKaUqO5n0+0a/7LlwfHYpeYtlHkP6MeuV3BYWn1IPrzVTfQ==}
     engines: {node: '>=24.0.0'}
     hasBin: true
     peerDependencies:
@@ -1107,8 +1107,8 @@ packages:
     resolution: {integrity: sha512-35mSku4ZXK0vfCuHEDAwt55dg2jNajHZ1odvF+8SSr82EsZY4QmXfuWso8oEd8zRhVObSN18aM0CjSdoBX7zIw==}
     engines: {node: '>=0.10.0'}
 
-  dotenv@17.3.1:
-    resolution: {integrity: sha512-IO8C/dzEb6O3F9/twg6ZLXz164a2fhTnEWb95H23Dm4OuN+92NmEAlTrupP9VW6Jm3sO26tQlqyvyi4CsnY9GA==}
+  dotenv@17.4.2:
+    resolution: {integrity: sha512-nI4U3TottKAcAD9LLud4Cb7b2QztQMUEfHbvhTH09bqXTxnSie8WnjPALV/WMCrJZ6UV/qHJ6L03OqO3LcdYZw==}
     engines: {node: '>=12'}
 
   draco3d@1.5.7:
@@ -2746,9 +2746,9 @@ snapshots:
       '@babel/helper-string-parser': 7.27.1
       '@babel/helper-validator-identifier': 7.28.5
 
-  '@einblick/sdk@0.6.2(next@16.2.6(@babel/core@7.29.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
+  '@einblick/sdk@0.7.0(next@16.2.6(@babel/core@7.29.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
     dependencies:
-      dotenv: 17.3.1
+      dotenv: 17.4.2
       react: 19.2.0
       react-dom: 19.2.0(react@19.2.0)
     optionalDependencies:
@@ -3615,7 +3615,7 @@ snapshots:
     dependencies:
       esutils: 2.0.3
 
-  dotenv@17.3.1: {}
+  dotenv@17.4.2: {}
 
   draco3d@1.5.7: {}
 

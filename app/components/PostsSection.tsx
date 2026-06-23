@@ -32,6 +32,7 @@ export default function PostsSection({
             resourceSlug: "posts",
             label: "Posts",
           })}
+          showCreateButton
           className="w-full grid grid-cols-1 2xl:grid-cols-2 gap-8"
         >
           {posts.map((post) => {
