@@ -81,3 +81,12 @@ html {
     }
   }
 }
+
+/* Keep SDK controls fail-closed until the authenticated editor enables them. */
+[data-einblick-edit-controls][hidden],
+[data-einblick-edit-button][hidden],
+[data-einblick-collection-create-button][hidden],
+[data-einblick-collection-create-wrapper][hidden],
+[data-einblick-field-button][hidden] {
+  display: none !important;
+}
