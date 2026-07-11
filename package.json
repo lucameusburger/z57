@@ -2,6 +2,9 @@
   "name": "z57",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "24.x"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -10,7 +13,7 @@
     "einblick:generate": "einblick-sdk generate --output app/lib/einblick.generated.ts"
   },
   "dependencies": {
-    "@einblick/sdk": "^0.7.0",
+    "@einblick/sdk": "^0.7.2",
     "@gsap/react": "^2.1.1",
     "@radix-ui/react-slot": "^1.2.4",
     "@react-three/drei": "^10.7.6",
