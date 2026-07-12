@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@einblick/sdk':
-        specifier: ^0.7.6
-        version: 0.7.6(next@16.2.6(@babel/core@7.29.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+        specifier: ^0.7.7
+        version: 0.7.7(next@16.2.6(@babel/core@7.29.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       '@gsap/react':
         specifier: ^2.1.1
         version: 2.1.2(gsap@3.14.2)(react@19.2.0)
@@ -171,8 +171,8 @@ packages:
     resolution: {integrity: sha512-LwdZHpScM4Qz8Xw2iKSzS+cfglZzJGvofQICy7W7v4caru4EaAmyUuO6BGrbyQ2mYV11W0U8j5mBhd14dd3B0A==}
     engines: {node: '>=6.9.0'}
 
-  '@einblick/sdk@0.7.6':
-    resolution: {integrity: sha512-9EevYtCwQTxcrSB76UzTyQ3TGaxUJqoaKOVuAUlwbCWuCxSmuh+svK2+TxiRerbom+19sVGcME8LhBP1KdrWKw==}
+  '@einblick/sdk@0.7.7':
+    resolution: {integrity: sha512-x+C/IdSnCzeIkmUdunJyh3O9EDgmPJEGFLw+E8NNt8LPZWD9h+Xx38NY5nGdYaW5OpV65ZIa6uTLtJkRx2LaOg==}
     engines: {node: '>=24.0.0'}
     hasBin: true
     peerDependencies:
@@ -2742,7 +2742,7 @@ snapshots:
       '@babel/helper-string-parser': 7.27.1
       '@babel/helper-validator-identifier': 7.28.5
 
-  '@einblick/sdk@0.7.6(next@16.2.6(@babel/core@7.29.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
+  '@einblick/sdk@0.7.7(next@16.2.6(@babel/core@7.29.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
     dependencies:
       react: 19.2.0
       react-dom: 19.2.0(react@19.2.0)
