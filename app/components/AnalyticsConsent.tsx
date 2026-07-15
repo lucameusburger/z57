@@ -127,24 +127,14 @@ export default function AnalyticsConsentManager() {
           className="fixed inset-x-0 bottom-0 z-[100] w-full rounded-t-[2rem] border border-foreground bg-background p-5 md:p-6"
         >
           <div className="mx-auto w-full max-w-4xl">
-            <p className="text-sm text-foreground/60">Deine Privatsphäre</p>
-            <h2 className="mt-2 text-2xl font-semibold tracking-tight">
-              Datenschutz auswählen
+            <h2 className="text-2xl font-semibold tracking-tight">
+              Privatsphäre und Datenschutz
             </h2>
             <p className="mt-3 max-w-2xl text-sm leading-relaxed md:text-base">
               Wir verwenden notwendige lokale Speicherung, um deine Auswahl zu
               merken. Eine optionale cookieless Reichweitenmessung wird erst
               nach deiner Zustimmung aktiviert. Ohne Entscheidung bleibt jede
-              optionale Verarbeitung pausiert.
-            </p>
-            {globalPrivacyControl ? (
-              <p className="mt-3 rounded-2xl border border-foreground px-4 py-3 text-sm">
-                Dein Browser sendet Global Privacy Control. Deshalb bleibt die
-                Reichweitenmessung unabhängig von der Auswahl deaktiviert.
-              </p>
-            ) : null}
-            <p className="mt-3 text-sm">
-              Mehr dazu im{" "}
+              optionale Verarbeitung pausiert. Mehr dazu im{" "}
               <Link
                 className="underline underline-offset-4"
                 href="/datenschutz"
@@ -153,6 +143,12 @@ export default function AnalyticsConsentManager() {
               </Link>
               .
             </p>
+            {globalPrivacyControl ? (
+              <p className="mt-3 rounded-2xl border border-foreground px-4 py-3 text-sm">
+                Dein Browser sendet Global Privacy Control. Deshalb bleibt die
+                Reichweitenmessung unabhängig von der Auswahl deaktiviert.
+              </p>
+            ) : null}
             <div className="mt-5 grid gap-2 sm:grid-cols-3">
               <button
                 className="rounded-full border border-foreground px-4 py-2.5 text-sm font-medium transition-colors hover:bg-foreground hover:text-background"
