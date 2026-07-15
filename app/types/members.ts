@@ -7,7 +7,7 @@ import { getCmsMembers, type CmsMemberFields } from "@/app/lib/cms";
 import {
   createEditableBinding,
   type EinblickEditableBinding,
-} from "@einblick/sdk/react";
+} from "@einblick/editor";
 
 export interface Project {
   name: string;

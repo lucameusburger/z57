@@ -1,1 +1,1 @@
-export { EinblickNextEditBoot as default } from "@einblick/sdk/next";
+export { EinblickNextEditBoot as default } from "@einblick/editor/next";

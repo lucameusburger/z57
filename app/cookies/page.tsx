@@ -11,7 +11,7 @@ export default function CookiesPage() {
   return (
     <LegalPage
       title="Cookies"
-      updatedAt="7. März 2026"
+      updatedAt="15. Juli 2026"
       intro={
         <p>
           Hier findest du einen kurzen Überblick darüber, ob und wie auf dieser
@@ -20,10 +20,27 @@ export default function CookiesPage() {
       }
     >
       <section className="flex flex-col gap-3">
-        <h2 className="text-2xl font-semibold md:text-3xl">Aktueller Einsatz</h2>
+        <h2 className="text-2xl font-semibold md:text-3xl">
+          Aktueller Einsatz
+        </h2>
         <p>
           Auf dieser Website sind derzeit keine optionalen Analyse-, Marketing-
-          oder Tracking-Cookies eingebunden.
+          oder Tracking-Cookies eingebunden. Einblick Website Analytics arbeitet
+          cookieless und wird erst nach deiner Zustimmung aktiviert.
+        </p>
+      </section>
+
+      <section className="flex flex-col gap-3">
+        <h2 className="text-2xl font-semibold md:text-3xl">
+          Speicherung deiner Entscheidung
+        </h2>
+        <p>
+          Deine Auswahl zur cookieless Reichweitenmessung wird im lokalen
+          Speicher deines Browsers abgelegt. Dadurch können wir deine
+          Entscheidung bei späteren Besuchen berücksichtigen. Du kannst
+          Einblick Analytics ablehnen, akzeptieren oder individuell anpassen
+          und die Auswahl jederzeit über „Datenschutz-Einstellungen“ ändern
+          oder widerrufen.
         </p>
       </section>
 

@@ -1,235 +1,66 @@
 "use client";
 
-import * as THREE from "three";
-
-import { Canvas, useFrame, useLoader } from "@react-three/fiber";
-import { Edges, OrbitControls } from "@react-three/drei";
-import { Fullscreen, Play, Rotate3d, RotateCcw } from "lucide-react";
-import { type ElementRef, Suspense, useEffect, useRef, useState } from "react";
-
-import { MTLLoader } from "three/addons/loaders/MTLLoader.js";
-import { OBJLoader } from "three/addons/loaders/OBJLoader.js";
-
-// import bgImage from "@/app/images/bg.jpg";
-
-function Model({ objUrl, mtlUrl, autoRotate = false }: { objUrl: string; mtlUrl: string; autoRotate: boolean }) {
-  const materials = useLoader(MTLLoader, mtlUrl);
-
-  // Modify materials before loading the object
-  Object.values(materials.materials).forEach((material) => {
-    material.transparent = true;
-    if (material.name === "Z57_Türen_usw_rot") {
-      material.opacity = 0.8;
-    } else {
-      material.opacity = 0.33;
-    }
-  });
-
-  const obj = useLoader(OBJLoader, objUrl, (loader) => {
-    materials.preload();
-    loader.setMaterials(materials);
-  });
-
-  const modelRef = useRef<THREE.Group | null>(null);
-
-  useEffect(() => {
-    if (modelRef.current) {
-      modelRef.current.rotation.y = Math.PI;
-
-      const box = new THREE.Box3().setFromObject(modelRef.current);
-      const center = box.getCenter(new THREE.Vector3());
-
-      modelRef.current.position.x -= center.x;
-      modelRef.current.position.y -= center.y;
-      modelRef.current.position.z -= center.z;
-
-      modelRef.current.position.z -= 10;
-      modelRef.current.position.x -= 5;
-      //modelRef.current.position.y -= 16;
-
-      // Force update materials
-      // modelRef.current.traverse((child) => {
-      //   if (child instanceof THREE.Mesh) {
-      //     if (Array.isArray(child.material)) {
-      //       child.material.forEach((mat) => {
-      //         mat.transparent = true;
-      //         mat.opacity = 0.2;
-      //         mat.needsUpdate = true;
-      //       });
-      //     } else {
-      //       child.material.transparent = true;
-      //       child.material.opacity = 0.6;
-      //       child.material.needsUpdate = true;
-      //     }
-      //   }
-      // });
-    }
-  }, [obj]);
-
-  useFrame(() => {
-    if (autoRotate && modelRef.current) {
-      modelRef.current.rotation.y += 0.01;
-    }
-  });
-
-  return (
-    <group ref={modelRef}>
-      <primitive object={obj} />
-      {obj.children.map((child, index) => {
-        if (child instanceof THREE.Mesh) {
-          const mat = child.material as THREE.Material;
-          // return <Edges lineWidth={1} key={index} geometry={child.geometry} threshold={15} color={mat.name === "Metall_Stahl,_verzinkt" ? "#c2382f" : "#211f20"} />;
-          return <Edges lineWidth={mat.name === "Z57_Türen_usw_rot" ? 1 : 1} key={index} geometry={child.geometry} threshold={15} color={mat.name === "Z57_Türen_usw_rot" ? "#c2382f" : "#211f20"} />;
-        }
-        return null;
-      })}
-    </group>
-  );
-}
+import { Box, LoaderCircle } from "lucide-react";
+import { useState, type ComponentType } from "react";
 
 export default function Model3D() {
-  const [autoRotate, setAutoRotate] = useState(true);
-  const [controlsEnabled, setControlsEnabled] = useState(false);
-  const [fullscreen, setFullscreen] = useState(false);
-  const [mounted, setMounted] = useState(false);
-  const [hasModelFile, setHasModelFile] = useState<boolean | null>(null);
-  const controlsRef = useRef<ElementRef<typeof OrbitControls> | null>(null);
+  const [Scene, setScene] = useState<ComponentType | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [loadError, setLoadError] = useState(false);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const loadModel = async () => {
+    if (Scene || isLoading) return;
 
-  useEffect(() => {
-    let cancelled = false;
+    setIsLoading(true);
+    setLoadError(false);
 
-    const checkModelFile = async () => {
-      try {
-        const response = await fetch("/model/model.obj", { method: "HEAD" });
-        if (!cancelled) {
-          setHasModelFile(response.ok);
-        }
-      } catch {
-        if (!cancelled) {
-          setHasModelFile(false);
-        }
-      }
-    };
-
-    void checkModelFile();
-
-    return () => {
-      cancelled = true;
-    };
-  }, []);
-
-  const resetModel = () => {
-    if (controlsRef.current) {
-      controlsRef.current.reset();
-      controlsRef.current.object.position.set(0, 0, 5);
-      controlsRef.current.target.set(0, 0, 0);
-      controlsRef.current.update();
+    try {
+      const sceneModule = await import("./Model3DScene");
+      setScene(() => sceneModule.default);
+    } catch {
+      setLoadError(true);
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  const controlButtonClass =
-    "inline-flex h-11 w-11 items-center justify-center rounded-full border border-foreground bg-background transition-colors hover:bg-foreground hover:text-background";
-  const activeToggleButtonClass =
-    "bg-foreground text-background hover:bg-foreground hover:text-background";
+  if (Scene) {
+    return <Scene />;
+  }
 
   return (
-    <div
-      className="h-[80vh] relative md:h-[800px] max-h-[80vh] w-full rounded-3xl overflow-hidden border border-foreground bg-background"
-      style={
-        {
-          // backgroundImage: `url(${bgImage.src})`,
-          // backgroundSize: "cover",
-          // backgroundPosition: "center",
-        }
-      }
-    >
-      <div className={"h-full w-full bg-background " + (fullscreen ? " fixed top-0 left-0 z-50 bottom-0 right-0" : "")}>
-        <div className="flex flex-col gap-1 absolute left-4 top-4">
-          <button
-            type="button"
-            className={
-              controlButtonClass +
-              " z-20 " +
-              (autoRotate ? activeToggleButtonClass : "")
-            }
-            onClick={() => setAutoRotate(!autoRotate)}
-            aria-label="Automatisches Drehen umschalten"
-          >
-            <Play className="h-5 w-5" />
-          </button>
-          <button
-            type="button"
-            className={
-              controlButtonClass +
-              " z-20 " +
-              (controlsEnabled ? activeToggleButtonClass : "")
-            }
-            onClick={() => setControlsEnabled(!controlsEnabled)}
-            aria-label="Interaktive Steuerung umschalten"
-          >
-            <Rotate3d className="h-5 w-5" />
-          </button>
-          <button type="button" className={controlButtonClass + " z-20"} onClick={resetModel} aria-label="Kameraposition zurücksetzen">
-            <RotateCcw className="h-5 w-5" />
-          </button>
-          <button
-            type="button"
-            className={controlButtonClass + " z-20"}
-            onClick={() => {
-              const nextFullscreen = !fullscreen;
-              setFullscreen(nextFullscreen);
-              if (nextFullscreen) {
-                setControlsEnabled(true);
-              }
-            }}
-            aria-label="Vollbild umschalten"
-          >
-            <Fullscreen className="h-5 w-5" />
-          </button>
-        </div>
-        {!mounted ? (
-          <div className="h-full w-full flex items-center justify-center">
-            <div className="text-foreground">Loading...</div>
-          </div>
-        ) : hasModelFile === false ? (
-          <div className="h-full w-full flex items-center justify-center p-6 text-center">
-            <div className="text-foreground">3D model file not found at `/public/model/model.obj`.</div>
-          </div>
-        ) : hasModelFile === null ? (
-          <div className="h-full w-full flex items-center justify-center">
-            <div className="text-foreground">Preparing 3D model...</div>
-          </div>
-        ) : (
-          <Canvas
-            camera={{ position: [0, 0, 5] }}
-            className={fullscreen ? " pointer-events-none" : ""}
-            gl={{
-              antialias: true,
-              alpha: true,
-              powerPreference: "default",
-              failIfMajorPerformanceCaveat: false,
-              preserveDrawingBuffer: false,
-              stencil: false,
-              depth: true,
-            }}
-            onCreated={({ gl }) => {
-              gl.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-              gl.setClearColor(0x000000, 0);
-            }}
-          >
-            <Suspense fallback={null}>
-              {/* <ambientLight intensity={6} /> */}
-              <ambientLight intensity={10} />
-              {/* <directionalLight position={[10, 10, 5]} intensity={10} /> */}
-              <Model objUrl="/model/model.obj" mtlUrl="/model/model.mtl" autoRotate={autoRotate} />
-              <OrbitControls ref={controlsRef} enabled={controlsEnabled} enableZoom={controlsEnabled} onStart={() => { }} onEnd={() => { }} />
-            </Suspense>
-          </Canvas>
-        )}
+    <div className="relative flex h-[60vh] max-h-[680px] min-h-[420px] w-full items-center justify-center overflow-hidden rounded-3xl border border-foreground bg-background p-6 md:h-[70vh]">
+      <div
+        aria-hidden
+        className="absolute inset-6 rounded-[2rem] border border-dashed border-foreground/25"
+      />
+      <div className="relative flex max-w-lg flex-col items-center text-center">
+        <Box className="h-14 w-14" strokeWidth={1.25} />
+        <h3 className="mt-5 text-2xl font-semibold md:text-3xl">
+          z57 in drei Dimensionen
+        </h3>
+        <p className="mt-3 text-sm leading-relaxed text-foreground/70 md:text-base">
+          Das interaktive Architekturmodell ist optional und wird erst auf
+          Wunsch geladen. Der Download ist etwa 34 MB groß.
+        </p>
+        {loadError ? (
+          <p className="mt-3 text-sm font-medium" role="alert">
+            Das Modell konnte nicht geladen werden. Bitte versuche es erneut.
+          </p>
+        ) : null}
+        <button
+          type="button"
+          className="mt-6 inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-foreground bg-foreground px-5 py-2.5 text-sm font-medium text-background transition-opacity hover:opacity-75 disabled:cursor-wait disabled:opacity-50"
+          disabled={isLoading}
+          onClick={() => void loadModel()}
+        >
+          {isLoading ? (
+            <LoaderCircle className="h-4 w-4 animate-spin" />
+          ) : (
+            <Box className="h-4 w-4" />
+          )}
+          {isLoading ? "3D-Ansicht wird vorbereitet" : "3D-Modell laden"}
+        </button>
       </div>
     </div>
   );

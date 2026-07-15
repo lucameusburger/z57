@@ -3,6 +3,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import ogImage from "@/app/og.png";
+import AnalyticsConsentManager from "@/app/components/AnalyticsConsent";
 import EinblickEditBoot from "@/app/components/EinblickEditBoot";
 
 const geistSans = localFont({
@@ -17,7 +18,9 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"),
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000",
+  ),
   title: "z57 - Atelier and Studio Space",
   description: "We are an Atelier and Studio Space in the heart of Vienna",
   openGraph: {
@@ -39,8 +42,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="de">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
         <EinblickEditBoot>{children}</EinblickEditBoot>
+        <AnalyticsConsentManager />
       </body>
     </html>
   );

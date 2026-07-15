@@ -21,12 +21,14 @@ interface PostGalleryProps {
   }>;
   title: string;
   priorityFirstImage?: boolean;
+  initialImageLimit?: number;
 }
 
 export default function PostGallery({
   images,
   title,
   priorityFirstImage = false,
+  initialImageLimit = 12,
 }: PostGalleryProps) {
   const autoplay = React.useRef(
     Autoplay({ delay: 2800, stopOnInteraction: false, stopOnMouseEnter: true })
@@ -34,6 +36,11 @@ export default function PostGallery({
   const [api, setApi] = React.useState<CarouselApi>();
   const [selectedIndex, setSelectedIndex] = React.useState(0);
   const [snapCount, setSnapCount] = React.useState(0);
+  const [visibleImageCount, setVisibleImageCount] = React.useState(() =>
+    Math.min(images.length, initialImageLimit),
+  );
+  const visibleImages = images.slice(0, visibleImageCount);
+  const remainingImageCount = images.length - visibleImages.length;
   const indicatorCount = Math.min(snapCount, 8);
   const indicatorTargets = React.useMemo(() => {
     if (indicatorCount === 0) {
@@ -61,10 +68,6 @@ export default function PostGallery({
     }, 0);
   }, [indicatorTargets, selectedIndex]);
 
-  if (images.length === 0) {
-    return null;
-  }
-
   React.useEffect(() => {
     if (!api) {
       return;
@@ -89,6 +92,10 @@ export default function PostGallery({
     };
   }, [api]);
 
+  if (images.length === 0) {
+    return null;
+  }
+
   return (
     <div className="w-full">
       <Carousel
@@ -102,7 +109,7 @@ export default function PostGallery({
         }}
       >
         <CarouselContent className="-ml-2 md:-ml-3">
-          {images.map((image, index) => (
+          {visibleImages.map((image, index) => (
             <CarouselItem
               key={`${image.src}-${index}`}
               className="pl-2 md:pl-3 basis-[72%] sm:basis-[46%] md:basis-[34%] lg:basis-[26%] xl:basis-[21%]"
@@ -113,6 +120,7 @@ export default function PostGallery({
                   alt={image.alt || `${title} ${index + 1}`}
                   fill
                   priority={priorityFirstImage && index === 0}
+                  loading={priorityFirstImage && index === 0 ? undefined : "lazy"}
                   sizes="(max-width: 640px) 72vw, (max-width: 768px) 46vw, (max-width: 1024px) 34vw, (max-width: 1280px) 26vw, 21vw"
                   className="object-cover"
                 />
@@ -159,6 +167,21 @@ export default function PostGallery({
           ))}
         </div>
       </div>
+      {remainingImageCount > 0 ? (
+        <div className="mt-4 flex justify-end">
+          <button
+            type="button"
+            onClick={() =>
+              setVisibleImageCount((count) =>
+                Math.min(images.length, count + initialImageLimit),
+              )
+            }
+            className="rounded-full border border-foreground bg-background px-4 py-2 text-sm transition-colors hover:bg-foreground hover:text-background"
+          >
+            Weitere Bilder laden ({remainingImageCount})
+          </button>
+        </div>
+      ) : null}
     </div>
   );
 }

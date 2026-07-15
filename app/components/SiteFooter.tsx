@@ -1,6 +1,6 @@
 import Badge from "./Badge";
 import EinblickLoginBadge from "./EinblickLoginBadge";
-import { EditableText } from "@einblick/sdk/react";
+import { EditableText } from "@einblick/editor/react";
 import { getSiteInfos } from "@/app/types/infos";
 
 const legalLinks = [

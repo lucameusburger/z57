@@ -1,4 +1,4 @@
-import { createEinblickCmsTags } from "@einblick/sdk/next";
+import { createEinblickCmsTags } from "@einblick/sdk/next/cache";
 
 export const einblickTags = createEinblickCmsTags();
 

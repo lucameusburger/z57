@@ -2,7 +2,7 @@
 
 import { MoveRight } from "lucide-react";
 
-import { EinblickLoginButton } from "@einblick/sdk/react";
+import { EinblickLoginButton } from "@einblick/editor/react";
 import { cn } from "@/lib/utils";
 
 const badgeClasses = cn(

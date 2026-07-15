@@ -2,7 +2,10 @@ import "server-only";
 
 import { cache } from "react";
 
-import { getEinblickAssetUrl } from "@/app/lib/assets";
+import {
+  getEinblickAssetUrl,
+  getEinblickOpenGraphImageUrl,
+} from "@/app/lib/assets";
 import {
   getCmsPost,
   getCmsPosts,
@@ -11,7 +14,7 @@ import {
 import {
   createEditableBinding,
   type EinblickEditableBinding,
-} from "@einblick/sdk/react";
+} from "@einblick/editor";
 
 export type PostKind = string;
 
@@ -46,6 +49,7 @@ interface PostRecord {
 
 export interface PostImage {
   src: string;
+  ogSrc: string;
   alt: string;
   width?: number;
   height?: number;
@@ -84,6 +88,7 @@ function getCmsImage(
 
   return {
     src,
+    ogSrc: getEinblickOpenGraphImageUrl(image) ?? src,
     alt: image?.fileName || title,
     width: image?.width,
     height: image?.height,
@@ -103,6 +108,7 @@ function getCmsGalleryImages(
     return [
       {
         src,
+        ogSrc: getEinblickOpenGraphImageUrl(image) ?? src,
         alt: image.fileName || `${title} ${index + 1}`,
         width: image.width,
         height: image.height,

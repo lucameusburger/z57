@@ -2,14 +2,22 @@
 
 import React, { useEffect, useState } from "react";
 
+const WORDS = [
+  "Grafik",
+  "Nailart",
+  "Architektur",
+  "Webentwicklung",
+  "Fotografie",
+  "Design",
+];
+const TOTAL_LENGTH = WORDS.join("").length;
+
 const AnimatedText = () => {
   const [boldIndex, setBoldIndex] = useState(0);
-  const words = ["Grafik", "Nailart", "Architektur", "Webentwicklung", "Fotografie", "Design"];
-  const totalLength = words.join("").length;
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setBoldIndex((prev) => (prev + 1) % totalLength);
+      setBoldIndex((prev) => (prev + 1) % TOTAL_LENGTH);
     }, 1000); // Adjust the speed here as needed
     return () => clearInterval(interval);
   }, []);
@@ -43,7 +51,7 @@ const AnimatedText = () => {
     });
   };
 
-  return <div className="flex items-end justify-end flex-col text-4xl md:text-5xl flex-1">{renderText(words)}</div>;
+  return <div className="flex items-end justify-end flex-col text-4xl md:text-5xl flex-1">{renderText(WORDS)}</div>;
 };
 
 export default AnimatedText;

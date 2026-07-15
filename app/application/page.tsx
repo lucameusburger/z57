@@ -1,7 +1,7 @@
 import { ArrowLeft } from "lucide-react";
 
 import Link from "next/link";
-import { EditableText } from "@einblick/sdk/react";
+import { EditableText } from "@einblick/editor/react";
 import { getSiteInfos } from "@/app/types/infos";
 
 export default async function ApplicationPage() {

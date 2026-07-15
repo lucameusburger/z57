@@ -10,9 +10,9 @@ import {
   EditableCollection,
   EditableText,
   createEditableCollectionBinding,
-} from "@einblick/sdk/react";
+} from "@einblick/editor/react";
 import { getSiteInfos } from "@/app/types/infos";
-import { getMembers, type Member } from "@/app/types/members";
+import { getMembers } from "@/app/types/members";
 import { getHomepagePosts } from "@/app/types/posts";
 import groupImage from "@/app/images/group.jpg";
 
@@ -27,8 +27,10 @@ export default async function Home() {
   const homepagePosts = await getHomepagePosts();
   const members = await getMembers();
   const siteInfos = await getSiteInfos();
-  function shuffleArray(array: Member[]) {
+  function shuffleArray(array: (typeof members)[number][]) {
     for (let i = array.length - 1; i > 0; i--) {
+      // Random member order is an intentional server-rendered presentation choice.
+      // eslint-disable-next-line react-hooks/purity
       const j = Math.floor(Math.random() * (i + 1));
       [array[i], array[j]] = [array[j], array[i]];
     }
@@ -230,7 +232,16 @@ export default async function Home() {
                     </div>
                   </a>
                 ) : null}
-                <Image unoptimized src={groupImage} alt={"Grupenfoto"} width={200} height={200} className="w-full h-64 rounded-3xl object-cover filter grayscalesss contrast-2 group-hover:scale-110 transition-all transform" />
+                <Image
+                  unoptimized
+                  src={groupImage}
+                  alt="Gruppenfoto"
+                  width={1280}
+                  height={960}
+                  loading="lazy"
+                  sizes="(max-width: 768px) calc(100vw - 2rem), 33vw"
+                  className="h-64 w-full rounded-3xl object-cover filter grayscalesss contrast-2 transition-all transform group-hover:scale-110"
+                />
               </div>
               {/* <div className="border-foreground border overflow-hidden relative rounded-3xl w-full p-4">
                 <span className="text-xl py-1 px-2">Hallo</span>

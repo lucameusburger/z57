@@ -15,7 +15,7 @@ import SiteFooter from "@/app/components/SiteFooter";
 import {
   EditableRegion,
   EditableText,
-} from "@einblick/sdk/react";
+} from "@einblick/editor/react";
 import { notFound } from "next/navigation";
 import remarkGfm from "remark-gfm";
 
@@ -67,7 +67,7 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
       title: post.title,
       description: post.summary,
       type: "article",
-      images: post.coverImage ? [post.coverImage.src] : undefined,
+      images: post.coverImage ? [post.coverImage.ogSrc] : undefined,
     },
   };
 }
@@ -179,7 +179,7 @@ export default async function PostPage({ params }: PostPageProps) {
                         width={standaloneImage.width ?? 1600}
                         height={standaloneImage.height ?? 2000}
                         priority
-                        sizes="(max-width: 768px) 100vw, 80vw"
+                        sizes="(max-width: 768px) calc(100vw - 3rem), 32vw"
                         className="block h-auto w-full"
                       />
                     </EditableRegion>
@@ -192,6 +192,7 @@ export default async function PostPage({ params }: PostPageProps) {
                     >
                       <PostGallery
                         images={post.galleryImages}
+                        initialImageLimit={12}
                         title={post.title}
                         priorityFirstImage={!standaloneImage}
                       />

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 import LegalPage from "@/app/components/LegalPage";
-import { EditableText } from "@einblick/sdk/react";
+import { EditableText } from "@einblick/editor/react";
 import { getSiteInfos } from "@/app/types/infos";
 
 export const metadata: Metadata = {

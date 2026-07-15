@@ -6,7 +6,7 @@ import {
   EditableImage,
   EditableRegion,
   EditableText,
-} from "@einblick/sdk/react";
+} from "@einblick/editor/react";
 import type { Member } from "@/app/types/members";
 
 const RoundButton = ({ icon, href }: { icon: React.ReactNode; href: string }) => {
@@ -43,7 +43,8 @@ const MemberItem = ({ member, switched }: { member: Member; switched: number }) 
               alt={member.name}
               width={1080}
               height={1080}
-              sizes="(max-width: 768px) 100vw, 33vw"
+              loading="lazy"
+              sizes="(max-width: 768px) calc(100vw - 3rem), 33vw"
               className="h-full w-full object-cover filter grayscalesss contrast-2 transition-transform duration-300 group-hover:scale-105"
             />
           ) : (

@@ -10,7 +10,7 @@ import {
   EditableRegion,
   EditableText,
   createEditableCollectionBinding,
-} from "@einblick/sdk/react";
+} from "@einblick/editor/react";
 
 interface PostsSectionProps {
   posts: Post[];
@@ -58,7 +58,7 @@ export default function PostsSection({
                       width={standaloneImage.width ?? 1200}
                       height={standaloneImage.height ?? 1500}
                       priority={post === posts[0]}
-                      sizes="(max-width: 768px) 100vw, 33vw"
+                      sizes="(max-width: 768px) calc(100vw - 3rem), (min-width: 1536px) 16vw, 32vw"
                       className="block h-auto w-full"
                     />
                   </EditableRegion>
@@ -127,6 +127,7 @@ export default function PostsSection({
                     >
                       <PostGallery
                         images={post.galleryImages}
+                        initialImageLimit={8}
                         title={post.title}
                         priorityFirstImage={post === posts[0]}
                       />
@@ -196,6 +197,7 @@ export default function PostsSection({
                   >
                     <PostGallery
                       images={post.galleryImages}
+                      initialImageLimit={8}
                       title={post.title}
                       priorityFirstImage={post === posts[0]}
                     />

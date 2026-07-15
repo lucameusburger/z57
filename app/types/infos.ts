@@ -6,7 +6,7 @@ import { getCmsInfos, type CmsInfosFields } from "@/app/lib/cms";
 import {
   createEditableBinding,
   type EinblickEditableBinding,
-} from "@einblick/sdk/react";
+} from "@einblick/editor";
 
 const DEFAULT_SITE_INFOS = {
   email: "atelier@z57.at",
