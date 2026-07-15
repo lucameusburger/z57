@@ -167,7 +167,7 @@ export default function PostsSection({
                       <EditableText
                         as="p"
                         binding={enableInlinePostFieldEditing ? post.bindings.summary : undefined}
-                        className="max-w-4xl text-lg leading-relaxed md:text-xl h-48"
+                        className="max-w-4xl text-lg leading-relaxed md:min-h-48 md:text-xl"
                       >
                         {post.summary}
                       </EditableText>
