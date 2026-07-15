@@ -5,6 +5,8 @@ import { Analytics } from "@einblick/analytics/next";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
+import { OPEN_PRIVACY_SETTINGS_EVENT } from "@/app/lib/privacy-settings";
+
 const STORAGE_KEY = "z57-analytics-consent-v1";
 
 type StoredDecision = Exclude<AnalyticsConsent, "unknown">;
@@ -88,9 +90,28 @@ export default function AnalyticsConsentManager() {
   };
 
   const openPreferences = () => {
-    setDraftAnalytics(consent === "granted");
+    setDraftAnalytics(consent === "granted" && !globalPrivacyControl);
     setView("preferences");
   };
+
+  useEffect(() => {
+    const handleOpenPreferences = () => {
+      setDraftAnalytics(consent === "granted" && !globalPrivacyControl);
+      setView("preferences");
+    };
+
+    window.addEventListener(
+      OPEN_PRIVACY_SETTINGS_EVENT,
+      handleOpenPreferences,
+    );
+
+    return () => {
+      window.removeEventListener(
+        OPEN_PRIVACY_SETTINGS_EVENT,
+        handleOpenPreferences,
+      );
+    };
+  }, [consent, globalPrivacyControl]);
 
   return (
     <>
@@ -108,13 +129,13 @@ export default function AnalyticsConsentManager() {
           <div className="mx-auto w-full max-w-4xl">
             <p className="text-sm text-foreground/60">Deine Privatsphäre</p>
             <h2 className="mt-2 text-2xl font-semibold tracking-tight">
-              Cookieless Reichweitenmessung
+              Datenschutz auswählen
             </h2>
             <p className="mt-3 max-w-2xl text-sm leading-relaxed md:text-base">
-              Mit deiner Zustimmung hilft uns Einblick zu verstehen, wie die
-              Website genutzt wird. Die Messung verwendet keine Analyse-Cookies
-              und ist pseudonymisiert. Ohne deine Entscheidung bleibt sie
-              vollständig pausiert.
+              Wir verwenden notwendige lokale Speicherung, um deine Auswahl zu
+              merken. Eine optionale cookieless Reichweitenmessung wird erst
+              nach deiner Zustimmung aktiviert. Ohne Entscheidung bleibt jede
+              optionale Verarbeitung pausiert.
             </p>
             {globalPrivacyControl ? (
               <p className="mt-3 rounded-2xl border border-foreground px-4 py-3 text-sm">
@@ -215,7 +236,14 @@ export default function AnalyticsConsentManager() {
                 />
               </div>
             </div>
-            <div className="mt-5 grid gap-2 sm:grid-cols-2">
+            <div className="mt-5 grid gap-2 sm:grid-cols-3">
+              <button
+                className="rounded-full border border-foreground px-4 py-2.5 text-sm font-medium transition-colors hover:bg-foreground hover:text-background"
+                onClick={() => saveDecision("denied")}
+                type="button"
+              >
+                Alle ablehnen
+              </button>
               <button
                 className="rounded-full border border-foreground px-4 py-2.5 text-sm font-medium transition-colors hover:bg-foreground hover:text-background"
                 onClick={() =>
@@ -239,16 +267,6 @@ export default function AnalyticsConsentManager() {
         </section>
       ) : null}
 
-      {isReady && view === null ? (
-        <button
-          aria-label="Datenschutz-Einstellungen öffnen"
-          className="fixed bottom-3 left-3 z-[99] rounded-full border border-foreground bg-background px-3 py-2 text-xs font-medium transition-colors hover:bg-foreground hover:text-background"
-          onClick={openPreferences}
-          type="button"
-        >
-          Datenschutz-Einstellungen
-        </button>
-      ) : null}
     </>
   );
 }

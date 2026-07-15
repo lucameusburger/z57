@@ -1,5 +1,6 @@
 import Badge from "./Badge";
 import EinblickLoginBadge from "./EinblickLoginBadge";
+import PrivacySettingsBadge from "./PrivacySettingsBadge";
 import { EditableText } from "@einblick/editor/react";
 import { getSiteInfos } from "@/app/types/infos";
 
@@ -69,6 +70,7 @@ export default async function SiteFooter() {
               {link.label}
             </Badge>
           ))}
+          <PrivacySettingsBadge />
         </nav>
       </div>
     </footer>
