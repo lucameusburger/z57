@@ -13,9 +13,9 @@
     "einblick:generate": "einblick-sdk generate --output app/lib/einblick.generated.ts"
   },
   "dependencies": {
-    "@einblick/analytics": "0.1.2",
-    "@einblick/editor": "0.1.1",
-    "@einblick/sdk": "0.8.4",
+    "@einblick/analytics": "0.1.3",
+    "@einblick/editor": "0.1.4",
+    "@einblick/sdk": "0.8.6",
     "@gsap/react": "^2.1.1",
     "@radix-ui/react-slot": "^1.2.4",
     "@react-three/drei": "^10.7.6",
