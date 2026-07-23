@@ -1,5 +1,6 @@
 import "server-only";
 
+import { unstable_cache } from "next/cache";
 import { cache } from "react";
 
 import type {
@@ -12,9 +13,10 @@ import {
   getEinblickCmsTags,
 } from "@/app/lib/einblick-cache";
 import { createGeneratedEinblickClient } from "@/app/lib/einblick.generated";
-import type {
-  EinblickListResponse,
-  EinblickSingleRecordResponse,
+import {
+  EinblickApiError,
+  type EinblickListResponse,
+  type EinblickSingleRecordResponse,
 } from "@einblick/sdk";
 
 export type CmsCollectionResponse<T extends Record<string, unknown>> =
@@ -27,6 +29,33 @@ export type CmsInfosFields = InfosFields;
 export type CmsPostFields = PostsFields;
 
 const REVALIDATE_SECONDS = 60;
+
+const POSTS_FIELDS = [
+  "title",
+  "description",
+  "content",
+  "kind",
+  "pinned",
+  "published_at",
+  "date_labels",
+  "location_label",
+  "image",
+  "images",
+  "tags",
+] as const;
+
+const MEMBERS_FIELDS = [
+  "name",
+  "title",
+  "description",
+  "email",
+  "website",
+  "instagram",
+  "image",
+  "projects",
+] as const;
+
+const INFOS_FIELDS = ["email", "website", "instagram"] as const;
 
 function getRevalidatedFetch(tags: string[]) {
   return {
@@ -59,6 +88,7 @@ export const getCmsPosts = cache(
     try {
       return await getClient().request("posts", {
         limit: 100,
+        fields: POSTS_FIELDS,
         fetch: getRevalidatedFetch(getEinblickCmsTags("posts")),
       });
     } catch (error) {
@@ -77,6 +107,7 @@ export const getCmsMembers = cache(
     try {
       return await getClient().request("members", {
         limit: 100,
+        fields: MEMBERS_FIELDS,
         fetch: getRevalidatedFetch(getEinblickCmsTags("members")),
       });
     } catch (error) {
@@ -86,7 +117,7 @@ export const getCmsMembers = cache(
   }
 );
 
-export const getCmsInfos = cache(
+const getPersistedCmsInfos = unstable_cache(
   async (): Promise<CmsSingleRecordResponse<CmsInfosFields> | null> => {
     if (!isCmsConfigured()) {
       return null;
@@ -94,14 +125,24 @@ export const getCmsInfos = cache(
 
     try {
       return await getClient().request("infos", {
+        fields: INFOS_FIELDS,
         fetch: getRevalidatedFetch(getEinblickCmsTags("infos")),
       });
     } catch (error) {
-      logCmsError("getCmsInfos", error);
+      if (!(error instanceof EinblickApiError && error.status === 404)) {
+        logCmsError("getCmsInfos", error);
+      }
       return null;
     }
-  }
+  },
+  ["einblick-cms-infos"],
+  {
+    revalidate: REVALIDATE_SECONDS,
+    tags: getEinblickCmsTags("infos"),
+  },
 );
+
+export const getCmsInfos = cache(getPersistedCmsInfos);
 
 export const getCmsPost = cache(
   async (slug: string): Promise<CmsSingleRecordResponse<CmsPostFields> | null> => {
@@ -112,6 +153,7 @@ export const getCmsPost = cache(
     try {
       return await getClient().request("posts", {
         slug,
+        fields: POSTS_FIELDS,
         fetch: getRevalidatedFetch([
           ...getEinblickCmsTags("posts"),
           `${EINBLICK_CMS_TAGS.posts}:${slug}`,

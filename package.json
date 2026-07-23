@@ -14,8 +14,8 @@
   },
   "dependencies": {
     "@einblick/analytics": "0.1.2",
-    "@einblick/editor": "0.1.0",
-    "@einblick/sdk": "0.8.0",
+    "@einblick/editor": "0.1.1",
+    "@einblick/sdk": "0.8.4",
     "@gsap/react": "^2.1.1",
     "@radix-ui/react-slot": "^1.2.4",
     "@react-three/drei": "^10.7.6",
