@@ -54,7 +54,7 @@ export default async function SiteFooter() {
           ) : null}
           <Badge className="whitespace-normal">Zieglergasse 57, 1070 Wien</Badge>
           <Badge
-            href="https://lucameusburger.xyz"
+            href="https://www.lucameusburger.com"
             target="_blank"
             rel="noreferrer"
             className="whitespace-normal"
