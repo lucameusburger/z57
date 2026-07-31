@@ -1,0 +1,4 @@
+minimumReleaseAgeExclude:
+  - '@einblick/sdk'
+  - '@einblick/analytics'
+  - '@einblick/editor'
