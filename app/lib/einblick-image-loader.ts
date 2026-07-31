@@ -1,5 +1,7 @@
 "use client";
 
+import { getEinblickAssetUrl } from "@einblick/sdk";
+
 type LoaderProps = {
   src: string;
   width: number;
@@ -17,17 +19,22 @@ export default function einblickImageLoader({
 
   const url = new URL(src);
 
-  if (!url.searchParams.has("w") && !url.searchParams.has("h")) {
-    url.searchParams.set("w", String(Math.round(width)));
-  }
+  // Build the URL through the SDK rather than setting the parameters by hand,
+  // so requested sizes are snapped onto the dimensions Einblick actually
+  // delivers. Two nearby widths then resolve to one URL and bill one
+  // transformation instead of two.
+  const transformed = getEinblickAssetUrl(
+    { url: url.toString() },
+    {
+      ...(!url.searchParams.has("w") && !url.searchParams.has("h")
+        ? { width }
+        : {}),
+      ...(quality !== undefined && !url.searchParams.has("q")
+        ? { quality }
+        : {}),
+      ...(!url.searchParams.has("fmt") ? { format: "auto" as const } : {}),
+    },
+  );
 
-  if (quality !== undefined && !url.searchParams.has("q")) {
-    url.searchParams.set("q", String(Math.round(quality)));
-  }
-
-  if (!url.searchParams.has("fmt")) {
-    url.searchParams.set("fmt", "auto");
-  }
-
-  return url.toString();
+  return transformed ?? src;
 }

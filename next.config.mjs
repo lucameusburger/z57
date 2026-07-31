@@ -14,6 +14,13 @@ const nextConfig = {
   images: {
     loader: "custom",
     loaderFile: "./app/lib/einblick-image-loader.ts",
+    // Each width here becomes a separately billed image transformation for
+    // every image on the site, so the list is kept short and every entry is a
+    // size Einblick delivers exactly. Next's defaults include 750 and 828,
+    // which are not delivered sizes and would be rounded up to a larger one.
+    deviceSizes: [640, 768, 1024, 1280, 1920, 2560],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    qualities: [75, 82],
     remotePatterns: [
       {
         protocol: "https",
