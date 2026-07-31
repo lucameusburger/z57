@@ -1,3 +1,10 @@
+# Single-package repository. The packages field is required: pnpm 9, which
+# Vercel selects here because it ignores packageManager without corepack,
+# refuses to install when a workspace file omits it.
+packages:
+  - .
+# First-party packages are exempted by name rather than by pinned version, so a
+# future release does not fail the minimum-release-age policy on newer pnpm.
 minimumReleaseAgeExclude:
   - '@einblick/sdk'
   - '@einblick/analytics'
