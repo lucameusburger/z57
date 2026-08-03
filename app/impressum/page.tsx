@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 import LegalPage from "@/app/components/LegalPage";
-import { EditableText } from "@einblick/editor/react";
+import { EditableRegion } from "@einblick/editor/react";
 import { getSiteInfos } from "@/app/types/infos";
 
 export const metadata: Metadata = {
@@ -34,9 +34,9 @@ export default async function ImpressumPage() {
           E-Mail:{" "}
           {siteInfos.emailHref && siteInfos.email ? (
             <a className="underline underline-offset-4" href={siteInfos.emailHref}>
-              <EditableText as="span" binding={siteInfos.bindings.email}>
+              <EditableRegion as="span" binding={siteInfos.bindings.email}>
                 {siteInfos.email}
-              </EditableText>
+              </EditableRegion>
             </a>
           ) : null}
         </p>

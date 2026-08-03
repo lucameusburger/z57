@@ -1,7 +1,7 @@
 import Badge from "./Badge";
 import EinblickLoginBadge from "./EinblickLoginBadge";
 import PrivacySettingsBadge from "./PrivacySettingsBadge";
-import { EditableText } from "@einblick/editor/react";
+import { EditableRegion } from "@einblick/editor/react";
 import { getSiteInfos } from "@/app/types/infos";
 
 const legalLinks = [
@@ -23,9 +23,9 @@ export default async function SiteFooter() {
           <Badge variant="black">ZVR 1169564571</Badge>
           {siteInfos.emailHref && siteInfos.email ? (
             <Badge href={siteInfos.emailHref} variant="black">
-              <EditableText as="span" binding={siteInfos.bindings.email}>
+              <EditableRegion as="span" binding={siteInfos.bindings.email}>
                 {siteInfos.email}
-              </EditableText>
+              </EditableRegion>
             </Badge>
           ) : null}
           {siteInfos.instagramHref && siteInfos.instagramLabel ? (
@@ -35,9 +35,9 @@ export default async function SiteFooter() {
               target="_blank"
               rel="noreferrer"
             >
-              <EditableText as="span" binding={siteInfos.bindings.instagram}>
+              <EditableRegion as="span" binding={siteInfos.bindings.instagram}>
                 Instagram: {siteInfos.instagramLabel}
-              </EditableText>
+              </EditableRegion>
             </Badge>
           ) : null}
           {siteInfos.websiteHref && siteInfos.websiteLabel ? (
@@ -47,9 +47,9 @@ export default async function SiteFooter() {
               target="_blank"
               rel="noreferrer"
             >
-              <EditableText as="span" binding={siteInfos.bindings.website}>
+              <EditableRegion as="span" binding={siteInfos.bindings.website}>
                 {siteInfos.websiteLabel}
-              </EditableText>
+              </EditableRegion>
             </Badge>
           ) : null}
           <Badge className="whitespace-normal">Zieglergasse 57, 1070 Wien</Badge>

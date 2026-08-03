@@ -142,14 +142,24 @@ function mapCmsInfos(record?: {
     instagramHref,
     instagramLabel: getInstagramLabel(instagramHref),
     bindings: {
-      email: createInfoBinding(record?.id, "email", "Contact email", email),
+      email: createInfoBinding(
+        record?.id,
+        "email",
+        "Contact email",
+        fields?.email,
+      ),
       instagram: createInfoBinding(
         record?.id,
         "instagram",
         "Instagram",
-        instagram,
+        fields?.instagram,
       ),
-      website: createInfoBinding(record?.id, "website", "Website", website),
+      website: createInfoBinding(
+        record?.id,
+        "website",
+        "Website",
+        fields?.website,
+      ),
     },
   };
 }

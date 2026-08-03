@@ -1,7 +1,7 @@
 import { ArrowLeft } from "lucide-react";
 
 import Link from "next/link";
-import { EditableText } from "@einblick/editor/react";
+import { EditableRegion } from "@einblick/editor/react";
 import { getSiteInfos } from "@/app/types/infos";
 
 export default async function ApplicationPage() {
@@ -32,9 +32,9 @@ export default async function ApplicationPage() {
             nicht aktiv. Wenn ihr mit z57 in Kontakt treten möchtet, schreibt direkt an{" "}
             {siteInfos.emailHref && siteInfos.email ? (
               <a className="underline underline-offset-4" href={siteInfos.emailHref}>
-                <EditableText as="span" binding={siteInfos.bindings.email}>
+                <EditableRegion as="span" binding={siteInfos.bindings.email}>
                   {siteInfos.email}
-                </EditableText>
+                </EditableRegion>
               </a>
             ) : null}
             .

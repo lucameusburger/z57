@@ -8,7 +8,7 @@ import PostsSection from "./components/PostsSection";
 import SiteFooter from "./components/SiteFooter";
 import {
   EditableCollection,
-  EditableText,
+  EditableRegion,
   createEditableCollectionBinding,
 } from "@einblick/editor/react";
 import { getSiteInfos } from "@/app/types/infos";
@@ -182,13 +182,13 @@ export default async function Home() {
                     <Mail className="w-12 h-12" />
                     <div className="flex flex-col gap-2">
                       <hr className="border-current" />
-                      <EditableText
+                      <EditableRegion
                         as="span"
                         binding={siteInfos.bindings.email}
                         className="self-end text-xl"
                       >
                         {siteInfos.email}
-                      </EditableText>
+                      </EditableRegion>
                     </div>
                   </a>
                 ) : null}
@@ -202,13 +202,13 @@ export default async function Home() {
                     <Instagram className="w-12 h-12" />
                     <div className="flex flex-col gap-2">
                       <hr className="border-current" />
-                      <EditableText
+                      <EditableRegion
                         as="span"
                         binding={siteInfos.bindings.instagram}
                         className="self-end text-xl"
                       >
                         {siteInfos.instagramLabel ?? "Instagram"}
-                      </EditableText>
+                      </EditableRegion>
                     </div>
                   </a>
                 ) : null}
@@ -222,13 +222,13 @@ export default async function Home() {
                     <Globe className="w-12 h-12" />
                     <div className="flex flex-col gap-2">
                       <hr className="border-current" />
-                      <EditableText
+                      <EditableRegion
                         as="span"
                         binding={siteInfos.bindings.website}
                         className="self-end text-xl"
                       >
                         {siteInfos.websiteLabel ?? "Website"}
-                      </EditableText>
+                      </EditableRegion>
                     </div>
                   </a>
                 ) : null}
