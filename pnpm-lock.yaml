@@ -12,11 +12,11 @@ importers:
         specifier: 0.1.3
         version: 0.1.3(next@16.2.6(@babel/core@7.29.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       '@einblick/editor':
-        specifier: 0.1.6
-        version: 0.1.6(next@16.2.6(@babel/core@7.29.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+        specifier: 0.1.7
+        version: 0.1.7(next@16.2.6(@babel/core@7.29.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       '@einblick/sdk':
-        specifier: 0.10.0
-        version: 0.10.0(next@16.2.6(@babel/core@7.29.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+        specifier: 1.0.0
+        version: 1.0.0(next@16.2.6(@babel/core@7.29.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       '@gsap/react':
         specifier: ^2.1.1
         version: 2.1.2(gsap@3.14.2)(react@19.2.0)
@@ -192,8 +192,8 @@ packages:
       react-dom:
         optional: true
 
-  '@einblick/editor@0.1.6':
-    resolution: {integrity: sha512-GEI21ePrR/EfLw8z1ArrkqEy0+6NJNNhe/FTxtcQQ2xG4a5IiIB7ISb6Wxzksc8PF+fAQuY4TFlyXycW72DcZA==}
+  '@einblick/editor@0.1.7':
+    resolution: {integrity: sha512-Lgj9DxEqzblsVkmAs9OvLBmO0gmYKCQFP4hhOi9R1ZPYWNIbTpuXwQC3fzLHr4RzU/fk840r1dPtD5J5w2wG4w==}
     engines: {node: '>=24.0.0'}
     peerDependencies:
       next: ^15.5.18 || >=16.2.6
@@ -207,8 +207,8 @@ packages:
       react-dom:
         optional: true
 
-  '@einblick/sdk@0.10.0':
-    resolution: {integrity: sha512-aB9uxcskev3uGPeyACxDoNA2ZuBl1G21X1Lg93UoSQF3jXgBYwE4+oTDqZCor2BmG4SUW0WS0tS50jzV/5LKeg==}
+  '@einblick/sdk@1.0.0':
+    resolution: {integrity: sha512-C4P4O4h3jDUMeVIgsk9AzhMrKfW6axUJ+Q764tMnnImPHvVIeGOxRA41HYbLlk0HyXh27jyjdPIWOf7oa8MBnA==}
     engines: {node: '>=24.0.0'}
     hasBin: true
     peerDependencies:
@@ -2788,13 +2788,13 @@ snapshots:
       react: 19.2.0
       react-dom: 19.2.0(react@19.2.0)
 
-  '@einblick/editor@0.1.6(next@16.2.6(@babel/core@7.29.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
+  '@einblick/editor@0.1.7(next@16.2.6(@babel/core@7.29.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
     optionalDependencies:
       next: 16.2.6(@babel/core@7.29.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       react: 19.2.0
       react-dom: 19.2.0(react@19.2.0)
 
-  '@einblick/sdk@0.10.0(next@16.2.6(@babel/core@7.29.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
+  '@einblick/sdk@1.0.0(next@16.2.6(@babel/core@7.29.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
     optionalDependencies:
       next: 16.2.6(@babel/core@7.29.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       react: 19.2.0
