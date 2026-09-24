@@ -10,4 +10,4 @@ export const EINBLICK_CMS_TAGS = {
 } as const;
 
 export const getEinblickCmsTags = (resourceSlug?: string | null): string[] =>
-  einblickTags.for(resourceSlug);
+  einblickTags.forFetch(resourceSlug);
