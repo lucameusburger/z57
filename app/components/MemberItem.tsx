@@ -40,7 +40,7 @@ const MemberItem = ({ member, switched }: { member: Member; switched: number }) 
           {member.image ? (
             <Image
               src={member.image}
-              alt={member.name}
+              alt={member.imageAlt}
               width={1080}
               height={1080}
               loading="lazy"

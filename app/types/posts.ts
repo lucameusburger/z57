@@ -15,6 +15,7 @@ import {
   createEditableBinding,
   type EinblickEditableBinding,
 } from "@einblick/editor";
+import { getEinblickAssetAlt } from "@einblick/sdk";
 
 export type PostKind = string;
 
@@ -89,7 +90,7 @@ function getCmsImage(
   return {
     src,
     ogSrc: getEinblickOpenGraphImageUrl(image) ?? src,
-    alt: image?.fileName || title,
+    alt: getEinblickAssetAlt(image, title),
     width: image?.width,
     height: image?.height,
   };
@@ -109,7 +110,7 @@ function getCmsGalleryImages(
       {
         src,
         ogSrc: getEinblickOpenGraphImageUrl(image) ?? src,
-        alt: image.fileName || `${title} ${index + 1}`,
+        alt: getEinblickAssetAlt(image, `${title} ${index + 1}`),
         width: image.width,
         height: image.height,
       },

@@ -8,6 +8,7 @@ import {
   createEditableBinding,
   type EinblickEditableBinding,
 } from "@einblick/editor";
+import { getEinblickAssetAlt } from "@einblick/sdk";
 
 export interface Project {
   name: string;
@@ -17,6 +18,7 @@ export interface Project {
 export interface Member {
   name: string;
   image?: string;
+  imageAlt: string;
   title: string;
   description: string;
   email: string;
@@ -71,6 +73,7 @@ function cmsRecordToMember(cmsRecord: {
   return {
     name: cmsRecord.fields.name,
     image: getEinblickAssetUrl(cmsRecord.fields.image) ?? undefined,
+    imageAlt: getEinblickAssetAlt(cmsRecord.fields.image, cmsRecord.fields.name),
     title: cmsRecord.fields.title,
     description: cmsRecord.fields.description,
     email: cmsRecord.fields.email,

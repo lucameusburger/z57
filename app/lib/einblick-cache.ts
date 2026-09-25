@@ -1,13 +1,11 @@
 import { createEinblickCmsTags } from "@einblick/sdk/next/cache";
 
-export const einblickTags = createEinblickCmsTags();
-
-export const EINBLICK_CMS_TAGS = {
-  all: einblickTags.base,
-  infos: einblickTags.forResource("infos"),
-  members: einblickTags.forResource("members"),
-  posts: einblickTags.forResource("posts"),
-} as const;
+// A notification names only the resource that changed. Asset URLs and file
+// metadata (alt text, dimensions, copyright, focal point) change under the
+// `files` slug, so reads that render assets must expire together with it.
+export const einblickTags = createEinblickCmsTags({
+  fanOut: { files: ["posts", "members"] },
+});
 
 export const getEinblickCmsTags = (resourceSlug?: string | null): string[] =>
   einblickTags.forFetch(resourceSlug);

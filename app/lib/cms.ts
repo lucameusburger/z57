@@ -9,7 +9,7 @@ import type {
   PostsFields,
 } from "@/app/lib/einblick.generated";
 import {
-  EINBLICK_CMS_TAGS,
+  einblickTags,
   getEinblickCmsTags,
 } from "@/app/lib/einblick-cache";
 import { createGeneratedEinblickClient } from "@/app/lib/einblick.generated";
@@ -156,7 +156,7 @@ export const getCmsPost = cache(
         fields: POSTS_FIELDS,
         fetch: getRevalidatedFetch([
           ...getEinblickCmsTags("posts"),
-          `${EINBLICK_CMS_TAGS.posts}:${slug}`,
+          einblickTags.forRecord("posts", slug),
         ]),
       });
     } catch (error) {
