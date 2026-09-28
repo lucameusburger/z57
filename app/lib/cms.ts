@@ -18,6 +18,7 @@ import {
   type EinblickListResponse,
   type EinblickSingleRecordResponse,
 } from "@einblick/sdk";
+import { isEinblickDraftMode } from "@einblick/sdk/next";
 
 export type CmsCollectionResponse<T extends Record<string, unknown>> =
   EinblickListResponse<T>;
@@ -67,7 +68,7 @@ function getRevalidatedFetch(tags: string[]) {
 }
 
 function getClient() {
-  return createGeneratedEinblickClient();
+  return createGeneratedEinblickClient({ preview: isEinblickDraftMode });
 }
 
 function logCmsError(scope: string, error: unknown) {

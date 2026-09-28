@@ -125,6 +125,7 @@ export default function AnalyticsConsentManager() {
           aria-label="Datenschutz-Einstellungen"
           aria-live="polite"
           className="fixed inset-x-0 bottom-0 z-[100] w-full rounded-t-[2rem] border border-foreground bg-background p-5 md:p-6"
+          data-einblick-chrome
         >
           <div className="mx-auto w-full max-w-4xl">
             <h2 className="text-2xl font-semibold tracking-tight">
@@ -182,6 +183,7 @@ export default function AnalyticsConsentManager() {
           aria-label="Individuelle Datenschutz-Einstellungen"
           aria-live="polite"
           className="fixed inset-x-0 bottom-0 z-[100] w-full rounded-t-[2rem] border border-foreground bg-background p-5 md:p-6"
+          data-einblick-chrome
         >
           <div className="mx-auto w-full max-w-4xl">
             <p className="text-sm text-foreground/60">
