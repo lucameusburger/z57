@@ -9,13 +9,14 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "test": "node --experimental-strip-types --test tests/*.test.mjs",
     "lint": "eslint . --max-warnings=0",
-    "einblick:generate": "einblick-sdk generate --output app/lib/einblick.generated.ts"
+    "einblick:generate": "einblick-sdk generate --website z57-website --output app/lib/einblick.generated.ts"
   },
   "dependencies": {
     "@einblick/analytics": "0.1.6",
     "@einblick/editor": "0.2.0",
-    "@einblick/sdk": "2.1.0",
+    "@einblick/sdk": "3.0.0",
     "@gsap/react": "^2.1.1",
     "@radix-ui/react-slot": "^1.2.4",
     "@react-three/drei": "^10.7.6",

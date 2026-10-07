@@ -8,11 +8,12 @@ import type {
   MembersFields,
   PostsFields,
 } from "@/app/lib/einblick.generated";
+import { einblickTags, getEinblickCmsTags } from "@/app/lib/einblick-cache";
 import {
-  einblickTags,
-  getEinblickCmsTags,
-} from "@/app/lib/einblick-cache";
-import { createGeneratedEinblickClient } from "@/app/lib/einblick.generated";
+  createGeneratedEinblickClient,
+  EINBLICK_WEBSITE,
+} from "@/app/lib/einblick.generated";
+import { collectCmsPages } from "@/app/lib/cms-pagination";
 import {
   EinblickApiError,
   type EinblickListResponse,
@@ -58,17 +59,12 @@ const MEMBERS_FIELDS = [
 
 const INFOS_FIELDS = ["email", "website", "instagram"] as const;
 
-function getRevalidatedFetch(tags: string[]) {
-  return {
-    next: {
-      revalidate: REVALIDATE_SECONDS,
-      tags,
-    },
-  };
-}
-
 function getClient() {
-  return createGeneratedEinblickClient({ preview: isEinblickDraftMode });
+  return createGeneratedEinblickClient({
+    preview: isEinblickDraftMode,
+    cacheTags: einblickTags,
+    requestInit: { next: { revalidate: REVALIDATE_SECONDS } },
+  });
 }
 
 function logCmsError(scope: string, error: unknown) {
@@ -77,7 +73,9 @@ function logCmsError(scope: string, error: unknown) {
 }
 
 export function isCmsConfigured(): boolean {
-  return Boolean(process.env.EINBLICK_API_KEY || process.env.EINBLICK_API_TOKEN);
+  return Boolean(
+    process.env.EINBLICK_API_KEY || process.env.EINBLICK_API_TOKEN,
+  );
 }
 
 export const getCmsPosts = cache(
@@ -87,16 +85,19 @@ export const getCmsPosts = cache(
     }
 
     try {
-      return await getClient().request("posts", {
-        limit: 100,
-        fields: POSTS_FIELDS,
-        fetch: getRevalidatedFetch(getEinblickCmsTags("posts")),
-      });
+      const client = getClient();
+      return await collectCmsPages((cursor) =>
+        client.request("posts", {
+          cursor,
+          limit: 100,
+          fields: POSTS_FIELDS,
+        }),
+      );
     } catch (error) {
       logCmsError("getCmsPosts", error);
-      return null;
+      throw error;
     }
-  }
+  },
 );
 
 export const getCmsMembers = cache(
@@ -106,16 +107,19 @@ export const getCmsMembers = cache(
     }
 
     try {
-      return await getClient().request("members", {
-        limit: 100,
-        fields: MEMBERS_FIELDS,
-        fetch: getRevalidatedFetch(getEinblickCmsTags("members")),
-      });
+      const client = getClient();
+      return await collectCmsPages((cursor) =>
+        client.request("members", {
+          cursor,
+          limit: 100,
+          fields: MEMBERS_FIELDS,
+        }),
+      );
     } catch (error) {
       logCmsError("getCmsMembers", error);
-      return null;
+      throw error;
     }
-  }
+  },
 );
 
 const getPersistedCmsInfos = unstable_cache(
@@ -127,16 +131,15 @@ const getPersistedCmsInfos = unstable_cache(
     try {
       return await getClient().request("infos", {
         fields: INFOS_FIELDS,
-        fetch: getRevalidatedFetch(getEinblickCmsTags("infos")),
       });
     } catch (error) {
-      if (!(error instanceof EinblickApiError && error.status === 404)) {
-        logCmsError("getCmsInfos", error);
-      }
-      return null;
+      if (error instanceof EinblickApiError && error.status === 404)
+        return null;
+      logCmsError("getCmsInfos", error);
+      throw error;
     }
   },
-  ["einblick-cms-infos"],
+  ["einblick-cms-infos", EINBLICK_WEBSITE],
   {
     revalidate: REVALIDATE_SECONDS,
     tags: getEinblickCmsTags("infos"),
@@ -146,7 +149,9 @@ const getPersistedCmsInfos = unstable_cache(
 export const getCmsInfos = cache(getPersistedCmsInfos);
 
 export const getCmsPost = cache(
-  async (slug: string): Promise<CmsSingleRecordResponse<CmsPostFields> | null> => {
+  async (
+    slug: string,
+  ): Promise<CmsSingleRecordResponse<CmsPostFields> | null> => {
     if (!isCmsConfigured()) {
       return null;
     }
@@ -155,14 +160,12 @@ export const getCmsPost = cache(
       return await getClient().request("posts", {
         slug,
         fields: POSTS_FIELDS,
-        fetch: getRevalidatedFetch([
-          ...getEinblickCmsTags("posts"),
-          einblickTags.forRecord("posts", slug),
-        ]),
       });
     } catch (error) {
+      if (error instanceof EinblickApiError && error.status === 404)
+        return null;
       logCmsError(`getCmsPost(${slug})`, error);
-      return null;
+      throw error;
     }
-  }
+  },
 );
