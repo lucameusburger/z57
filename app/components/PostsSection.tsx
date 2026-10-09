@@ -1,6 +1,4 @@
-import {
-  type Post,
-} from "@/app/types/posts";
+import { type Post } from "@/app/types/posts";
 
 import Badge from "@/app/components/Badge";
 import Image from "next/image";
@@ -16,8 +14,6 @@ interface PostsSectionProps {
   posts: Post[];
   showAllPostsLink?: boolean;
 }
-
-const enableInlinePostFieldEditing = false;
 
 export default function PostsSection({
   posts,
@@ -49,7 +45,7 @@ export default function PostsSection({
                 >
                   <EditableRegion
                     as="div"
-                    binding={enableInlinePostFieldEditing ? post.bindings.image : undefined}
+                    binding={post.bindings.image}
                     className="overflow-hidden self-start rounded-3xl border border-foreground bg-background"
                   >
                     <Image
@@ -69,18 +65,21 @@ export default function PostsSection({
                         <div className="space-y-4">
                           <div className="flex flex-wrap gap-2 text-sm">
                             <Badge>
-                              <EditableText
+                              <EditableRegion
                                 as="span"
-                                binding={enableInlinePostFieldEditing ? post.bindings.kind : undefined}
+                                binding={post.bindings.kind}
+                                className="inline-block"
                               >
                                 {post.kind}
-                              </EditableText>
+                              </EditableRegion>
                             </Badge>
                           </div>
 
                           <EditableText
+                            editInline
                             as="h2"
-                            binding={enableInlinePostFieldEditing ? post.bindings.title : undefined}
+                            binding={post.bindings.title}
+                            placeholder="Titel ergänzen"
                             className="text-3xl md:text-5xl"
                           >
                             {post.title}
@@ -88,24 +87,23 @@ export default function PostsSection({
                         </div>
 
                         {post.dateLabels?.length ? (
-                          <div className="flex flex-wrap justify-end gap-2 text-sm md:max-w-[45%]">
+                          <EditableRegion
+                            as="div"
+                            binding={post.bindings.dateLabels}
+                            className="flex flex-wrap justify-end gap-2 text-sm md:max-w-[45%]"
+                          >
                             {post.dateLabels.map((dateLabel) => (
-                              <Badge key={dateLabel}>
-                                <EditableText
-                                  as="span"
-                                  binding={enableInlinePostFieldEditing ? post.bindings.dateLabels : undefined}
-                                >
-                                  {dateLabel}
-                                </EditableText>
-                              </Badge>
+                              <Badge key={dateLabel}>{dateLabel}</Badge>
                             ))}
-                          </div>
+                          </EditableRegion>
                         ) : null}
                       </div>
 
                       <EditableText
+                        editInline
                         as="p"
-                        binding={enableInlinePostFieldEditing ? post.bindings.summary : undefined}
+                        binding={post.bindings.summary}
+                        placeholder="Beschreibung ergänzen"
                         className="max-w-4xl text-lg leading-relaxed md:text-xl"
                       >
                         {post.summary}
@@ -113,7 +111,11 @@ export default function PostsSection({
                     </div>
 
                     <div className="flex items-center justify-end gap-4">
-                      <Badge href={post.href} variant="black" className="ml-auto">
+                      <Badge
+                        href={post.href}
+                        variant="black"
+                        className="ml-auto"
+                      >
                         Zum Post
                       </Badge>
                     </div>
@@ -122,7 +124,7 @@ export default function PostsSection({
                   {hasGallery ? (
                     <EditableRegion
                       as="div"
-                      binding={enableInlinePostFieldEditing ? post.bindings.gallery : undefined}
+                      binding={post.bindings.gallery}
                       className="md:col-span-3"
                     >
                       <PostGallery
@@ -148,25 +150,30 @@ export default function PostsSection({
                   <div className="space-y-4">
                     <div className="flex flex-wrap gap-2 text-sm">
                       <Badge>
-                        <EditableText
+                        <EditableRegion
                           as="span"
-                          binding={enableInlinePostFieldEditing ? post.bindings.kind : undefined}
+                          binding={post.bindings.kind}
+                          className="inline-block"
                         >
                           {post.kind}
-                        </EditableText>
+                        </EditableRegion>
                       </Badge>
                     </div>
                     <div className="space-y-3">
                       <EditableText
+                        editInline
                         as="h2"
-                        binding={enableInlinePostFieldEditing ? post.bindings.title : undefined}
+                        binding={post.bindings.title}
+                        placeholder="Titel ergänzen"
                         className="text-3xl md:text-5xl"
                       >
                         {post.title}
                       </EditableText>
                       <EditableText
+                        editInline
                         as="p"
-                        binding={enableInlinePostFieldEditing ? post.bindings.summary : undefined}
+                        binding={post.bindings.summary}
+                        placeholder="Beschreibung ergänzen"
                         className="max-w-4xl text-lg leading-relaxed md:min-h-48 md:text-xl"
                       >
                         {post.summary}
@@ -175,26 +182,20 @@ export default function PostsSection({
                   </div>
 
                   {post.dateLabels?.length ? (
-                    <div className="flex flex-wrap justify-end gap-2 text-sm md:max-w-[45%]">
+                    <EditableRegion
+                      as="div"
+                      binding={post.bindings.dateLabels}
+                      className="flex flex-wrap justify-end gap-2 text-sm md:max-w-[45%]"
+                    >
                       {post.dateLabels.map((dateLabel) => (
-                        <Badge key={dateLabel}>
-                          <EditableText
-                            as="span"
-                            binding={enableInlinePostFieldEditing ? post.bindings.dateLabels : undefined}
-                          >
-                            {dateLabel}
-                          </EditableText>
-                        </Badge>
+                        <Badge key={dateLabel}>{dateLabel}</Badge>
                       ))}
-                    </div>
+                    </EditableRegion>
                   ) : null}
                 </div>
 
                 {hasGallery ? (
-                  <EditableRegion
-                    as="div"
-                    binding={enableInlinePostFieldEditing ? post.bindings.gallery : undefined}
-                  >
+                  <EditableRegion as="div" binding={post.bindings.gallery}>
                     <PostGallery
                       images={post.galleryImages}
                       initialImageLimit={8}

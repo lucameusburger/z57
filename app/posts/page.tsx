@@ -1,3 +1,5 @@
+import { getContent } from "@/app/lib/content";
+import { EditableText } from "@einblick/editor/react";
 import type { Metadata } from "next";
 import PostPageHeader from "@/app/components/PostPageHeader";
 import PostsSection from "@/app/components/PostsSection";
@@ -10,6 +12,7 @@ export const metadata: Metadata = {
 };
 
 export default async function PostsPage() {
+  const { content, pages } = await getContent();
   const posts = await getAllPosts();
 
   return (
@@ -20,14 +23,33 @@ export default async function PostsPage() {
 
           <section className="px-4 py-8 md:px-8">
             <div className="max-w-4xl space-y-4">
-              <p className="text-sm uppercase tracking-[0.16em] text-foreground/60">
-                Archiv
-              </p>
-              <h1 className="text-4xl md:text-6xl">Alle Posts</h1>
-              <p className="max-w-3xl text-lg leading-relaxed text-foreground/80 md:text-xl">
-                Alle Beiträge, Rückblicke und Einblicke aus dem Atelier z57 an
-                einem Ort.
-              </p>
+              <EditableText
+                editInline
+                as="p"
+                className="text-sm uppercase tracking-[0.16em] text-foreground/60"
+                binding={pages.archive.binding("intro.eyebrow")}
+                placeholder="Text ergänzen"
+              >
+                {content.archive.intro.eyebrow}
+              </EditableText>
+              <EditableText
+                editInline
+                as="h1"
+                className="text-4xl md:text-6xl"
+                binding={pages.archive.binding("intro.heading")}
+                placeholder="Text ergänzen"
+              >
+                {content.archive.intro.heading}
+              </EditableText>
+              <EditableText
+                editInline
+                as="p"
+                className="max-w-3xl text-lg leading-relaxed text-foreground/80 md:text-xl"
+                binding={pages.archive.binding("intro.intro")}
+                placeholder="Text ergänzen"
+              >
+                {content.archive.intro.intro}
+              </EditableText>
             </div>
           </section>
 

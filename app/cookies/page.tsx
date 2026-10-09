@@ -1,3 +1,5 @@
+import { getContent } from "@/app/lib/content";
+import { EditableText } from "@einblick/editor/react";
 import type { Metadata } from "next";
 
 import LegalPage from "@/app/components/LegalPage";
@@ -7,73 +9,139 @@ export const metadata: Metadata = {
   description: "Informationen zu Cookies auf der Website von z57.",
 };
 
-export default function CookiesPage() {
+export default async function CookiesPage() {
+  const { content, pages } = await getContent();
   return (
     <LegalPage
-      title="Cookies"
-      updatedAt="15. Juli 2026"
+      title={
+        <EditableText
+          editInline
+          as="span"
+          className="inline-block"
+          binding={pages.cookies.binding("intro.title")}
+        >
+          {content.cookies.intro.title}
+        </EditableText>
+      }
+      updatedAt={
+        <EditableText
+          editInline
+          as="span"
+          className="inline-block"
+          binding={pages.cookies.binding("intro.updatedAt")}
+        >
+          {content.cookies.intro.updatedAt}
+        </EditableText>
+      }
       intro={
-        <p>
-          Hier findest du einen kurzen Überblick darüber, ob und wie auf dieser
-          Website Cookies eingesetzt werden.
-        </p>
+        <EditableText
+          editInline
+          as="p"
+          binding={pages.cookies.binding("intro.paragraph1")}
+          placeholder="Text ergänzen"
+        >
+          {content.cookies.intro.paragraph1}
+        </EditableText>
       }
     >
       <section className="flex flex-col gap-3">
-        <h2 className="text-2xl font-semibold md:text-3xl">
-          Aktueller Einsatz
-        </h2>
-        <p>
-          Auf dieser Website sind derzeit keine optionalen Analyse-, Marketing-
-          oder Tracking-Cookies eingebunden. Einblick Website Analytics arbeitet
-          cookieless und wird erst nach deiner Zustimmung aktiviert.
-        </p>
+        <EditableText
+          editInline
+          as="h2"
+          className="text-2xl font-semibold md:text-3xl"
+          binding={pages.cookies.binding("current.heading")}
+          placeholder="Text ergänzen"
+        >
+          {content.cookies.current.heading}
+        </EditableText>
+        <EditableText
+          editInline
+          as="p"
+          binding={pages.cookies.binding("current.paragraph1")}
+          placeholder="Text ergänzen"
+        >
+          {content.cookies.current.paragraph1}
+        </EditableText>
       </section>
 
       <section className="flex flex-col gap-3">
-        <h2 className="text-2xl font-semibold md:text-3xl">
-          Speicherung deiner Entscheidung
-        </h2>
-        <p>
-          Deine Auswahl zur cookieless Reichweitenmessung wird im lokalen
-          Speicher deines Browsers abgelegt. Dadurch können wir deine
-          Entscheidung bei späteren Besuchen berücksichtigen. Du kannst
-          Einblick Analytics ablehnen, akzeptieren oder individuell anpassen
-          und die Auswahl jederzeit über „Datenschutz-Einstellungen“ ändern
-          oder widerrufen.
-        </p>
+        <EditableText
+          editInline
+          as="h2"
+          className="text-2xl font-semibold md:text-3xl"
+          binding={pages.cookies.binding("choice.heading")}
+          placeholder="Text ergänzen"
+        >
+          {content.cookies.choice.heading}
+        </EditableText>
+        <EditableText
+          editInline
+          as="p"
+          binding={pages.cookies.binding("choice.paragraph1")}
+          placeholder="Text ergänzen"
+        >
+          {content.cookies.choice.paragraph1}
+        </EditableText>
       </section>
 
       <section className="flex flex-col gap-3">
-        <h2 className="text-2xl font-semibold md:text-3xl">
-          Technisch notwendige Cookies
-        </h2>
-        <p>
-          Je nach Hosting- oder Sicherheitskonfiguration können technisch
-          notwendige Cookies oder vergleichbare Speichermechanismen eingesetzt
-          werden, damit die Website korrekt ausgeliefert und vor Missbrauch
-          geschützt werden kann.
-        </p>
+        <EditableText
+          editInline
+          as="h2"
+          className="text-2xl font-semibold md:text-3xl"
+          binding={pages.cookies.binding("necessary.heading")}
+          placeholder="Text ergänzen"
+        >
+          {content.cookies.necessary.heading}
+        </EditableText>
+        <EditableText
+          editInline
+          as="p"
+          binding={pages.cookies.binding("necessary.paragraph1")}
+          placeholder="Text ergänzen"
+        >
+          {content.cookies.necessary.paragraph1}
+        </EditableText>
       </section>
 
       <section className="flex flex-col gap-3">
-        <h2 className="text-2xl font-semibold md:text-3xl">
-          Browser-Einstellungen
-        </h2>
-        <p>
-          Du kannst Cookies jederzeit in deinem Browser verwalten, einschränken
-          oder löschen. Bitte beachte, dass einzelne Funktionen der Website ohne
-          technisch notwendige Cookies eingeschränkt sein können.
-        </p>
+        <EditableText
+          editInline
+          as="h2"
+          className="text-2xl font-semibold md:text-3xl"
+          binding={pages.cookies.binding("browser.heading")}
+          placeholder="Text ergänzen"
+        >
+          {content.cookies.browser.heading}
+        </EditableText>
+        <EditableText
+          editInline
+          as="p"
+          binding={pages.cookies.binding("browser.paragraph1")}
+          placeholder="Text ergänzen"
+        >
+          {content.cookies.browser.paragraph1}
+        </EditableText>
       </section>
 
       <section className="flex flex-col gap-3">
-        <h2 className="text-2xl font-semibold md:text-3xl">Änderungen</h2>
-        <p>
-          Falls künftig zusätzliche Dienste eingebunden werden, die Cookies oder
-          ähnliche Technologien verwenden, wird diese Seite entsprechend
-          aktualisiert.
-        </p>
+        <EditableText
+          editInline
+          as="h2"
+          className="text-2xl font-semibold md:text-3xl"
+          binding={pages.cookies.binding("changes.heading")}
+          placeholder="Text ergänzen"
+        >
+          {content.cookies.changes.heading}
+        </EditableText>
+        <EditableText
+          editInline
+          as="p"
+          binding={pages.cookies.binding("changes.paragraph1")}
+          placeholder="Text ergänzen"
+        >
+          {content.cookies.changes.paragraph1}
+        </EditableText>
       </section>
     </LegalPage>
   );

@@ -146,7 +146,16 @@ const getPersistedCmsInfos = unstable_cache(
   },
 );
 
-export const getCmsInfos = cache(getPersistedCmsInfos);
+export const getCmsInfos = cache(async () => {
+  if (!isCmsConfigured()) return null;
+  if (!(await isEinblickDraftMode())) return getPersistedCmsInfos();
+  try {
+    return await getClient().request("infos", { fields: INFOS_FIELDS });
+  } catch (error) {
+    if (error instanceof EinblickApiError && error.status === 404) return null;
+    throw error;
+  }
+});
 
 export const getCmsPost = cache(
   async (

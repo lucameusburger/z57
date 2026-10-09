@@ -7,16 +7,17 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "node scripts/sync-content.mjs && next build",
     "start": "next start",
     "test": "node --experimental-strip-types --test tests/*.test.mjs",
     "lint": "eslint . --max-warnings=0",
-    "einblick:generate": "einblick-sdk generate --website z57-website --output app/lib/einblick.generated.ts"
+    "einblick:generate": "einblick-sdk generate --website z57-website --output app/lib/einblick.generated.ts",
+    "content:sync": "node scripts/sync-content.mjs"
   },
   "dependencies": {
     "@einblick/analytics": "0.1.6",
-    "@einblick/editor": "0.2.0",
-    "@einblick/sdk": "3.0.0",
+    "@einblick/editor": "0.3.2",
+    "@einblick/sdk": "3.2.0",
     "@gsap/react": "^2.1.1",
     "@radix-ui/react-slot": "^1.2.4",
     "@react-three/drei": "^10.7.6",

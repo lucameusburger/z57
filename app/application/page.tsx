@@ -1,3 +1,5 @@
+import { getContent } from "@/app/lib/content";
+import { EditableText } from "@einblick/editor/react";
 import { ArrowLeft } from "lucide-react";
 
 import Link from "next/link";
@@ -5,6 +7,7 @@ import { EditableRegion } from "@einblick/editor/react";
 import { getSiteInfos } from "@/app/types/infos";
 
 export default async function ApplicationPage() {
+  const { content, pages } = await getContent();
   const siteInfos = await getSiteInfos();
 
   return (
@@ -21,18 +24,43 @@ export default async function ApplicationPage() {
         </div>
 
         <div className="mx-auto mt-12 flex w-full max-w-3xl flex-col gap-6 rounded-[2rem] border border-foreground/10 bg-foreground px-6 py-8 text-background md:px-8 md:py-10">
-          <span className="text-sm uppercase tracking-[0.16em] text-background/60">
-            legacy
-          </span>
-          <h1 className="text-4xl font-semibold tracking-tight md:text-6xl">
-            Bewerbung derzeit pausiert
-          </h1>
+          <EditableText
+            editInline
+            as="span"
+            className="text-sm uppercase tracking-[0.16em] text-background/60"
+            binding={pages.application.binding("intro.eyebrow")}
+            placeholder="Text ergänzen"
+          >
+            {content.application.intro.eyebrow}
+          </EditableText>
+          <EditableText
+            editInline
+            as="h1"
+            className="text-4xl font-semibold tracking-tight md:text-6xl"
+            binding={pages.application.binding("intro.heading")}
+            placeholder="Text ergänzen"
+          >
+            {content.application.intro.heading}
+          </EditableText>
           <p className="text-lg leading-relaxed text-background/80 md:text-xl">
-            Das Bewerbungsformular bleibt vorerst nur als Archivseite bestehen und ist aktuell
-            nicht aktiv. Wenn ihr mit z57 in Kontakt treten möchtet, schreibt direkt an{" "}
+            <EditableText
+              editInline
+              as="span"
+              className="inline-block"
+              binding={pages.application.binding("intro.intro")}
+            >
+              {content.application.intro.intro}
+            </EditableText>{" "}
             {siteInfos.emailHref && siteInfos.email ? (
-              <a className="underline underline-offset-4" href={siteInfos.emailHref}>
-                <EditableRegion as="span" binding={siteInfos.bindings.email}>
+              <a
+                className="underline underline-offset-4"
+                href={siteInfos.emailHref}
+              >
+                <EditableRegion
+                  as="span"
+                  className="inline-block"
+                  binding={siteInfos.bindings.email}
+                >
                   {siteInfos.email}
                 </EditableRegion>
               </a>

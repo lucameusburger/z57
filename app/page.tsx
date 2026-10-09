@@ -1,3 +1,5 @@
+import { getContent } from "@/app/lib/content";
+import { EditableText } from "@einblick/editor/react";
 import { CornerRightUp, Globe, Instagram, Mail } from "lucide-react";
 
 import HeroPathSection from "./components/HeroPathSection";
@@ -24,6 +26,7 @@ import groupImage from "@/app/images/group.jpg";
 // };
 
 export default async function Home() {
+  const { content, pages } = await getContent();
   const homepagePosts = await getHomepagePosts();
   const members = await getMembers();
   const siteInfos = await getSiteInfos();
@@ -45,7 +48,9 @@ export default async function Home() {
         <main className="flex flex-col w-full">
           {/* FRONT */}
           <div className="p-4 md:p-8">
-            <HeroPathSection />
+            <EditableRegion as="div" binding={pages.home.binding("hero.text")}>
+              <HeroPathSection text={content.home.hero.text} />
+            </EditableRegion>
           </div>
 
           <PostsSection posts={homepagePosts} showAllPostsLink />
@@ -73,7 +78,15 @@ export default async function Home() {
 
           <div className="px-4 md:px-8">
             <div className="flex pb-8 justify-between items-center w-full pt-4">
-              <span className="text-2xl md:text-5xl">In drei Dimensionen</span>
+              <EditableText
+                editInline
+                as="span"
+                className="inline-block text-2xl md:text-5xl"
+                binding={pages.home.binding("model.heading")}
+                placeholder="Überschrift ergänzen"
+              >
+                {content.home.model.heading}
+              </EditableText>
               <a href="#top">
                 <CornerRightUp className="w-6 h-6 " />
               </a>
@@ -138,7 +151,15 @@ export default async function Home() {
           {/* MEMBERS */}
           <div className="flex flex-col gap-8 py-8 px-4 md:px-8">
             <div className="flex justify-between items-center w-full">
-              <span className="text-2xl md:text-5xl">Wer wir sind</span>
+              <EditableText
+                editInline
+                as="span"
+                className="inline-block text-2xl md:text-5xl"
+                binding={pages.home.binding("members.heading")}
+                placeholder="Überschrift ergänzen"
+              >
+                {content.home.members.heading}
+              </EditableText>
               <a href="#top">
                 <CornerRightUp className="w-6 h-6 " />
               </a>
@@ -156,7 +177,11 @@ export default async function Home() {
               className="flex flex-col gap-8"
             >
               {shuffledMembers.map((member, index) => (
-                <MemberItem key={member.name} member={member} switched={index} />
+                <MemberItem
+                  key={member.name}
+                  member={member}
+                  switched={index}
+                />
               ))}
             </EditableCollection>
           </div>
@@ -165,7 +190,15 @@ export default async function Home() {
           <div className="flex flex-col gap-8 py-8 px-4 md:px-8">
             <div className="member-content flex items-start flex-col gap-4 md:col-span-2 justify-start relative">
               <div className="flex justify-between items-center w-full ">
-                <span className="text-2xl md:text-5xl">Get in touch</span>
+                <EditableText
+                  editInline
+                  as="span"
+                  className="inline-block text-2xl md:text-5xl"
+                  binding={pages.home.binding("contact.heading")}
+                  placeholder="Überschrift ergänzen"
+                >
+                  {content.home.contact.heading}
+                </EditableText>
                 <a href="#top">
                   <CornerRightUp className="w-6 h-6 " />
                 </a>

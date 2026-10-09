@@ -7,8 +7,11 @@ import Badge from "./Badge";
 export default function PrivacySettingsBadge() {
   return (
     <Badge
+      data-einblick-chrome
       aria-label="Datenschutz-Einstellungen öffnen"
-      onClick={() => window.dispatchEvent(new Event(OPEN_PRIVACY_SETTINGS_EVENT))}
+      onClick={() =>
+        window.dispatchEvent(new Event(OPEN_PRIVACY_SETTINGS_EVENT))
+      }
     >
       Datenschutz-Einstellungen
     </Badge>

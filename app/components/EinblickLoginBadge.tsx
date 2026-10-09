@@ -17,6 +17,7 @@ export default function EinblickLoginBadge() {
 
   return (
     <EinblickLoginButton
+      data-einblick-chrome
       className={badgeClasses}
       activeChildren={
         <>

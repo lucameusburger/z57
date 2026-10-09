@@ -1,3 +1,4 @@
+import { RESOURCE_FIELD_TYPES } from "@/app/lib/einblick.generated";
 import "server-only";
 
 import { cache } from "react";
@@ -6,11 +7,7 @@ import {
   getEinblickAssetUrl,
   getEinblickOpenGraphImageUrl,
 } from "@/app/lib/assets";
-import {
-  getCmsPost,
-  getCmsPosts,
-  type CmsPostFields,
-} from "@/app/lib/cms";
+import { getCmsPost, getCmsPosts, type CmsPostFields } from "@/app/lib/cms";
 import {
   createEditableBinding,
   type EinblickEditableBinding,
@@ -63,7 +60,9 @@ export interface Post extends Omit<PostRecord, "galleryImages"> {
 }
 
 function byNewest(left: PostRecord, right: PostRecord) {
-  return new Date(right.publishedAt).getTime() - new Date(left.publishedAt).getTime();
+  return (
+    new Date(right.publishedAt).getTime() - new Date(left.publishedAt).getTime()
+  );
 }
 
 function toPost(record: PostRecord): Post {
@@ -137,10 +136,7 @@ function cmsRecordToPostRecord(cmsRecord: {
     dateLabels: fields.date_labels,
     locationLabel: fields.location_label,
     image: getCmsImage(fields.image, fields.title ?? "Post"),
-    galleryImages: getCmsGalleryImages(
-      fields.images,
-      fields.title ?? "Post",
-    ),
+    galleryImages: getCmsGalleryImages(fields.images, fields.title ?? "Post"),
     tags: fields.tags,
     bindings: {
       region: createEditableBinding({
@@ -153,7 +149,7 @@ function cmsRecordToPostRecord(cmsRecord: {
         resourceSlug: "posts",
         recordId: cmsRecord.id,
         fieldKey: "title",
-        fieldType: "string",
+        fieldType: RESOURCE_FIELD_TYPES.posts.title,
         label: "Title",
         value: fields.title ?? "Untitled",
       }),
@@ -162,7 +158,7 @@ function cmsRecordToPostRecord(cmsRecord: {
             resourceSlug: "posts",
             recordId: cmsRecord.id,
             fieldKey: "kind",
-            fieldType: "select",
+            fieldType: RESOURCE_FIELD_TYPES.posts.kind,
             label: "Kind",
             value: fields.kind,
           })
@@ -172,27 +168,25 @@ function cmsRecordToPostRecord(cmsRecord: {
             resourceSlug: "posts",
             recordId: cmsRecord.id,
             fieldKey: "published_at",
-            fieldType: "date",
+            fieldType: RESOURCE_FIELD_TYPES.posts.published_at,
             displayMode: "drawer",
             label: "Published at",
           })
         : undefined,
-      summary: fields.description
-        ? createEditableBinding({
-            resourceSlug: "posts",
-            recordId: cmsRecord.id,
-            fieldKey: "description",
-            fieldType: "text",
-            label: "Summary",
-            value: fields.description,
-          })
-        : undefined,
+      summary: createEditableBinding({
+        resourceSlug: "posts",
+        recordId: cmsRecord.id,
+        fieldKey: "description",
+        fieldType: RESOURCE_FIELD_TYPES.posts.description,
+        label: "Summary",
+        value: fields.description,
+      }),
       content: fields.content
         ? createEditableBinding({
             resourceSlug: "posts",
             recordId: cmsRecord.id,
             fieldKey: "content",
-            fieldType: "markdown",
+            fieldType: RESOURCE_FIELD_TYPES.posts.content,
             displayMode: "drawer",
             label: "Content",
           })
@@ -202,7 +196,7 @@ function cmsRecordToPostRecord(cmsRecord: {
             resourceSlug: "posts",
             recordId: cmsRecord.id,
             fieldKey: "date_labels",
-            fieldType: "tags",
+            fieldType: RESOURCE_FIELD_TYPES.posts.date_labels,
             displayMode: "drawer",
             label: "Date labels",
           })
@@ -212,7 +206,7 @@ function cmsRecordToPostRecord(cmsRecord: {
             resourceSlug: "posts",
             recordId: cmsRecord.id,
             fieldKey: "location_label",
-            fieldType: "string",
+            fieldType: RESOURCE_FIELD_TYPES.posts.location_label,
             label: "Location",
             value: fields.location_label,
           })
@@ -222,7 +216,7 @@ function cmsRecordToPostRecord(cmsRecord: {
             resourceSlug: "posts",
             recordId: cmsRecord.id,
             fieldKey: "image",
-            fieldType: "image",
+            fieldType: RESOURCE_FIELD_TYPES.posts.image,
             label: "Image",
             displayMode: "drawer",
           })
@@ -232,7 +226,7 @@ function cmsRecordToPostRecord(cmsRecord: {
             resourceSlug: "posts",
             recordId: cmsRecord.id,
             fieldKey: "images",
-            fieldType: "files",
+            fieldType: RESOURCE_FIELD_TYPES.posts.images,
             displayMode: "drawer",
             label: "Gallery",
           })
@@ -242,7 +236,7 @@ function cmsRecordToPostRecord(cmsRecord: {
             resourceSlug: "posts",
             recordId: cmsRecord.id,
             fieldKey: "tags",
-            fieldType: "tags",
+            fieldType: RESOURCE_FIELD_TYPES.posts.tags,
             displayMode: "drawer",
             label: "Tags",
           })
@@ -275,9 +269,7 @@ export async function getHomepagePosts(): Promise<Post[]> {
   return [...pinnedPosts, ...latestPosts];
 }
 
-export async function getPostBySlug(
-  slug: string,
-): Promise<Post | undefined> {
+export async function getPostBySlug(slug: string): Promise<Post | undefined> {
   const cmsData = await getCmsPost(slug);
   if (!cmsData) {
     return undefined;

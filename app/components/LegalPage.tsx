@@ -6,9 +6,9 @@ import Link from "next/link";
 import SiteFooter from "./SiteFooter";
 
 type LegalPageProps = {
-  title: string;
+  title: ReactNode;
   intro: ReactNode;
-  updatedAt: string;
+  updatedAt: ReactNode;
   children: ReactNode;
 };
 

@@ -23,7 +23,11 @@ export default async function SiteFooter() {
           <Badge variant="black">ZVR 1169564571</Badge>
           {siteInfos.emailHref && siteInfos.email ? (
             <Badge href={siteInfos.emailHref} variant="black">
-              <EditableRegion as="span" binding={siteInfos.bindings.email}>
+              <EditableRegion
+                as="span"
+                className="inline-block"
+                binding={siteInfos.bindings.email}
+              >
                 {siteInfos.email}
               </EditableRegion>
             </Badge>
@@ -35,7 +39,11 @@ export default async function SiteFooter() {
               target="_blank"
               rel="noreferrer"
             >
-              <EditableRegion as="span" binding={siteInfos.bindings.instagram}>
+              <EditableRegion
+                as="span"
+                className="inline-block"
+                binding={siteInfos.bindings.instagram}
+              >
                 Instagram: {siteInfos.instagramLabel}
               </EditableRegion>
             </Badge>
@@ -47,12 +55,18 @@ export default async function SiteFooter() {
               target="_blank"
               rel="noreferrer"
             >
-              <EditableRegion as="span" binding={siteInfos.bindings.website}>
+              <EditableRegion
+                as="span"
+                className="inline-block"
+                binding={siteInfos.bindings.website}
+              >
                 {siteInfos.websiteLabel}
               </EditableRegion>
             </Badge>
           ) : null}
-          <Badge className="whitespace-normal">Zieglergasse 57, 1070 Wien</Badge>
+          <Badge className="whitespace-normal">
+            Zieglergasse 57, 1070 Wien
+          </Badge>
           <Badge
             href="https://www.lucameusburger.com"
             target="_blank"
@@ -64,7 +78,10 @@ export default async function SiteFooter() {
           <EinblickLoginBadge />
         </div>
 
-        <nav aria-label="Rechtliches" className="flex flex-wrap items-start gap-2">
+        <nav
+          aria-label="Rechtliches"
+          className="flex flex-wrap items-start gap-2"
+        >
           {legalLinks.map((link) => (
             <Badge key={link.href} href={link.href}>
               {link.label}

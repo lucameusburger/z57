@@ -1,3 +1,4 @@
+import { RESOURCE_FIELD_TYPES } from "@/app/lib/einblick.generated";
 import "server-only";
 
 import { cache } from "react";
@@ -73,7 +74,10 @@ function cmsRecordToMember(cmsRecord: {
   return {
     name: cmsRecord.fields.name,
     image: getEinblickAssetUrl(cmsRecord.fields.image) ?? undefined,
-    imageAlt: getEinblickAssetAlt(cmsRecord.fields.image, cmsRecord.fields.name),
+    imageAlt: getEinblickAssetAlt(
+      cmsRecord.fields.image,
+      cmsRecord.fields.name,
+    ),
     title: cmsRecord.fields.title,
     description: cmsRecord.fields.description,
     email: cmsRecord.fields.email,
@@ -91,25 +95,24 @@ function cmsRecordToMember(cmsRecord: {
         resourceSlug: "members",
         recordId: cmsRecord.id,
         fieldKey: "name",
-        fieldType: "string",
+        fieldType: RESOURCE_FIELD_TYPES.members.name,
         label: "Name",
         value: cmsRecord.fields.name,
       }),
-      image: cmsRecord.fields.image
-        ? createEditableBinding({
-            resourceSlug: "members",
-            recordId: cmsRecord.id,
-            fieldKey: "image",
-            fieldType: "image",
-            label: "Member image",
-            displayMode: "drawer",
-          })
-        : undefined,
+      image: createEditableBinding({
+        resourceSlug: "members",
+        recordId: cmsRecord.id,
+        fieldKey: "image",
+        fieldType: RESOURCE_FIELD_TYPES.members.image,
+        label: "Member image",
+        value: cmsRecord.fields.image,
+        displayMode: "drawer",
+      }),
       title: createEditableBinding({
         resourceSlug: "members",
         recordId: cmsRecord.id,
         fieldKey: "title",
-        fieldType: "string",
+        fieldType: RESOURCE_FIELD_TYPES.members.title,
         label: "Title",
         value: cmsRecord.fields.title,
       }),
@@ -117,7 +120,7 @@ function cmsRecordToMember(cmsRecord: {
         resourceSlug: "members",
         recordId: cmsRecord.id,
         fieldKey: "description",
-        fieldType: "text",
+        fieldType: RESOURCE_FIELD_TYPES.members.description,
         label: "Description",
         value: cmsRecord.fields.description,
       }),
@@ -125,7 +128,7 @@ function cmsRecordToMember(cmsRecord: {
         resourceSlug: "members",
         recordId: cmsRecord.id,
         fieldKey: "email",
-        fieldType: "string",
+        fieldType: RESOURCE_FIELD_TYPES.members.email,
         label: "Email",
         value: cmsRecord.fields.email,
       }),
@@ -134,7 +137,7 @@ function cmsRecordToMember(cmsRecord: {
             resourceSlug: "members",
             recordId: cmsRecord.id,
             fieldKey: "website",
-            fieldType: "string",
+            fieldType: RESOURCE_FIELD_TYPES.members.website,
             label: "Website",
             value: cmsRecord.fields.website,
           })
@@ -144,7 +147,7 @@ function cmsRecordToMember(cmsRecord: {
             resourceSlug: "members",
             recordId: cmsRecord.id,
             fieldKey: "instagram",
-            fieldType: "string",
+            fieldType: RESOURCE_FIELD_TYPES.members.instagram,
             label: "Instagram",
             value: cmsRecord.fields.instagram,
           })
@@ -153,7 +156,7 @@ function cmsRecordToMember(cmsRecord: {
         resourceSlug: "members",
         recordId: cmsRecord.id,
         fieldKey: "projects",
-        fieldType: "json",
+        fieldType: RESOURCE_FIELD_TYPES.members.projects,
         label: "Projects",
         displayMode: "drawer",
       }),

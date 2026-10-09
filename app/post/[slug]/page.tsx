@@ -12,10 +12,7 @@ import PostGallery from "@/app/components/PostGallery";
 import PostPageHeader from "@/app/components/PostPageHeader";
 import ReactMarkdown from "react-markdown";
 import SiteFooter from "@/app/components/SiteFooter";
-import {
-  EditableRegion,
-  EditableText,
-} from "@einblick/editor/react";
+import { EditableRegion, EditableText } from "@einblick/editor/react";
 import { notFound } from "next/navigation";
 import remarkGfm from "remark-gfm";
 
@@ -24,8 +21,6 @@ interface PostPageProps {
     slug: string;
   }>;
 }
-
-const enableInlinePostFieldEditing = false;
 
 function normalizeHeadingText(value: string) {
   return value.trim().replace(/\s+/g, " ").toLowerCase();
@@ -50,7 +45,9 @@ export async function generateStaticParams() {
   return slugs.map((slug) => ({ slug }));
 }
 
-export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: PostPageProps): Promise<Metadata> {
   const { slug } = await params;
   const post = await getPostBySlug(slug);
 
@@ -97,33 +94,36 @@ export default async function PostPage({ params }: PostPageProps) {
           >
             <EditableRegion
               as="section"
-              binding={enableInlinePostFieldEditing ? post.bindings.region : undefined}
+              binding={undefined}
               className="rounded-3xl border border-foreground bg-background p-4 md:p-6"
             >
               <div className="mb-6 flex flex-col gap-4">
                 <div className="flex flex-wrap items-start justify-between gap-4">
                   <div className="flex flex-wrap gap-2 text-sm">
                     <Badge>
-                      <EditableText
+                      <EditableRegion
                         as="span"
-                        binding={enableInlinePostFieldEditing ? post.bindings.kind : undefined}
+                        binding={post.bindings.kind}
+                        className="inline-block"
                       >
                         {post.kind}
-                      </EditableText>
+                      </EditableRegion>
                     </Badge>
                     <Badge>
-                      <EditableText
+                      <EditableRegion
                         as="span"
-                        binding={enableInlinePostFieldEditing ? post.bindings.publishedAt : undefined}
+                        binding={post.bindings.publishedAt}
+                        className="inline-block"
                       >
                         {formatPublishedDate(post.publishedAt)}
-                      </EditableText>
+                      </EditableRegion>
                     </Badge>
                     {post.locationLabel && (
                       <Badge>
                         <EditableText
+                          editInline
                           as="span"
-                          binding={enableInlinePostFieldEditing ? post.bindings.locationLabel : undefined}
+                          binding={post.bindings.locationLabel}
                         >
                           {post.locationLabel}
                         </EditableText>
@@ -132,32 +132,33 @@ export default async function PostPage({ params }: PostPageProps) {
                   </div>
 
                   {post.dateLabels?.length ? (
-                    <div className="flex flex-wrap justify-end gap-2 text-sm md:max-w-[45%]">
+                    <EditableRegion
+                      as="div"
+                      binding={post.bindings.dateLabels}
+                      className="flex flex-wrap justify-end gap-2 text-sm md:max-w-[45%]"
+                    >
                       {post.dateLabels.map((dateLabel) => (
-                        <Badge key={dateLabel}>
-                          <EditableText
-                            as="span"
-                            binding={enableInlinePostFieldEditing ? post.bindings.dateLabels : undefined}
-                          >
-                            {dateLabel}
-                          </EditableText>
-                        </Badge>
+                        <Badge key={dateLabel}>{dateLabel}</Badge>
                       ))}
-                    </div>
+                    </EditableRegion>
                   ) : null}
                 </div>
 
                 <div className="space-y-3">
                   <EditableText
+                    editInline
                     as="h1"
-                    binding={enableInlinePostFieldEditing ? post.bindings.title : undefined}
+                    binding={post.bindings.title}
+                    placeholder="Titel ergänzen"
                     className="text-4xl md:text-6xl"
                   >
                     {post.title}
                   </EditableText>
                   <EditableText
+                    editInline
                     as="p"
-                    binding={enableInlinePostFieldEditing ? post.bindings.summary : undefined}
+                    binding={post.bindings.summary}
+                    placeholder="Beschreibung ergänzen"
                     className="max-w-5xl text-lg leading-relaxed md:text-xl"
                   >
                     {post.summary}
@@ -170,7 +171,7 @@ export default async function PostPage({ params }: PostPageProps) {
                   {standaloneImage ? (
                     <EditableRegion
                       as="div"
-                      binding={enableInlinePostFieldEditing ? post.bindings.image : undefined}
+                      binding={post.bindings.image}
                       className="w-full overflow-hidden rounded-3xl border border-foreground bg-background md:w-1/3"
                     >
                       <Image
@@ -186,10 +187,7 @@ export default async function PostPage({ params }: PostPageProps) {
                   ) : null}
 
                   {hasGallery ? (
-                    <EditableRegion
-                      as="div"
-                      binding={enableInlinePostFieldEditing ? post.bindings.gallery : undefined}
-                    >
+                    <EditableRegion as="div" binding={post.bindings.gallery}>
                       <PostGallery
                         images={post.galleryImages}
                         initialImageLimit={12}
@@ -204,27 +202,28 @@ export default async function PostPage({ params }: PostPageProps) {
 
             <EditableRegion
               as="section"
-              binding={enableInlinePostFieldEditing ? post.bindings.content : undefined}
+              binding={undefined}
               className="rounded-3xl border border-foreground bg-background px-5 py-6 md:px-8 md:py-8"
             >
               {post.tags && post.tags.length > 0 && (
                 <div className="mb-6 flex flex-wrap gap-2 text-sm text-foreground/65">
-                  <div className="flex flex-wrap gap-2">
+                  <EditableRegion
+                    as="div"
+                    binding={post.bindings.tags}
+                    className="flex flex-wrap gap-2"
+                  >
                     {post.tags.map((tag) => (
-                      <Badge key={tag}>
-                        <EditableText
-                          as="span"
-                          binding={enableInlinePostFieldEditing ? post.bindings.tags : undefined}
-                        >
-                          {tag}
-                        </EditableText>
-                      </Badge>
+                      <Badge key={tag}>{tag}</Badge>
                     ))}
-                  </div>
+                  </EditableRegion>
                 </div>
               )}
 
-              <div className="max-w-5xl">
+              <EditableRegion
+                as="div"
+                binding={post.bindings.content}
+                className="max-w-5xl"
+              >
                 <ReactMarkdown
                   remarkPlugins={[remarkGfm]}
                   components={{
@@ -260,16 +259,21 @@ export default async function PostPage({ params }: PostPageProps) {
                     ),
                     li: ({ children }) => <li>{children}</li>,
                     a: ({ href, children }) => (
-                      <Link href={href || "#"} className="underline underline-offset-4">
+                      <Link
+                        href={href || "#"}
+                        className="underline underline-offset-4"
+                      >
                         {children}
                       </Link>
                     ),
-                    strong: ({ children }) => <strong className="font-semibold">{children}</strong>,
+                    strong: ({ children }) => (
+                      <strong className="font-semibold">{children}</strong>
+                    ),
                   }}
                 >
                   {renderableContent}
                 </ReactMarkdown>
-              </div>
+              </EditableRegion>
             </EditableRegion>
           </EditableRegion>
         </main>

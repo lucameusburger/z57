@@ -9,7 +9,13 @@ import {
 } from "@einblick/editor/react";
 import type { Member } from "@/app/types/members";
 
-const RoundButton = ({ icon, href }: { icon: React.ReactNode; href: string }) => {
+const RoundButton = ({
+  icon,
+  href,
+}: {
+  icon: React.ReactNode;
+  href: string;
+}) => {
   return (
     <a
       target="_blank"
@@ -22,7 +28,13 @@ const RoundButton = ({ icon, href }: { icon: React.ReactNode; href: string }) =>
   );
 };
 
-const MemberItem = ({ member, switched }: { member: Member; switched: number }) => {
+const MemberItem = ({
+  member,
+  switched,
+}: {
+  member: Member;
+  switched: number;
+}) => {
   const isSwitched = switched % 2 !== 0;
 
   return (
@@ -31,10 +43,13 @@ const MemberItem = ({ member, switched }: { member: Member; switched: number }) 
       binding={member.bindings.region}
       className="grid w-full grid-cols-1 gap-5 rounded-3xl border border-foreground bg-background p-4 md:grid-cols-3 md:gap-8 md:p-6"
     >
-      <div className={`member-image flex w-full aspect-square items-start ${isSwitched ? "order-1 md:order-2" : "order-1 md:order-1"}`}>
+      <div
+        className={`member-image flex w-full aspect-square items-start ${isSwitched ? "order-1 md:order-2" : "order-1 md:order-1"}`}
+      >
         <EditableImage
           as="div"
           binding={member.bindings.image}
+          placeholder="Bild hinzufügen"
           className="group relative h-full w-full overflow-hidden rounded-3xl border border-foreground"
         >
           {member.image ? (
@@ -55,18 +70,27 @@ const MemberItem = ({ member, switched }: { member: Member; switched: number }) 
         </EditableImage>
       </div>
 
-      <div className={`member-content relative flex flex-col justify-between gap-5 md:col-span-2 ${isSwitched ? "order-2 md:order-1" : "order-2 md:order-2"}`}>
+      <div
+        className={`member-content relative flex flex-col justify-between gap-5 md:col-span-2 ${isSwitched ? "order-2 md:order-1" : "order-2 md:order-2"}`}
+      >
         <div className="space-y-5">
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div className="space-y-4">
               <Badge>
-                <EditableText as="span" binding={member.bindings.title}>
+                <EditableText
+                  editInline
+                  as="span"
+                  binding={member.bindings.title}
+                  placeholder="Text ergänzen"
+                >
                   {member.title}
                 </EditableText>
               </Badge>
               <EditableText
+                editInline
                 as="h2"
                 binding={member.bindings.name}
+                placeholder="Text ergänzen"
                 className="text-2xl md:text-5xl"
               >
                 {member.name}
@@ -75,26 +99,49 @@ const MemberItem = ({ member, switched }: { member: Member; switched: number }) 
 
             <div className="flex gap-2">
               {member.email && (
-                <EditableRegion as="span" binding={member.bindings.email}>
-                  <RoundButton icon={<Mail className="h-6 w-6" />} href={`mailto:${member.email}`} />
+                <EditableRegion
+                  as="span"
+                  className="inline-flex"
+                  binding={member.bindings.email}
+                >
+                  <RoundButton
+                    icon={<Mail className="h-6 w-6" />}
+                    href={`mailto:${member.email}`}
+                  />
                 </EditableRegion>
               )}
               {member.instagram && (
-                <EditableRegion as="span" binding={member.bindings.instagram}>
-                  <RoundButton icon={<Instagram className="h-6 w-6" />} href={member.instagram} />
+                <EditableRegion
+                  as="span"
+                  className="inline-flex"
+                  binding={member.bindings.instagram}
+                >
+                  <RoundButton
+                    icon={<Instagram className="h-6 w-6" />}
+                    href={member.instagram}
+                  />
                 </EditableRegion>
               )}
               {member.website && (
-                <EditableRegion as="span" binding={member.bindings.website}>
-                  <RoundButton icon={<Globe className="h-6 w-6" />} href={member.website} />
+                <EditableRegion
+                  as="span"
+                  className="inline-flex"
+                  binding={member.bindings.website}
+                >
+                  <RoundButton
+                    icon={<Globe className="h-6 w-6" />}
+                    href={member.website}
+                  />
                 </EditableRegion>
               )}
             </div>
           </div>
 
           <EditableText
+            editInline
             as="p"
             binding={member.bindings.description}
+            placeholder="Text ergänzen"
             className="text-lg leading-relaxed md:text-xl"
           >
             {member.description}

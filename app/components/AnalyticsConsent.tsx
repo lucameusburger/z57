@@ -14,8 +14,9 @@ type ConsentView = "banner" | "preferences" | null;
 
 function hasGlobalPrivacyControl() {
   return (
-    navigator as Navigator & { globalPrivacyControl?: boolean }
-  ).globalPrivacyControl === true;
+    (navigator as Navigator & { globalPrivacyControl?: boolean })
+      .globalPrivacyControl === true
+  );
 }
 
 export default function AnalyticsConsentManager() {
@@ -100,10 +101,7 @@ export default function AnalyticsConsentManager() {
       setView("preferences");
     };
 
-    window.addEventListener(
-      OPEN_PRIVACY_SETTINGS_EVENT,
-      handleOpenPreferences,
-    );
+    window.addEventListener(OPEN_PRIVACY_SETTINGS_EVENT, handleOpenPreferences);
 
     return () => {
       window.removeEventListener(
@@ -124,7 +122,7 @@ export default function AnalyticsConsentManager() {
         <section
           aria-label="Datenschutz-Einstellungen"
           aria-live="polite"
-          className="fixed inset-x-0 bottom-0 z-[100] w-full rounded-t-[2rem] border border-foreground bg-background p-5 md:p-6"
+          className="fixed inset-x-0 bottom-[var(--einblick-editor-bottom-offset,0px)] z-[100] w-full rounded-t-[2rem] border border-foreground bg-background p-5 md:p-6"
           data-einblick-chrome
         >
           <div className="mx-auto w-full max-w-4xl">
@@ -182,7 +180,7 @@ export default function AnalyticsConsentManager() {
         <section
           aria-label="Individuelle Datenschutz-Einstellungen"
           aria-live="polite"
-          className="fixed inset-x-0 bottom-0 z-[100] w-full rounded-t-[2rem] border border-foreground bg-background p-5 md:p-6"
+          className="fixed inset-x-0 bottom-[var(--einblick-editor-bottom-offset,0px)] z-[100] w-full rounded-t-[2rem] border border-foreground bg-background p-5 md:p-6"
           data-einblick-chrome
         >
           <div className="mx-auto w-full max-w-4xl">
@@ -244,9 +242,7 @@ export default function AnalyticsConsentManager() {
               </button>
               <button
                 className="rounded-full border border-foreground px-4 py-2.5 text-sm font-medium transition-colors hover:bg-foreground hover:text-background"
-                onClick={() =>
-                  setView(consent === "unknown" ? "banner" : null)
-                }
+                onClick={() => setView(consent === "unknown" ? "banner" : null)}
                 type="button"
               >
                 Zurück
@@ -264,7 +260,6 @@ export default function AnalyticsConsentManager() {
           </div>
         </section>
       ) : null}
-
     </>
   );
 }

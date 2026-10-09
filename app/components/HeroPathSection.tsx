@@ -2,10 +2,12 @@
 
 import { useEffect, useId, useRef, useState } from "react";
 
-const HERO_PATH_TEXT =
-  "z57 atelier and studio space vienna . grafik . nailart . architektur . webentwicklung . fotografie . design . exhibitions . workshops . co-working . ";
-
-function buildRoundedRectPath(width: number, height: number, padding: number, radius: number) {
+function buildRoundedRectPath(
+  width: number,
+  height: number,
+  padding: number,
+  radius: number,
+) {
   const left = padding;
   const top = padding;
   const right = width - padding;
@@ -26,7 +28,7 @@ function buildRoundedRectPath(width: number, height: number, padding: number, ra
   ].join(" ");
 }
 
-export default function HeroPathSection() {
+export default function HeroPathSection({ text }: { text: string }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const pathId = useId().replace(/:/g, "");
   const [size, setSize] = useState({ width: 1200, height: 900 });
@@ -54,9 +56,14 @@ export default function HeroPathSection() {
   const radius = Math.max(34, Math.min(size.width, size.height) * 0.08);
   const fontSize = Math.max(
     18,
-    Math.min(size.width, size.height) * (size.width >= 768 ? 0.034 : 0.027)
+    Math.min(size.width, size.height) * (size.width >= 768 ? 0.034 : 0.027),
   );
-  const pathDefinition = buildRoundedRectPath(size.width, size.height, padding, radius);
+  const pathDefinition = buildRoundedRectPath(
+    size.width,
+    size.height,
+    padding,
+    radius,
+  );
 
   return (
     <section
@@ -76,7 +83,7 @@ export default function HeroPathSection() {
           }}
         >
           <textPath href={`#${pathId}`} startOffset="0%">
-            {HERO_PATH_TEXT}
+            {text}
             <animate
               attributeName="startOffset"
               dur="28s"
@@ -86,7 +93,7 @@ export default function HeroPathSection() {
             />
           </textPath>
           <textPath href={`#${pathId}`} startOffset="-100%">
-            {HERO_PATH_TEXT}
+            {text}
             <animate
               attributeName="startOffset"
               dur="28s"

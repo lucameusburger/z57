@@ -1,3 +1,5 @@
+import { getContent } from "@/app/lib/content";
+import { EditableText } from "@einblick/editor/react";
 import type { Metadata } from "next";
 
 import LegalPage from "@/app/components/LegalPage";
@@ -10,31 +12,88 @@ export const metadata: Metadata = {
 };
 
 export default async function ImpressumPage() {
+  const { content, pages } = await getContent();
   const siteInfos = await getSiteInfos();
 
   return (
     <LegalPage
-      title="Impressum"
-      updatedAt="7. März 2026"
+      title={
+        <EditableText
+          editInline
+          as="span"
+          className="inline-block"
+          binding={pages.impressum.binding("intro.title")}
+        >
+          {content.impressum.intro.title}
+        </EditableText>
+      }
+      updatedAt={
+        <EditableText
+          editInline
+          as="span"
+          className="inline-block"
+          binding={pages.impressum.binding("intro.updatedAt")}
+        >
+          {content.impressum.intro.updatedAt}
+        </EditableText>
+      }
       intro={
-        <p>
-          Angaben gemäß den österreichischen Informationspflichten für diese
-          Website und die Kommunikation rund um das Atelier z57.
-        </p>
+        <EditableText
+          editInline
+          as="p"
+          binding={pages.impressum.binding("intro.paragraph1")}
+          placeholder="Text ergänzen"
+        >
+          {content.impressum.intro.paragraph1}
+        </EditableText>
       }
     >
       <section className="flex flex-col gap-3">
-        <h2 className="text-2xl font-semibold md:text-3xl">
-          Medieninhaber und Herausgeber
-        </h2>
-        <p>z57</p>
-        <p>ZVR 1169564571</p>
-        <p>Zieglergasse 57, 1070 Wien, Österreich</p>
+        <EditableText
+          editInline
+          as="h2"
+          className="text-2xl font-semibold md:text-3xl"
+          binding={pages.impressum.binding("publisher.heading")}
+          placeholder="Text ergänzen"
+        >
+          {content.impressum.publisher.heading}
+        </EditableText>
+        <EditableText
+          editInline
+          as="p"
+          binding={pages.impressum.binding("publisher.paragraph1")}
+          placeholder="Text ergänzen"
+        >
+          {content.impressum.publisher.paragraph1}
+        </EditableText>
+        <EditableText
+          editInline
+          as="p"
+          binding={pages.impressum.binding("publisher.paragraph2")}
+          placeholder="Text ergänzen"
+        >
+          {content.impressum.publisher.paragraph2}
+        </EditableText>
+        <EditableText
+          editInline
+          as="p"
+          binding={pages.impressum.binding("publisher.paragraph3")}
+          placeholder="Text ergänzen"
+        >
+          {content.impressum.publisher.paragraph3}
+        </EditableText>
         <p>
           E-Mail:{" "}
           {siteInfos.emailHref && siteInfos.email ? (
-            <a className="underline underline-offset-4" href={siteInfos.emailHref}>
-              <EditableRegion as="span" binding={siteInfos.bindings.email}>
+            <a
+              className="underline underline-offset-4"
+              href={siteInfos.emailHref}
+            >
+              <EditableRegion
+                as="span"
+                className="inline-block"
+                binding={siteInfos.bindings.email}
+              >
                 {siteInfos.email}
               </EditableRegion>
             </a>
@@ -43,47 +102,91 @@ export default async function ImpressumPage() {
       </section>
 
       <section className="flex flex-col gap-3">
-        <h2 className="text-2xl font-semibold md:text-3xl">Unternehmensgegenstand</h2>
-        <p>
-          Diese Website informiert über das Atelier z57, seine Mitglieder,
-          Veranstaltungen, Projekte und Kontaktmöglichkeiten.
-        </p>
+        <EditableText
+          editInline
+          as="h2"
+          className="text-2xl font-semibold md:text-3xl"
+          binding={pages.impressum.binding("purpose.heading")}
+          placeholder="Text ergänzen"
+        >
+          {content.impressum.purpose.heading}
+        </EditableText>
+        <EditableText
+          editInline
+          as="p"
+          binding={pages.impressum.binding("purpose.paragraph1")}
+          placeholder="Text ergänzen"
+        >
+          {content.impressum.purpose.paragraph1}
+        </EditableText>
       </section>
 
       <section className="flex flex-col gap-3">
-        <h2 className="text-2xl font-semibold md:text-3xl">
-          Inhaltliche Verantwortung
-        </h2>
-        <p>
-          Für die Inhalte dieser Website verantwortlich ist z57, erreichbar unter
-          den oben genannten Kontaktdaten.
-        </p>
+        <EditableText
+          editInline
+          as="h2"
+          className="text-2xl font-semibold md:text-3xl"
+          binding={pages.impressum.binding("responsibility.heading")}
+          placeholder="Text ergänzen"
+        >
+          {content.impressum.responsibility.heading}
+        </EditableText>
+        <EditableText
+          editInline
+          as="p"
+          binding={pages.impressum.binding("responsibility.paragraph1")}
+          placeholder="Text ergänzen"
+        >
+          {content.impressum.responsibility.paragraph1}
+        </EditableText>
       </section>
 
       <section className="flex flex-col gap-3">
-        <h2 className="text-2xl font-semibold md:text-3xl">
-          Haftung für Inhalte und Links
-        </h2>
-        <p>
-          Die Inhalte dieser Website werden mit Sorgfalt erstellt und laufend
-          gepflegt. Für die Richtigkeit, Vollständigkeit und Aktualität wird
-          jedoch keine Gewähr übernommen.
-        </p>
-        <p>
-          Für Inhalte externer Websites, auf die direkt oder indirekt verwiesen
-          wird, wird keine Haftung übernommen. Für den Inhalt der verlinkten
-          Seiten sind ausschließlich deren Betreiber verantwortlich.
-        </p>
+        <EditableText
+          editInline
+          as="h2"
+          className="text-2xl font-semibold md:text-3xl"
+          binding={pages.impressum.binding("liability.heading")}
+          placeholder="Text ergänzen"
+        >
+          {content.impressum.liability.heading}
+        </EditableText>
+        <EditableText
+          editInline
+          as="p"
+          binding={pages.impressum.binding("liability.paragraph1")}
+          placeholder="Text ergänzen"
+        >
+          {content.impressum.liability.paragraph1}
+        </EditableText>
+        <EditableText
+          editInline
+          as="p"
+          binding={pages.impressum.binding("liability.paragraph2")}
+          placeholder="Text ergänzen"
+        >
+          {content.impressum.liability.paragraph2}
+        </EditableText>
       </section>
 
       <section className="flex flex-col gap-3">
-        <h2 className="text-2xl font-semibold md:text-3xl">Urheberrecht</h2>
-        <p>
-          Texte, Bilder und weitere Inhalte dieser Website unterliegen, soweit
-          nicht anders gekennzeichnet, dem Urheberrecht der jeweiligen
-          Rechteinhaber:innen. Eine Verwendung ohne vorherige Zustimmung ist nur
-          im gesetzlich zulässigen Rahmen erlaubt.
-        </p>
+        <EditableText
+          editInline
+          as="h2"
+          className="text-2xl font-semibold md:text-3xl"
+          binding={pages.impressum.binding("copyright.heading")}
+          placeholder="Text ergänzen"
+        >
+          {content.impressum.copyright.heading}
+        </EditableText>
+        <EditableText
+          editInline
+          as="p"
+          binding={pages.impressum.binding("copyright.paragraph1")}
+          placeholder="Text ergänzen"
+        >
+          {content.impressum.copyright.paragraph1}
+        </EditableText>
       </section>
     </LegalPage>
   );

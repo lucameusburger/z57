@@ -1,3 +1,4 @@
+import { RESOURCE_FIELD_TYPES } from "@/app/lib/einblick.generated";
 import "server-only";
 
 import { cache } from "react";
@@ -44,7 +45,7 @@ function createInfoBinding(
     resourceSlug: "infos",
     recordId,
     fieldKey,
-    fieldType: "string",
+    fieldType: RESOURCE_FIELD_TYPES.infos[fieldKey],
     label,
     value,
   });
@@ -128,9 +129,7 @@ function mapCmsInfos(record?: {
   const website = fields?.website ?? DEFAULT_SITE_INFOS.website;
   const instagram = fields?.instagram ?? DEFAULT_SITE_INFOS.instagram;
   const websiteHref = normalizeUrl(website);
-  const instagramHref = normalizeInstagramUrl(
-    instagram
-  );
+  const instagramHref = normalizeInstagramUrl(instagram);
 
   return {
     email,
