@@ -13,6 +13,7 @@ import PostPageHeader from "@/app/components/PostPageHeader";
 import ReactMarkdown from "react-markdown";
 import SiteFooter from "@/app/components/SiteFooter";
 import { EditableRegion, EditableText } from "@einblick/editor/react";
+import { redirectIfEinblickRecordMoved } from "@einblick/sdk/next";
 import { notFound } from "next/navigation";
 import remarkGfm from "remark-gfm";
 
@@ -76,6 +77,8 @@ export default async function PostPage({ params }: PostPageProps) {
   if (!post) {
     notFound();
   }
+
+  await redirectIfEinblickRecordMoved(post, (next) => `/post/${next}`);
 
   const renderableContent = getRenderablePostContent(post.content, post.title);
   const standaloneImage = post.image;

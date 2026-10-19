@@ -13,7 +13,6 @@ import {
   createGeneratedEinblickClient,
   EINBLICK_WEBSITE,
 } from "@/app/lib/einblick.generated";
-import { collectCmsPages } from "@/app/lib/cms-pagination";
 import {
   EinblickApiError,
   type EinblickListResponse,
@@ -85,14 +84,10 @@ export const getCmsPosts = cache(
     }
 
     try {
-      const client = getClient();
-      return await collectCmsPages((cursor) =>
-        client.request("posts", {
-          cursor,
-          limit: 100,
-          fields: POSTS_FIELDS,
-        }),
-      );
+      return await getClient().requestAll("posts", {
+        limit: 250,
+        fields: POSTS_FIELDS,
+      });
     } catch (error) {
       logCmsError("getCmsPosts", error);
       throw error;
@@ -107,14 +102,10 @@ export const getCmsMembers = cache(
     }
 
     try {
-      const client = getClient();
-      return await collectCmsPages((cursor) =>
-        client.request("members", {
-          cursor,
-          limit: 100,
-          fields: MEMBERS_FIELDS,
-        }),
-      );
+      return await getClient().requestAll("members", {
+        limit: 250,
+        fields: MEMBERS_FIELDS,
+      });
     } catch (error) {
       logCmsError("getCmsMembers", error);
       throw error;

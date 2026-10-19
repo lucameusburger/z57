@@ -12,7 +12,7 @@ import {
   createEditableBinding,
   type EinblickEditableBinding,
 } from "@einblick/editor";
-import { getEinblickAssetAlt } from "@einblick/sdk";
+import { getEinblickAssetAlt, type EinblickRecordRedirect } from "@einblick/sdk";
 
 export type PostKind = string;
 
@@ -269,13 +269,23 @@ export async function getHomepagePosts(): Promise<Post[]> {
   return [...pinnedPosts, ...latestPosts];
 }
 
-export async function getPostBySlug(slug: string): Promise<Post | undefined> {
+export interface PostDetail extends Post {
+  /** Set when the post was asked for by an old slug; `to` is the current one. */
+  redirect?: EinblickRecordRedirect;
+}
+
+export async function getPostBySlug(
+  slug: string,
+): Promise<PostDetail | undefined> {
   const cmsData = await getCmsPost(slug);
   if (!cmsData) {
     return undefined;
   }
 
-  return toPost(cmsRecordToPostRecord(cmsData.record));
+  return {
+    ...toPost(cmsRecordToPostRecord(cmsData.record)),
+    redirect: cmsData.redirect,
+  };
 }
 
 export async function getPostSlugs(): Promise<string[]> {
