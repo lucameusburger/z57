@@ -105,6 +105,7 @@ export default async function PostPage({ params }: PostPageProps) {
                   <div className="flex flex-wrap gap-2 text-sm">
                     <Badge>
                       <EditableRegion
+                        editInline
                         as="span"
                         binding={post.bindings.kind}
                         className="inline-block"
@@ -114,6 +115,7 @@ export default async function PostPage({ params }: PostPageProps) {
                     </Badge>
                     <Badge>
                       <EditableRegion
+                        editInline
                         as="span"
                         binding={post.bindings.publishedAt}
                         className="inline-block"
@@ -136,6 +138,7 @@ export default async function PostPage({ params }: PostPageProps) {
 
                   {post.dateLabels?.length ? (
                     <EditableRegion
+                      editInline
                       as="div"
                       binding={post.bindings.dateLabels}
                       className="flex flex-wrap justify-end gap-2 text-sm md:max-w-[45%]"
@@ -211,6 +214,7 @@ export default async function PostPage({ params }: PostPageProps) {
               {post.tags && post.tags.length > 0 && (
                 <div className="mb-6 flex flex-wrap gap-2 text-sm text-foreground/65">
                   <EditableRegion
+                    editInline
                     as="div"
                     binding={post.bindings.tags}
                     className="flex flex-wrap gap-2"

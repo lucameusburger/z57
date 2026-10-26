@@ -66,6 +66,7 @@ export default function PostsSection({
                           <div className="flex flex-wrap gap-2 text-sm">
                             <Badge>
                               <EditableRegion
+                                editInline
                                 as="span"
                                 binding={post.bindings.kind}
                                 className="inline-block"
@@ -88,6 +89,7 @@ export default function PostsSection({
 
                         {post.dateLabels?.length ? (
                           <EditableRegion
+                            editInline
                             as="div"
                             binding={post.bindings.dateLabels}
                             className="flex flex-wrap justify-end gap-2 text-sm md:max-w-[45%]"
@@ -151,6 +153,7 @@ export default function PostsSection({
                     <div className="flex flex-wrap gap-2 text-sm">
                       <Badge>
                         <EditableRegion
+                          editInline
                           as="span"
                           binding={post.bindings.kind}
                           className="inline-block"
@@ -183,6 +186,7 @@ export default function PostsSection({
 
                   {post.dateLabels?.length ? (
                     <EditableRegion
+                      editInline
                       as="div"
                       binding={post.bindings.dateLabels}
                       className="flex flex-wrap justify-end gap-2 text-sm md:max-w-[45%]"

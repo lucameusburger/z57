@@ -169,7 +169,6 @@ function cmsRecordToPostRecord(cmsRecord: {
             recordId: cmsRecord.id,
             fieldKey: "published_at",
             fieldType: RESOURCE_FIELD_TYPES.posts.published_at,
-            displayMode: "drawer",
             label: "Published at",
           })
         : undefined,
@@ -197,7 +196,6 @@ function cmsRecordToPostRecord(cmsRecord: {
             recordId: cmsRecord.id,
             fieldKey: "date_labels",
             fieldType: RESOURCE_FIELD_TYPES.posts.date_labels,
-            displayMode: "drawer",
             label: "Date labels",
           })
         : undefined,
@@ -237,7 +235,6 @@ function cmsRecordToPostRecord(cmsRecord: {
             recordId: cmsRecord.id,
             fieldKey: "tags",
             fieldType: RESOURCE_FIELD_TYPES.posts.tags,
-            displayMode: "drawer",
             label: "Tags",
           })
         : undefined,
