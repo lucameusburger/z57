@@ -1,13 +1,14 @@
 import { getContent } from "@/app/lib/content";
 import { EditableText } from "@einblick/editor/react";
-import type { Metadata } from "next";
 
 import LegalPage from "@/app/components/LegalPage";
+import { pageMetadata } from "@/app/lib/metadata";
 
-export const metadata: Metadata = {
-  title: "Cookies | z57",
+export const metadata = pageMetadata({
+  title: "Cookies",
   description: "Informationen zu Cookies auf der Website von z57.",
-};
+  path: "/cookies",
+});
 
 export default async function CookiesPage() {
   const { content, pages } = await getContent();

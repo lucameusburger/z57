@@ -34,6 +34,12 @@ The migration is additive: the original domain records were retained, and
 reverting the website commit restores the old rendering without deleting the
 new content pages.
 
+## Icons and link previews
+
+`pnpm brand:build` renders the favicon, app icons and `app/og.png` from the
+clover shape and the site colours. It needs `librsvg`, `imagemagick` and
+`fonttools`. Shared page metadata lives in `app/lib/metadata.ts`.
+
 ## 3D model
 
 The spinning wireframes on the homepage draw two files baked from

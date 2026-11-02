@@ -1,15 +1,16 @@
 import { getContent } from "@/app/lib/content";
 import { EditableText } from "@einblick/editor/react";
-import type { Metadata } from "next";
 
 import LegalPage from "@/app/components/LegalPage";
 import { EditableRegion } from "@einblick/editor/react";
+import { pageMetadata } from "@/app/lib/metadata";
 import { getSiteInfos } from "@/app/types/infos";
 
-export const metadata: Metadata = {
-  title: "Datenschutz | z57",
+export const metadata = pageMetadata({
+  title: "Datenschutz",
   description: "Datenschutzhinweise der Website von z57.",
-};
+  path: "/datenschutz",
+});
 
 export default async function DatenschutzPage() {
   const { content, pages } = await getContent();

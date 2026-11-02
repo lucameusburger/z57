@@ -1,10 +1,16 @@
 import "./globals.css";
 
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
-import ogImage from "@/app/og.png";
 import AnalyticsConsentManager from "@/app/components/AnalyticsConsent";
 import EinblickEditBoot from "@/app/components/EinblickEditBoot";
+import {
+  DEFAULT_OG_IMAGE,
+  SITE_DESCRIPTION,
+  SITE_NAME,
+  SITE_TITLE,
+  SITE_URL,
+} from "@/app/lib/metadata";
 
 const intertopia = localFont({
   src: "./fonts/IntertopiaVF.woff2",
@@ -13,21 +19,22 @@ const intertopia = localFont({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000",
-  ),
-  title: "z57 - Atelier and Studio Space",
-  description: "We are an Atelier and Studio Space in the heart of Vienna",
+  metadataBase: new URL(SITE_URL),
+  applicationName: SITE_NAME,
+  title: { default: SITE_TITLE, template: `%s | ${SITE_NAME}` },
+  description: SITE_DESCRIPTION,
   openGraph: {
-    images: [
-      {
-        url: ogImage.src,
-        width: 1200,
-        height: 630,
-        alt: "Group Image",
-      },
-    ],
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    siteName: SITE_NAME,
+    locale: "de_AT",
+    type: "website",
+    images: [DEFAULT_OG_IMAGE],
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#f2efea",
 };
 
 export default function RootLayout({

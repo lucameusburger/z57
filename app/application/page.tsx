@@ -6,7 +6,16 @@ import Link from "next/link";
 import SectionHead from "@/app/components/SectionHead";
 import SiteFooter from "@/app/components/SiteFooter";
 import SiteHeader from "@/app/components/SiteHeader";
+import { pageMetadata } from "@/app/lib/metadata";
 import { getSiteInfos } from "@/app/types/infos";
+
+// Kept as an archive page: nothing links here, so it stays out of search.
+export const metadata = pageMetadata({
+  title: "Bewerbung",
+  description: "Das Bewerbungsformular von z57 ist derzeit pausiert.",
+  path: "/application",
+  noIndex: true,
+});
 
 export default async function ApplicationPage() {
   const { content, pages } = await getContent();

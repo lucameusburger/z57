@@ -1,17 +1,18 @@
 import { getContent } from "@/app/lib/content";
 import { EditableText } from "@einblick/editor/react";
-import type { Metadata } from "next";
 import BackButton from "@/app/components/BackButton";
 import PostsSection from "@/app/components/PostsSection";
 import SectionHead from "@/app/components/SectionHead";
 import SiteFooter from "@/app/components/SiteFooter";
 import SiteHeader from "@/app/components/SiteHeader";
+import { pageMetadata } from "@/app/lib/metadata";
 import { getAllPosts } from "@/app/types/posts";
 
-export const metadata: Metadata = {
-  title: "Alle Posts | z57",
+export const metadata = pageMetadata({
+  title: "Alle Posts",
   description: "Alle Posts, Rückblicke und Einblicke aus dem Atelier z57.",
-};
+  path: "/posts",
+});
 
 export default async function PostsPage() {
   const { content, pages } = await getContent();
