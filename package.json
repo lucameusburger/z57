@@ -13,14 +13,20 @@
     "lint": "eslint . --max-warnings=0",
     "einblick:generate": "einblick-sdk generate --website z57-website --output app/lib/einblick.generated.ts",
     "content:sync": "node scripts/sync-content.mjs",
-    "model:build": "node scripts/build-wireframe.mjs"
+    "model:build": "node scripts/build-wireframe.mjs",
+    "brand:build": "bash scripts/build-brand-assets.sh"
   },
   "dependencies": {
     "@einblick/analytics": "0.1.7",
     "@einblick/editor": "0.4.0",
     "@einblick/sdk": "3.25.0",
     "@gsap/react": "^2.1.1",
+    "@radix-ui/react-checkbox": "^1.4.1",
+    "@radix-ui/react-label": "^2.1.17",
+    "@radix-ui/react-radio-group": "^1.5.1",
+    "@radix-ui/react-select": "^2.4.1",
     "@radix-ui/react-slot": "^1.2.4",
+    "@radix-ui/react-switch": "^1.4.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "embla-carousel-autoplay": "^8.6.0",

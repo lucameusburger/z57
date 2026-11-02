@@ -8,10 +8,12 @@ import {
   EditableText,
   createEditableCollectionBinding,
 } from "@einblick/editor/react";
-import { Globe, Instagram, Mail } from "lucide-react";
+import { Globe, Instagram, Mail, MoveRight } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 import Badge from "./components/Badge";
+import JsonLd from "./components/JsonLd";
 import MemberItem from "./components/MemberItem";
 import PostGallery from "./components/PostGallery";
 import PostsSection from "./components/PostsSection";
@@ -22,6 +24,13 @@ import SiteHeader from "./components/SiteHeader";
 import { MenuButton } from "./components/SiteMenu";
 import Wireframe from "./components/Wireframe";
 import { cn } from "@/lib/utils";
+import {
+  absoluteUrl,
+  pageMetadata,
+  SITE_DESCRIPTION,
+  SITE_NAME,
+  SITE_URL,
+} from "@/app/lib/metadata";
 import { getSiteInfos } from "@/app/types/infos";
 import { getMembers } from "@/app/types/members";
 import { getHomepagePosts } from "@/app/types/posts";
@@ -39,6 +48,8 @@ const FILLER_TILES = [
   { shape: "cup", className: "bg-leaf text-lime" },
   { shape: "sideBySidePills", className: "bg-foreground text-lime" },
 ] as const;
+
+export const metadata = pageMetadata({ path: "/" });
 
 function shuffled<T>(items: T[]) {
   const result = [...items];
@@ -75,6 +86,32 @@ export default async function Home() {
 
   return (
     <>
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@graph": [
+            { "@type": "WebSite", name: SITE_NAME, url: SITE_URL },
+            {
+              "@type": "Organization",
+              name: SITE_NAME,
+              url: SITE_URL,
+              description: SITE_DESCRIPTION,
+              logo: absoluteUrl("/icon-512.png"),
+              email: siteInfos.email,
+              sameAs: siteInfos.instagramHref
+                ? [siteInfos.instagramHref]
+                : undefined,
+              address: {
+                "@type": "PostalAddress",
+                streetAddress: "Zieglergasse 57",
+                postalCode: "1070",
+                addressLocality: "Wien",
+                addressCountry: "AT",
+              },
+            },
+          ],
+        }}
+      />
       <SiteHeader />
       <main id="top">
         <h1 className="sr-only">
@@ -175,6 +212,46 @@ export default async function Home() {
           })}
         </div>
 
+        <section aria-labelledby="wintermarkt-heading" className="border-t">
+          <Link
+            href="/wintermarkt-2026"
+            className="form-focus cells group md:grid-cols-4"
+          >
+            <div className="flex flex-col gap-3 bg-lime px-4 py-6 md:col-span-3 md:px-7 md:py-7">
+              <EditableText
+                editInline
+                as="h2"
+                id="wintermarkt-heading"
+                className="text-lead"
+                binding={pages.home.binding("wintermarkt.heading")}
+                placeholder="Überschrift ergänzen"
+              >
+                {content.home.wintermarkt.heading}
+              </EditableText>
+              <EditableText
+                editInline
+                as="p"
+                binding={pages.home.binding("wintermarkt.text")}
+                placeholder="Text ergänzen"
+              >
+                {content.home.wintermarkt.text}
+              </EditableText>
+            </div>
+            <div className="flex items-center justify-between gap-4 bg-foreground px-4 py-5 text-background transition-colors group-hover:bg-leaf group-hover:text-foreground md:items-end md:px-7 md:py-7">
+              <EditableText
+                editInline
+                as="span"
+                className="text-sub"
+                binding={pages.home.binding("wintermarkt.linkLabel")}
+                placeholder="Text ergänzen"
+              >
+                {content.home.wintermarkt.linkLabel}
+              </EditableText>
+              <MoveRight className="h-6 w-6 flex-none" aria-hidden="true" />
+            </div>
+          </Link>
+        </section>
+
         {studioPost ? (
           <EditableRegion
             as="section"
@@ -243,7 +320,6 @@ export default async function Home() {
           >
             <PostGallery
               images={studioPost.galleryImages}
-              initialImageLimit={8}
               title={studioPost.title}
             />
           </EditableRegion>

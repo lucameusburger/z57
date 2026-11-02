@@ -7,6 +7,7 @@ import {
 import BackButton from "@/app/components/BackButton";
 import CategoryBadge from "@/app/components/CategoryBadge";
 import Image from "next/image";
+import JsonLd from "@/app/components/JsonLd";
 import Link from "next/link";
 import type { Metadata } from "next";
 import PostGallery from "@/app/components/PostGallery";
@@ -17,6 +18,14 @@ import { EditableRegion, EditableText } from "@einblick/editor/react";
 import { redirectIfEinblickRecordMoved } from "@einblick/sdk/next";
 import { notFound } from "next/navigation";
 import remarkGfm from "remark-gfm";
+import {
+  absoluteUrl,
+  DEFAULT_OG_IMAGE,
+  pageMetadata,
+  SITE_NAME,
+  SITE_URL,
+  toIsoDate,
+} from "@/app/lib/metadata";
 
 interface PostPageProps {
   params: Promise<{
@@ -55,20 +64,28 @@ export async function generateMetadata({
 
   if (!post) {
     return {
-      title: "Post nicht gefunden | z57",
+      title: "Post nicht gefunden",
     };
   }
 
-  return {
-    title: `${post.title} | z57`,
+  return pageMetadata({
+    title: post.title,
     description: post.summary,
-    openGraph: {
-      title: post.title,
-      description: post.summary,
-      type: "article",
-      images: post.coverImage ? [post.coverImage.ogSrc] : undefined,
+    path: post.href,
+    image: post.coverImage
+      ? {
+          url: post.coverImage.ogSrc,
+          width: 1200,
+          height: 630,
+          alt: post.title,
+        }
+      : undefined,
+    article: {
+      publishedTime: toIsoDate(post.publishedAt),
+      modifiedTime: toIsoDate(post.updatedAt),
+      tags: post.tags,
     },
-  };
+  });
 }
 
 export default async function PostPage({ params }: PostPageProps) {
@@ -87,6 +104,22 @@ export default async function PostPage({ params }: PostPageProps) {
 
   return (
     <div className="flex min-h-dvh flex-col">
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "Article",
+          headline: post.title,
+          description: post.summary || undefined,
+          url: absoluteUrl(post.href),
+          image: new URL(
+            post.coverImage?.ogSrc ?? DEFAULT_OG_IMAGE.url,
+            SITE_URL,
+          ).href,
+          datePublished: toIsoDate(post.publishedAt),
+          dateModified: toIsoDate(post.updatedAt),
+          author: { "@type": "Organization", name: SITE_NAME, url: SITE_URL },
+        }}
+      />
       <SiteHeader back={<BackButton fallbackHref="/posts" />} />
       <main className="flex-1" id="top">
         <EditableRegion as="div" binding={post.bindings.region}>
@@ -198,7 +231,6 @@ export default async function PostPage({ params }: PostPageProps) {
             >
               <PostGallery
                 images={post.galleryImages}
-                initialImageLimit={12}
                 title={post.title}
                 priorityFirstImage={!standaloneImage}
               />

@@ -43,6 +43,20 @@ export const content = defineSiteContent({
               "z57 atelier and studio space vienna . grafik . nailart . architektur . webentwicklung . fotografie . design . exhibitions . workshops . co-working . ",
           }),
         }),
+        wintermarkt: section("Wintermarkt", {
+          heading: field.string({
+            label: "Überschrift",
+            default: "Wintermarkt 2026",
+          }),
+          text: field.text({
+            label: "Text",
+            default: "Du möchtest dabei sein? Bewirb dich mit deiner Arbeit.",
+          }),
+          linkLabel: field.string({
+            label: "Linktext",
+            default: "Jetzt bewerben",
+          }),
+        }),
         posts: section("Posts", {
           heading: field.string({
             label: "Überschrift",
@@ -355,6 +369,63 @@ export const content = defineSiteContent({
             label: "Einleitung",
             default:
               "Alle Beiträge, Rückblicke und Einblicke aus dem Atelier z57 an einem Ort.",
+          }),
+        }),
+      },
+    }),
+    wintermarkt: page({
+      label: "Wintermarkt 2026",
+      path: "/wintermarkt-2026",
+      sections: {
+        intro: section("Einleitung", {
+          heading: field.string({
+            label: "Überschrift",
+            default: "Wintermarkt 2026",
+          }),
+          aside: field.text({
+            label: "Text neben der Überschrift",
+            default: "Bewerbung für den Wintermarkt im z57, Zieglergasse 57, 1070 Wien.",
+          }),
+          lead: field.text({
+            label: "Einleitung",
+            default:
+              "Du möchtest beim Wintermarkt 2026 dabei sein? Erzähl uns von deiner Arbeit und bewirb dich hier.",
+          }),
+        }),
+        form: section("Formular", {
+          requiredHint: field.string({
+            label: "Hinweis zu Pflichtfeldern",
+            default: "Mit * markierte Felder sind Pflichtfelder.",
+          }),
+          submitLabel: field.string({
+            label: "Text auf dem Absenden-Knopf",
+            default: "Bewerbung absenden",
+          }),
+          privacyNote: field.string({
+            label: "Hinweis vor dem Link zum Datenschutz",
+            default: "Wir verwenden deine Angaben nur zur Bearbeitung deiner Bewerbung.",
+          }),
+          thankYouTitle: field.string({
+            label: "Danke-Überschrift (falls im Formular keine gesetzt ist)",
+            default: "Danke für deine Bewerbung!",
+          }),
+          thankYouMessage: field.text({
+            label: "Danke-Text (falls im Formular keiner gesetzt ist)",
+            default: "Wir haben deine Bewerbung erhalten.",
+          }),
+        }),
+        closed: section("Formular nicht verfügbar", {
+          closedTitle: field.string({
+            label: "Überschrift, wenn die Bewerbung geschlossen ist",
+            default: "Die Bewerbung ist derzeit geschlossen",
+          }),
+          unavailableTitle: field.string({
+            label: "Überschrift, wenn das Formular nicht geladen werden kann",
+            default: "Das Formular ist derzeit nicht verfügbar",
+          }),
+          text: field.text({
+            label: "Text",
+            default: "Bei Fragen zum Wintermarkt schreib uns gerne an",
           }),
         }),
       },

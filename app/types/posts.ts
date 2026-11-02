@@ -23,6 +23,7 @@ interface PostRecord {
   kind: PostKind;
   pinned: boolean;
   publishedAt: string;
+  updatedAt?: number;
   summary: string;
   content: string;
   dateLabels?: string[];
@@ -120,6 +121,7 @@ function getCmsGalleryImages(
 function cmsRecordToPostRecord(cmsRecord: {
   id: string;
   slug?: string;
+  updatedAt?: number;
   fields: CmsPostFields;
 }): PostRecord {
   const { fields } = cmsRecord;
@@ -131,6 +133,7 @@ function cmsRecordToPostRecord(cmsRecord: {
     kind: fields.kind ?? "post",
     pinned: fields.pinned ?? false,
     publishedAt: fields.published_at ?? "",
+    updatedAt: cmsRecord.updatedAt,
     summary: fields.description ?? "",
     content: fields.content ?? "",
     dateLabels: fields.date_labels,

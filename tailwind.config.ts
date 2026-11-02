@@ -26,6 +26,8 @@ const config: Config = {
         paulblau: "#7678bf",
         woit: "#f7f1f3",
         stella: "#C04021",
+        // Stella darkened until small text reads on the page colour (AA).
+        error: "#9a2f15",
       },
       borderColor: {
         DEFAULT: "var(--line)",

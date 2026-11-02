@@ -75,6 +75,51 @@ body {
     min-width: 0;
   }
 
+  /* Form controls: square, a dark green hairline, and a focus ring that reads
+     on the page colour and on the lime bands alike. */
+  .form-focus:focus-visible {
+    outline: 2px solid var(--foreground);
+    outline-offset: 2px;
+  }
+
+  .form-invalid[aria-invalid="true"] {
+    border-color: theme("colors.error");
+    box-shadow: inset 0 0 0 1px theme("colors.error");
+  }
+
+  .form-control {
+    background: var(--background);
+    border: 1px solid var(--foreground);
+    border-radius: 0;
+    color: var(--foreground);
+    font: inherit;
+    /* Anything smaller makes iOS zoom the page when a field gets focus. */
+    font-size: max(1rem, 16px);
+  }
+
+  .form-control::placeholder {
+    color: rgb(var(--foreground-rgb) / 0.75);
+  }
+
+  .form-control:hover:not(:disabled) {
+    background: rgb(222 254 81 / 0.25);
+  }
+
+  .form-control:focus-visible {
+    outline: 2px solid var(--foreground);
+    outline-offset: 2px;
+  }
+
+  .form-control[aria-invalid="true"] {
+    border-color: theme("colors.error");
+    box-shadow: inset 0 0 0 1px theme("colors.error");
+  }
+
+  .form-control:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
   /* Legal pages render sections of a heading plus paragraphs: heading in the
      first column, prose in the remaining three. */
   .legal-body > section {

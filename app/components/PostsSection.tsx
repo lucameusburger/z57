@@ -118,7 +118,6 @@ export default function PostsSection({
               >
                 <PostGallery
                   images={post.galleryImages}
-                  initialImageLimit={8}
                   title={post.title}
                   priorityFirstImage={post === posts[0] && !post.image}
                 />

@@ -21,14 +21,12 @@ interface PostGalleryProps {
   }>;
   title: string;
   priorityFirstImage?: boolean;
-  initialImageLimit?: number;
 }
 
 export default function PostGallery({
   images,
   title,
   priorityFirstImage = false,
-  initialImageLimit = 12,
 }: PostGalleryProps) {
   const autoplay = React.useRef(
     Autoplay({ delay: 2800, stopOnInteraction: false, stopOnMouseEnter: true })
@@ -36,11 +34,6 @@ export default function PostGallery({
   const [api, setApi] = React.useState<CarouselApi>();
   const [selectedIndex, setSelectedIndex] = React.useState(0);
   const [snapCount, setSnapCount] = React.useState(0);
-  const [visibleImageCount, setVisibleImageCount] = React.useState(() =>
-    Math.min(images.length, initialImageLimit),
-  );
-  const visibleImages = images.slice(0, visibleImageCount);
-  const remainingImageCount = images.length - visibleImages.length;
   const indicatorCount = Math.min(snapCount, 8);
   const indicatorTargets = React.useMemo(() => {
     if (indicatorCount === 0) {
@@ -109,7 +102,7 @@ export default function PostGallery({
         }}
       >
         <CarouselContent className="ml-0">
-          {visibleImages.map((image, index) => (
+          {images.map((image, index) => (
             <CarouselItem
               key={`${image.src}-${index}`}
               className="basis-[72%] border-r pl-0 sm:basis-[46%] md:basis-[34%] lg:basis-1/4"
@@ -166,20 +159,6 @@ export default function PostGallery({
             />
           ))}
         </div>
-
-        {remainingImageCount > 0 ? (
-          <button
-            type="button"
-            onClick={() =>
-              setVisibleImageCount((count) =>
-                Math.min(images.length, count + initialImageLimit),
-              )
-            }
-            className="border-l px-4 transition-colors hover:bg-foreground hover:text-background md:px-7"
-          >
-            Weitere Bilder laden ({remainingImageCount})
-          </button>
-        ) : null}
       </div>
     </div>
   );

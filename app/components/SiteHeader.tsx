@@ -17,7 +17,7 @@ export default async function SiteHeader({ back }: { back?: ReactNode }) {
   const { content } = await getContent();
 
   return (
-    <header className="cells grid-cols-[auto_minmax(0,1fr)_auto] border-t bg-background max-md:sticky max-md:top-0 max-md:z-40 md:grid-cols-[14%_minmax(0,1fr)_26.4%]">
+    <header className="cells grid-cols-[auto_minmax(0,1fr)_auto] bg-background max-md:sticky max-md:border-t max-md:top-0 max-md:z-40 md:grid-cols-[14%_minmax(0,1fr)_26.4%]">
       <Link
         href="/"
         className="flex h-14 items-center gap-2 px-4 font-medium transition-colors hover:bg-foreground hover:text-background md:h-[4.4rem] md:px-7"
@@ -45,6 +45,7 @@ export default async function SiteHeader({ back }: { back?: ReactNode }) {
 
       <SiteMenu
         items={[
+          { href: "/wintermarkt-2026", label: content.home.wintermarkt.heading },
           { href: "/#aktuelles", label: content.home.posts.heading },
           { href: "/#raum", label: content.home.model.heading },
           { href: "/#wer-wir-sind", label: content.home.members.heading },
