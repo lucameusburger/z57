@@ -99,13 +99,13 @@ function FieldRow({
   return (
     <div
       id={`field-${fieldKey}`}
-      className="cells md:grid-cols-4"
+      className="-mr-px grid md:grid-cols-4"
       onBlur={(event) => {
         // Moving between the options of one question is not leaving it.
         if (onBlur && !event.currentTarget.contains(event.relatedTarget)) onBlur();
       }}
     >
-      <div className="px-4 pt-5 max-md:border-b-0 md:px-7 md:py-7">
+      <div className="min-w-0 px-4 pt-5 md:px-7 md:py-7">
         {htmlFor ? (
           <Label id={labelId} htmlFor={htmlFor}>
             {labelContent}
@@ -116,7 +116,7 @@ function FieldRow({
           </span>
         )}
       </div>
-      <div className="flex flex-col px-4 pb-6 pt-3 md:col-span-3 md:px-7 md:py-7">
+      <div className="flex min-w-0 flex-col px-4 pb-6 pt-3 md:col-span-3 md:px-7 md:py-7">
         <div className="flex max-w-2xl flex-col gap-2">
           {description ? (
             <p id={descriptionId} className="whitespace-pre-line">
@@ -345,7 +345,7 @@ export default function EinblickForm({
         </p>
       ) : null}
 
-      <p className="border-b px-4 py-3 text-sm md:px-7">{copy.requiredHint}</p>
+      <p className="px-4 py-3 text-sm md:px-7">{copy.requiredHint}</p>
 
       {form.collectName ? contactField("name", "Name", { type: "text", autoComplete: "name" }) : null}
       {form.collectEmail
@@ -361,13 +361,13 @@ export default function EinblickForm({
             <div
               key={question.id}
               role="separator"
-              className="h-4 border-b bg-lime md:h-6"
+              className="h-4 border-y bg-lime md:h-6"
             />
           );
         }
         if (question.type === "statement") {
           return (
-            <div key={question.id} className="border-b bg-leaf/30 px-4 py-6 md:px-7 md:py-8">
+            <div key={question.id} className="border-y bg-leaf/30 px-4 py-6 md:px-7 md:py-8">
               {question.label ? <h2 className="text-sub">{question.label}</h2> : null}
               {question.content || question.description ? (
                 <p className="mt-2 max-w-3xl whitespace-pre-line">
@@ -453,7 +453,7 @@ export default function EinblickForm({
         />
       </div>
 
-      <div className="cells md:grid-cols-4">
+      <div className="cells border-t md:grid-cols-4">
         <div className="flex flex-col gap-2 px-4 py-5 text-sm md:px-7 md:py-7">
           <p>{copy.privacyNote}</p>
           <Link href="/datenschutz" className="form-focus underline underline-offset-4">
@@ -503,7 +503,7 @@ export default function EinblickForm({
             aria-describedby={uploading ? "form-busy-hint" : undefined}
             className={cn(
               "form-focus text-sub flex min-h-14 w-full items-center justify-between gap-4 border border-foreground bg-foreground px-4 py-3 text-left text-background transition-colors md:max-w-md md:px-5",
-              blocked ? "cursor-not-allowed opacity-60" : "hover:bg-background hover:text-foreground",
+              blocked ? "cursor-not-allowed opacity-60" : "hover:bg-lime hover:text-foreground",
             )}
           >
             <span>{submitting ? "Wird gesendet …" : copy.submitLabel}</span>
