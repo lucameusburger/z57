@@ -43,7 +43,7 @@ const MemberItem = ({ member }: { member: Member }) => {
         as="div"
         binding={member.bindings.image}
         placeholder="Bild hinzufügen"
-        className="group relative aspect-square w-full overflow-hidden border-b"
+        className="relative aspect-square w-full overflow-hidden border-b"
       >
         {member.image ? (
           <Image
@@ -53,7 +53,7 @@ const MemberItem = ({ member }: { member: Member }) => {
             height={1080}
             loading="lazy"
             sizes="(max-width: 1280px) 50vw, 25vw"
-            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+            className="h-full w-full object-cover"
           />
         ) : (
           <div className="flex h-full w-full items-center justify-center bg-lime">
