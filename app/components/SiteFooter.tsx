@@ -3,92 +3,87 @@ import EinblickLoginBadge from "./EinblickLoginBadge";
 import PrivacySettingsBadge from "./PrivacySettingsBadge";
 import { EditableRegion } from "@einblick/editor/react";
 import { getSiteInfos } from "@/app/types/infos";
+import { LEGAL_LINKS } from "@/app/lib/site-links";
 
-const legalLinks = [
-  { href: "/impressum", label: "Impressum" },
-  { href: "/datenschutz", label: "Datenschutz" },
-  { href: "/cookies", label: "Cookies" },
-];
+const cellClasses = "flex flex-col items-start gap-2 px-4 py-6 md:px-7 md:py-8";
 
 export default async function SiteFooter() {
   const currentYear = new Date().getFullYear();
   const siteInfos = await getSiteInfos();
 
   return (
-    <footer className="w-full px-4 md:px-8">
-      <hr className="border-foreground" />
-      <div className="flex flex-col items-start justify-between gap-6 py-8 md:flex-row">
-        <div className="flex flex-wrap gap-2">
-          <Badge variant="black">Copyright z57 © {currentYear}</Badge>
-          <Badge variant="black">ZVR 1169564571</Badge>
-          {siteInfos.emailHref && siteInfos.email ? (
-            <Badge href={siteInfos.emailHref} variant="black">
-              <EditableRegion
-                as="span"
-                className="inline-block"
-                binding={siteInfos.bindings.email}
-              >
-                {siteInfos.email}
-              </EditableRegion>
-            </Badge>
-          ) : null}
-          {siteInfos.instagramHref && siteInfos.instagramLabel ? (
-            <Badge
-              href={siteInfos.instagramHref}
-              variant="black"
-              target="_blank"
-              rel="noreferrer"
+    <footer className="cells grid-cols-2 text-sm md:grid-cols-4 md:text-base">
+      <div className={cellClasses}>
+        <span>Copyright z57 © {currentYear}</span>
+        <span>ZVR 1169564571</span>
+        <span>Zieglergasse 57, 1070 Wien</span>
+      </div>
+
+      <div className={cellClasses}>
+        {siteInfos.emailHref && siteInfos.email ? (
+          <Badge href={siteInfos.emailHref} variant="link">
+            <EditableRegion
+              as="span"
+              className="inline-block"
+              binding={siteInfos.bindings.email}
             >
-              <EditableRegion
-                as="span"
-                className="inline-block"
-                binding={siteInfos.bindings.instagram}
-              >
-                Instagram: {siteInfos.instagramLabel}
-              </EditableRegion>
-            </Badge>
-          ) : null}
-          {siteInfos.websiteHref && siteInfos.websiteLabel ? (
-            <Badge
-              href={siteInfos.websiteHref}
-              variant="black"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <EditableRegion
-                as="span"
-                className="inline-block"
-                binding={siteInfos.bindings.website}
-              >
-                {siteInfos.websiteLabel}
-              </EditableRegion>
-            </Badge>
-          ) : null}
-          <Badge className="whitespace-normal">
-            Zieglergasse 57, 1070 Wien
+              {siteInfos.email}
+            </EditableRegion>
           </Badge>
+        ) : null}
+        {siteInfos.instagramHref && siteInfos.instagramLabel ? (
           <Badge
-            href="https://www.lucameusburger.com"
+            href={siteInfos.instagramHref}
+            variant="link"
             target="_blank"
             rel="noreferrer"
-            className="whitespace-normal"
           >
-            Website by Luca Meusburger
+            <EditableRegion
+              as="span"
+              className="inline-block"
+              binding={siteInfos.bindings.instagram}
+            >
+              Instagram: {siteInfos.instagramLabel}
+            </EditableRegion>
           </Badge>
-          <EinblickLoginBadge />
-        </div>
+        ) : null}
+        {siteInfos.websiteHref && siteInfos.websiteLabel ? (
+          <Badge
+            href={siteInfos.websiteHref}
+            variant="link"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <EditableRegion
+              as="span"
+              className="inline-block"
+              binding={siteInfos.bindings.website}
+            >
+              {siteInfos.websiteLabel}
+            </EditableRegion>
+          </Badge>
+        ) : null}
+      </div>
 
-        <nav
-          aria-label="Rechtliches"
-          className="flex flex-wrap items-start gap-2"
+      <nav aria-label="Rechtliches" className={cellClasses}>
+        {LEGAL_LINKS.map((link) => (
+          <Badge key={link.href} href={link.href} variant="link">
+            {link.label}
+          </Badge>
+        ))}
+        <PrivacySettingsBadge />
+      </nav>
+
+      <div className={cellClasses}>
+        <Badge
+          href="https://www.lucameusburger.com"
+          variant="link"
+          target="_blank"
+          rel="noreferrer"
         >
-          {legalLinks.map((link) => (
-            <Badge key={link.href} href={link.href}>
-              {link.label}
-            </Badge>
-          ))}
-          <PrivacySettingsBadge />
-        </nav>
+          Website by Luca Meusburger
+        </Badge>
+        <EinblickLoginBadge />
       </div>
     </footer>
   );

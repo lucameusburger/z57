@@ -7,6 +7,9 @@
 Use pnpm (the version is pinned in `package.json`). Page headings and prose live
 in `content/einblick.content.ts`; read them through the server-only
 `app/lib/content.ts` and use the returned locale-aware bindings for editing.
+The category cells on the homepage list the disciplines from `hero.text`, then
+any member role or post kind missing from it, each with its own symbol from
+`GLYPHS` in `app/components/Shapes.tsx`.
 `archive` is the page at `/posts`, while `posts` and `members` remain repeatable
 CMS collections. The site-wide `infos` singleton keeps its existing fallback
 when no record exists.
@@ -23,9 +26,17 @@ the Einblick website webhook. Draft preview uses the existing API key and
 `/api/einblick/draft-mode`; drafts bypass the published content cache.
 
 Plain text markers contain one complete source value. Arrays, Markdown,
-formatted values, and the repeated SVG hero text use one region per field.
+formatted values, and `home.hero.text` (rendered as the tagline and the list of
+disciplines, split on ` . `) use one region per field.
 The editor boots at the root and consent controls remain usable above its bar.
 
 The migration is additive: the original domain records were retained, and
 reverting the website commit restores the old rendering without deleting the
 new content pages.
+
+## 3D model
+
+The spinning wireframes on the homepage draw two files baked from
+`public/model/model.obj` by `pnpm model:build`: `wireframe.bin` (the whole
+building) and `wireframe-detail.bin` (a small crop for the hero's close-up). The
+settings are at the top of `scripts/build-wireframe.mjs`.

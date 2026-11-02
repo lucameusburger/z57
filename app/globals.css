@@ -3,21 +3,28 @@
 @tailwind utilities;
 
 :root {
-  --background: #f3f3f1;
-  --foreground: #211f20;
+  --background-rgb: 242 239 234;
+  --foreground-rgb: 28 49 8;
+  --background: rgb(var(--background-rgb));
+  --foreground: rgb(var(--foreground-rgb));
+  --line: rgb(var(--foreground-rgb) / 0.5);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #f3f3f1;
-    --foreground: #211f20;
-  }
+html {
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  overflow-x: clip;
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-intertopia), Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+  line-height: 1.45;
 }
 
 @layer utilities {
@@ -26,58 +33,104 @@ body {
   }
 }
 
-/* global smooth scroll behaviour */
-
-html {
-  scroll-behavior: smooth;
-}
-
-.full-viewport-height {
-  height: 100vh;
-}
-
-@supports (height: 100dvh) {
-  .full-viewport-height {
-    height: 100dvh;
+@layer components {
+  .text-display {
+    font-size: 13.5vw;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1;
   }
-}
 
-.min-full-viewport-height {
-  min-height: 100vh;
-}
-
-@supports (height: 100dvh) {
-  .min-full-viewport-height {
-    min-height: 100dvh;
+  .text-lead {
+    font-size: clamp(1.625rem, 3.7vw, 4rem);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    line-height: 1.14;
   }
-}
 
-.hero-screen-block {
-  min-height: calc(100vh - 2rem);
-}
+  .text-sub {
+    font-size: 1.25rem;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+  }
 
-.hero-path-text {
-  fill: var(--foreground);
-  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
-  letter-spacing: 0.12em;
-}
+  /* Hairline grid: every cell draws its right and bottom edge. The negative
+     margin pushes the last column's edge off the viewport. */
+  .cells {
+    display: grid;
+    margin-right: -1px;
+  }
 
-@supports (height: 100dvh) {
-  .hero-screen-block {
-    min-height: calc(100dvh - 2rem);
+  .cells > * {
+    border-bottom: 1px solid var(--line);
+    border-right: 1px solid var(--line);
+    min-width: 0;
+  }
+
+  /* Legal pages render sections of a heading plus paragraphs: heading in the
+     first column, prose in the remaining three. */
+  .legal-body > section {
+    border-bottom: 1px solid var(--line);
+    display: grid;
+    gap: 0;
+    padding: 1.5rem 1rem;
+  }
+
+  .legal-body > section > * + * {
+    margin-top: 0.75rem;
+  }
+
+  .legal-body > section > h2 {
+    font-size: 1.25rem;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+  }
+
+  .legal-body > section > :not(h2) {
+    max-width: 48rem;
   }
 }
 
 @media (min-width: 768px) {
-  .hero-screen-block {
-    min-height: calc(100vh - 4rem);
+  body {
+    font-size: 1.125rem;
+  }
+
+  .text-display {
+    font-size: clamp(2.75rem, 10.4vw, 12rem);
+  }
+
+  .text-sub,
+  .legal-body > section > h2 {
+    font-size: 1.5rem;
+  }
+
+  .legal-body > section {
+    grid-template-columns: 25% minmax(0, 1fr);
+    padding: 2.5rem 1.75rem 2.5rem 0;
+  }
+
+  /* Rows collapse to nothing when unused, so the heading can span them all. */
+  .legal-body > section > h2 {
+    grid-column: 1;
+    grid-row: 1 / span 12;
+    padding-inline: 1.75rem;
+  }
+
+  .legal-body > section > :not(h2) {
+    grid-column: 2;
+    margin-inline-start: 1.75rem;
+  }
+
+  .legal-body > section > h2 + * {
+    margin-top: 0;
   }
 }
 
-@supports (height: 100dvh) {
-  @media (min-width: 768px) {
-    .hero-screen-block {
-      min-height: calc(100dvh - 4rem);
-    }
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
 }

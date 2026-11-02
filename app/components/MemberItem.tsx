@@ -1,6 +1,7 @@
 import { Globe, Instagram, Mail } from "lucide-react";
 
 import Badge from "./Badge";
+import CategoryBadge from "./CategoryBadge";
 import Image from "next/image";
 import {
   EditableImage,
@@ -9,164 +10,154 @@ import {
 } from "@einblick/editor/react";
 import type { Member } from "@/app/types/members";
 
-const RoundButton = ({
+const IconLink = ({
   icon,
   href,
+  label,
 }: {
   icon: React.ReactNode;
   href: string;
+  label: string;
 }) => {
   return (
     <a
       target="_blank"
       rel="noreferrer"
       href={href}
-      className="flex h-12 w-12 aspect-square items-center justify-center rounded-full border border-foreground transition-colors hover:bg-foreground hover:text-background"
+      aria-label={label}
+      className="flex h-10 w-10 items-center justify-center border border-foreground transition-colors hover:bg-foreground hover:text-background"
     >
       {icon}
     </a>
   );
 };
 
-const MemberItem = ({
-  member,
-  switched,
-}: {
-  member: Member;
-  switched: number;
-}) => {
-  const isSwitched = switched % 2 !== 0;
-
+const MemberItem = ({ member }: { member: Member }) => {
   return (
     <EditableRegion
       as="article"
       binding={member.bindings.region}
-      className="grid w-full grid-cols-1 gap-5 rounded-3xl border border-foreground bg-background p-4 md:grid-cols-3 md:gap-8 md:p-6"
+      className="flex flex-col"
     >
-      <div
-        className={`member-image flex w-full aspect-square items-start ${isSwitched ? "order-1 md:order-2" : "order-1 md:order-1"}`}
+      <EditableImage
+        as="div"
+        binding={member.bindings.image}
+        placeholder="Bild hinzufügen"
+        className="group relative aspect-square w-full overflow-hidden border-b"
       >
-        <EditableImage
-          as="div"
-          binding={member.bindings.image}
-          placeholder="Bild hinzufügen"
-          className="group relative h-full w-full overflow-hidden rounded-3xl border border-foreground"
-        >
-          {member.image ? (
-            <Image
-              src={member.image}
-              alt={member.imageAlt}
-              width={1080}
-              height={1080}
-              loading="lazy"
-              sizes="(max-width: 768px) calc(100vw - 3rem), 33vw"
-              className="h-full w-full object-cover filter grayscalesss contrast-2 transition-transform duration-300 group-hover:scale-105"
-            />
-          ) : (
-            <div className="flex h-full w-full items-center justify-center bg-foreground/5 text-sm uppercase tracking-[0.16em] text-foreground/40">
-              Kein Bild
-            </div>
-          )}
-        </EditableImage>
-      </div>
-
-      <div
-        className={`member-content relative flex flex-col justify-between gap-5 md:col-span-2 ${isSwitched ? "order-2 md:order-1" : "order-2 md:order-2"}`}
-      >
-        <div className="space-y-5">
-          <div className="flex flex-wrap items-start justify-between gap-4">
-            <div className="space-y-4">
-              <Badge>
-                <EditableText
-                  editInline
-                  as="span"
-                  binding={member.bindings.title}
-                  placeholder="Text ergänzen"
-                >
-                  {member.title}
-                </EditableText>
-              </Badge>
-              <EditableText
-                editInline
-                as="h2"
-                binding={member.bindings.name}
-                placeholder="Text ergänzen"
-                className="text-2xl md:text-5xl"
-              >
-                {member.name}
-              </EditableText>
-            </div>
-
-            <div className="flex gap-2">
-              {member.email && (
-                <EditableRegion
-                  as="span"
-                  className="inline-flex"
-                  binding={member.bindings.email}
-                >
-                  <RoundButton
-                    icon={<Mail className="h-6 w-6" />}
-                    href={`mailto:${member.email}`}
-                  />
-                </EditableRegion>
-              )}
-              {member.instagram && (
-                <EditableRegion
-                  as="span"
-                  className="inline-flex"
-                  binding={member.bindings.instagram}
-                >
-                  <RoundButton
-                    icon={<Instagram className="h-6 w-6" />}
-                    href={member.instagram}
-                  />
-                </EditableRegion>
-              )}
-              {member.website && (
-                <EditableRegion
-                  as="span"
-                  className="inline-flex"
-                  binding={member.bindings.website}
-                >
-                  <RoundButton
-                    icon={<Globe className="h-6 w-6" />}
-                    href={member.website}
-                  />
-                </EditableRegion>
-              )}
-            </div>
+        {member.image ? (
+          <Image
+            src={member.image}
+            alt={member.imageAlt}
+            width={1080}
+            height={1080}
+            loading="lazy"
+            sizes="(max-width: 1280px) 50vw, 25vw"
+            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+          />
+        ) : (
+          <div className="flex h-full w-full items-center justify-center bg-lime">
+            Kein Bild
           </div>
+        )}
+      </EditableImage>
 
+      {/* Two columns on phones leave little room: long German words have to break. */}
+      <div className="flex flex-1 flex-col gap-5 hyphens-auto break-words px-3 py-4 max-md:text-sm md:px-7 md:py-7">
+        <div className="flex flex-col items-start gap-3">
           <EditableText
             editInline
-            as="p"
-            binding={member.bindings.description}
+            as="h3"
+            binding={member.bindings.name}
             placeholder="Text ergänzen"
-            className="text-lg leading-relaxed md:text-xl"
+            className="text-sub"
           >
-            {member.description}
+            {member.name}
           </EditableText>
+          <CategoryBadge label={member.title}>
+            <EditableText
+              editInline
+              as="span"
+              binding={member.bindings.title}
+              placeholder="Text ergänzen"
+            >
+              {member.title}
+            </EditableText>
+          </CategoryBadge>
         </div>
 
-        {member.projects?.length ? (
-          <EditableRegion
-            as="div"
-            binding={member.bindings.projects}
-            className="flex flex-wrap gap-2"
-          >
-            {member.projects.map((project, index) => (
-              <Badge
-                key={index}
-                href={project.url}
-                target="_blank"
-                rel="noreferrer"
-                className="whitespace-nowrap"
+        <EditableText
+          editInline
+          as="p"
+          binding={member.bindings.description}
+          placeholder="Text ergänzen"
+        >
+          {member.description}
+        </EditableText>
+
+        <div className="mt-auto flex flex-col gap-4">
+          {member.projects?.length ? (
+            <EditableRegion
+              as="div"
+              binding={member.bindings.projects}
+              className="flex flex-col gap-1"
+            >
+              {member.projects.map((project, index) => (
+                <Badge
+                  key={index}
+                  href={project.url}
+                  variant="link"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {project.name}
+                </Badge>
+              ))}
+            </EditableRegion>
+          ) : null}
+
+          <div className="flex gap-1.5">
+            {member.email && (
+              <EditableRegion
+                as="span"
+                className="inline-flex"
+                binding={member.bindings.email}
               >
-                {project.name}
-              </Badge>
-            ))}
-          </EditableRegion>
-        ) : null}
+                <IconLink
+                  icon={<Mail className="h-5 w-5" />}
+                  href={`mailto:${member.email}`}
+                  label={`E-Mail an ${member.name}`}
+                />
+              </EditableRegion>
+            )}
+            {member.instagram && (
+              <EditableRegion
+                as="span"
+                className="inline-flex"
+                binding={member.bindings.instagram}
+              >
+                <IconLink
+                  icon={<Instagram className="h-5 w-5" />}
+                  href={member.instagram}
+                  label={`${member.name} auf Instagram`}
+                />
+              </EditableRegion>
+            )}
+            {member.website && (
+              <EditableRegion
+                as="span"
+                className="inline-flex"
+                binding={member.bindings.website}
+              >
+                <IconLink
+                  icon={<Globe className="h-5 w-5" />}
+                  href={member.website}
+                  label={`Website von ${member.name}`}
+                />
+              </EditableRegion>
+            )}
+          </div>
+        </div>
       </div>
     </EditableRegion>
   );

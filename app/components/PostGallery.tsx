@@ -108,20 +108,20 @@ export default function PostGallery({
           loop: true,
         }}
       >
-        <CarouselContent className="-ml-2 md:-ml-3">
+        <CarouselContent className="ml-0">
           {visibleImages.map((image, index) => (
             <CarouselItem
               key={`${image.src}-${index}`}
-              className="pl-2 md:pl-3 basis-[72%] sm:basis-[46%] md:basis-[34%] lg:basis-[26%] xl:basis-[21%]"
+              className="basis-[72%] border-r pl-0 sm:basis-[46%] md:basis-[34%] lg:basis-1/4"
             >
-              <div className="relative aspect-[4/5] overflow-hidden rounded-3xl border border-foreground bg-background">
+              <div className="relative aspect-[4/5] overflow-hidden">
                 <Image
                   src={image.src}
                   alt={image.alt || `${title} ${index + 1}`}
                   fill
                   priority={priorityFirstImage && index === 0}
                   loading={priorityFirstImage && index === 0 ? undefined : "lazy"}
-                  sizes="(max-width: 640px) 72vw, (max-width: 768px) 46vw, (max-width: 1024px) 34vw, (max-width: 1280px) 26vw, 21vw"
+                  sizes="(max-width: 640px) 72vw, (max-width: 768px) 46vw, (max-width: 1024px) 34vw, 25vw"
                   className="object-cover"
                 />
               </div>
@@ -130,12 +130,12 @@ export default function PostGallery({
         </CarouselContent>
       </Carousel>
 
-      <div className="mt-4 flex items-center justify-between gap-4">
-        <div className="flex items-center gap-2">
+      <div className="flex items-stretch justify-between border-t">
+        <div className="flex">
           <button
             type="button"
             onClick={() => api?.scrollPrev()}
-            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-foreground bg-background transition-colors hover:bg-foreground hover:text-background"
+            className="inline-flex h-12 w-12 items-center justify-center border-r transition-colors hover:bg-foreground hover:text-background"
             aria-label="Vorherige Bilder"
           >
             <ChevronLeft className="h-5 w-5" />
@@ -143,32 +143,31 @@ export default function PostGallery({
           <button
             type="button"
             onClick={() => api?.scrollNext()}
-            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-foreground bg-background transition-colors hover:bg-foreground hover:text-background"
+            className="inline-flex h-12 w-12 items-center justify-center border-r transition-colors hover:bg-foreground hover:text-background"
             aria-label="Nächste Bilder"
           >
             <ChevronRight className="h-5 w-5" />
           </button>
         </div>
 
-        <div className="flex flex-1 justify-end gap-2">
+        <div className="hidden flex-1 items-center justify-end gap-1.5 px-4 sm:flex md:px-7">
           {indicatorTargets.map((target, index) => (
             <button
               key={`${target}-${index}`}
               type="button"
               onClick={() => api?.scrollTo(target)}
               className={cn(
-                "h-2.5 rounded-full border border-foreground transition-all",
+                "h-2.5 border border-foreground transition-all",
                 index === activeIndicator
                   ? "w-8 bg-foreground"
-                  : "w-2.5 bg-background hover:bg-foreground/20"
+                  : "w-2.5 hover:bg-foreground"
               )}
               aria-label={`Gehe zu Bildgruppe ${index + 1}`}
             />
           ))}
         </div>
-      </div>
-      {remainingImageCount > 0 ? (
-        <div className="mt-4 flex justify-end">
+
+        {remainingImageCount > 0 ? (
           <button
             type="button"
             onClick={() =>
@@ -176,12 +175,12 @@ export default function PostGallery({
                 Math.min(images.length, count + initialImageLimit),
               )
             }
-            className="rounded-full border border-foreground bg-background px-4 py-2 text-sm transition-colors hover:bg-foreground hover:text-background"
+            className="border-l px-4 transition-colors hover:bg-foreground hover:text-background md:px-7"
           >
             Weitere Bilder laden ({remainingImageCount})
           </button>
-        </div>
-      ) : null}
+        ) : null}
+      </div>
     </div>
   );
 }

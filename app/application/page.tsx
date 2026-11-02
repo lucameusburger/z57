@@ -1,9 +1,11 @@
 import { getContent } from "@/app/lib/content";
-import { EditableText } from "@einblick/editor/react";
+import { EditableRegion, EditableText } from "@einblick/editor/react";
 import { ArrowLeft } from "lucide-react";
-
 import Link from "next/link";
-import { EditableRegion } from "@einblick/editor/react";
+
+import SectionHead from "@/app/components/SectionHead";
+import SiteFooter from "@/app/components/SiteFooter";
+import SiteHeader from "@/app/components/SiteHeader";
 import { getSiteInfos } from "@/app/types/infos";
 
 export default async function ApplicationPage() {
@@ -11,64 +13,59 @@ export default async function ApplicationPage() {
   const siteInfos = await getSiteInfos();
 
   return (
-    <div className="items-center justify-items-center gap-16 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex min-h-screen w-full flex-col px-4 py-8 md:px-8">
-        <div className="flex items-center justify-between border-t border-foreground pt-4">
+    <div className="flex min-h-dvh flex-col">
+      <SiteHeader
+        back={
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-xl transition-opacity hover:opacity-65 md:text-2xl"
+            className="inline-flex items-center gap-2 transition-opacity hover:opacity-60"
           >
-            <ArrowLeft className="h-5 w-5" />
+            <ArrowLeft className="h-4 w-4" aria-hidden="true" />
             Zurück
           </Link>
-        </div>
+        }
+      />
 
-        <div className="mx-auto mt-12 flex w-full max-w-3xl flex-col gap-6 rounded-[2rem] border border-foreground/10 bg-foreground px-6 py-8 text-background md:px-8 md:py-10">
+      <main className="flex-1">
+        <SectionHead
+          title={
+            <EditableText
+              editInline
+              as="h1"
+              className="text-display"
+              binding={pages.application.binding("intro.heading")}
+              placeholder="Text ergänzen"
+            >
+              {content.application.intro.heading}
+            </EditableText>
+          }
+        />
+
+        <p className="text-lead border-b bg-lime px-4 py-8 md:px-7 md:py-10">
           <EditableText
             editInline
             as="span"
-            className="text-sm uppercase tracking-[0.16em] text-background/60"
-            binding={pages.application.binding("intro.eyebrow")}
-            placeholder="Text ergänzen"
+            className="inline"
+            binding={pages.application.binding("intro.intro")}
           >
-            {content.application.intro.eyebrow}
-          </EditableText>
-          <EditableText
-            editInline
-            as="h1"
-            className="text-4xl font-semibold tracking-tight md:text-6xl"
-            binding={pages.application.binding("intro.heading")}
-            placeholder="Text ergänzen"
-          >
-            {content.application.intro.heading}
-          </EditableText>
-          <p className="text-lg leading-relaxed text-background/80 md:text-xl">
-            <EditableText
-              editInline
-              as="span"
-              className="inline-block"
-              binding={pages.application.binding("intro.intro")}
-            >
-              {content.application.intro.intro}
-            </EditableText>{" "}
-            {siteInfos.emailHref && siteInfos.email ? (
-              <a
-                className="underline underline-offset-4"
-                href={siteInfos.emailHref}
+            {content.application.intro.intro}
+          </EditableText>{" "}
+          {siteInfos.emailHref && siteInfos.email ? (
+            <a className="underline underline-offset-4" href={siteInfos.emailHref}>
+              <EditableRegion
+                as="span"
+                className="inline-block"
+                binding={siteInfos.bindings.email}
               >
-                <EditableRegion
-                  as="span"
-                  className="inline-block"
-                  binding={siteInfos.bindings.email}
-                >
-                  {siteInfos.email}
-                </EditableRegion>
-              </a>
-            ) : null}
-            .
-          </p>
-        </div>
+                {siteInfos.email}
+              </EditableRegion>
+            </a>
+          ) : null}
+          .
+        </p>
       </main>
+
+      <SiteFooter />
     </div>
   );
 }

@@ -6,14 +6,9 @@ import ogImage from "@/app/og.png";
 import AnalyticsConsentManager from "@/app/components/AnalyticsConsent";
 import EinblickEditBoot from "@/app/components/EinblickEditBoot";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
+const intertopia = localFont({
+  src: "./fonts/IntertopiaVF.woff2",
+  variable: "--font-intertopia",
   weight: "100 900",
 });
 
@@ -42,9 +37,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="de">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={`${intertopia.variable} antialiased`}>
         <EinblickEditBoot>{children}</EinblickEditBoot>
         <AnalyticsConsentManager />
       </body>

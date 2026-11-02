@@ -3,12 +3,9 @@
 import { MoveRight } from "lucide-react";
 
 import { EinblickLoginButton } from "@einblick/editor/react";
-import { cn } from "@/lib/utils";
 
-const badgeClasses = cn(
-  "inline-flex w-fit items-center gap-1.5 rounded-full border border-foreground px-3 py-1 text-base leading-tight whitespace-nowrap",
-  "bg-background text-foreground transition-colors hover:bg-foreground hover:text-background",
-);
+const badgeClasses =
+  "inline-flex w-fit items-center gap-2 leading-tight transition-opacity hover:opacity-60";
 
 export default function EinblickLoginBadge() {
   if (!process.env.NEXT_PUBLIC_EINBLICK_SITE_KEY) {

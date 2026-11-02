@@ -1,304 +1,439 @@
+import { getEinblickAssetUrl } from "@/app/lib/assets";
+import { getCategories, parseHeroText } from "@/app/lib/categories";
 import { getContent } from "@/app/lib/content";
-import { EditableText } from "@einblick/editor/react";
-import { CornerRightUp, Globe, Instagram, Mail } from "lucide-react";
-
-import HeroPathSection from "./components/HeroPathSection";
-import Image from "next/image";
-import MemberItem from "./components/MemberItem";
-import Model3D from "./components/Model3D";
-import PostsSection from "./components/PostsSection";
-import SiteFooter from "./components/SiteFooter";
 import {
   EditableCollection,
+  EditableImage,
   EditableRegion,
+  EditableText,
   createEditableCollectionBinding,
 } from "@einblick/editor/react";
+import { Globe, Instagram, Mail } from "lucide-react";
+import Image from "next/image";
+
+import Badge from "./components/Badge";
+import MemberItem from "./components/MemberItem";
+import PostGallery from "./components/PostGallery";
+import PostsSection from "./components/PostsSection";
+import SectionHead from "./components/SectionHead";
+import { LargeShape, ShapeMask } from "./components/Shapes";
+import SiteFooter from "./components/SiteFooter";
+import SiteHeader from "./components/SiteHeader";
+import { MenuButton } from "./components/SiteMenu";
+import Wireframe from "./components/Wireframe";
+import { cn } from "@/lib/utils";
 import { getSiteInfos } from "@/app/types/infos";
 import { getMembers } from "@/app/types/members";
 import { getHomepagePosts } from "@/app/types/posts";
 import groupImage from "@/app/images/group.jpg";
 
-// const generateRandomPolygonPoints = () => {
-//   const min = 10; // Minimum value for a point
-//   const max = 100; // Maximum value for a point
-//   const points = Array.from({ length: 4 }, () => `${Math.random() * (max - min) + min},${Math.random() * (max - min) + min}`).join(" ");
-//   return points;
-// };
+const HERO_TILES = [
+  { shape: "sideBySidePills", field: "image1", className: "bg-lime" },
+  { shape: "stackedPills", field: "image2", className: "bg-foreground" },
+  { shape: "clover", field: "image3", className: "bg-leaf" },
+  { shape: "cup", field: "image4", className: "bg-lime" },
+] as const;
+
+const FILLER_TILES = [
+  { shape: "stackedPills", className: "bg-lime text-foreground" },
+  { shape: "cup", className: "bg-leaf text-lime" },
+  { shape: "sideBySidePills", className: "bg-foreground text-lime" },
+] as const;
+
+function shuffled<T>(items: T[]) {
+  const result = [...items];
+  for (let i = result.length - 1; i > 0; i--) {
+    // Random member order is an intentional server-rendered presentation choice.
+    const j = Math.floor(Math.random() * (i + 1));
+    [result[i], result[j]] = [result[j], result[i]];
+  }
+  return result;
+}
 
 export default async function Home() {
   const { content, pages } = await getContent();
   const homepagePosts = await getHomepagePosts();
   const members = await getMembers();
   const siteInfos = await getSiteInfos();
-  function shuffleArray(array: (typeof members)[number][]) {
-    for (let i = array.length - 1; i > 0; i--) {
-      // Random member order is an intentional server-rendered presentation choice.
-      // eslint-disable-next-line react-hooks/purity
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
-  }
 
-  const shuffledMembers = shuffleArray([...members]);
+  const { tagline } = parseHeroText(content.home.hero.text);
+  const categories = await getCategories();
+  // Four columns on desktop, two on mobile: colour tiles close the last row.
+  const desktopFillers = (4 - (categories.length % 4)) % 4;
+  const mobileFillers = categories.length % 2;
+
+  // The pinned "space" post is the studio's self-description: it becomes the
+  // statement under the hero instead of an entry in the list of news.
+  const studioPost = homepagePosts.find(
+    (post) => post.pinned && post.kind === "space",
+  );
+  const newsPosts = homepagePosts.filter((post) => post !== studioPost);
+
+  const memberFields = [...new Set(members.map((member) => member.title))].sort(
+    (left, right) => left.localeCompare(right, "de"),
+  );
 
   return (
     <>
-      <div className="items-center justify-items-center gap-16 font-[family-name:var(--font-geist-sans)]">
-        <main className="flex flex-col w-full">
-          {/* FRONT */}
-          <div className="p-4 md:p-8">
-            <EditableRegion as="div" binding={pages.home.binding("hero.text")}>
-              <HeroPathSection text={content.home.hero.text} />
-            </EditableRegion>
+      <SiteHeader />
+      <main id="top">
+        <h1 className="sr-only">
+          {content.home.hero.line1} {content.home.hero.line2}{" "}
+          {content.home.hero.line3}
+        </h1>
+
+        <div className="cells grid-cols-1 md:grid-cols-[minmax(0,1fr)_26.4%]">
+          <div aria-hidden="true" className="px-4 py-3 md:px-7 md:py-[1.2vw]">
+            <EditableText
+              editInline
+              as="span"
+              className="text-display block"
+              binding={pages.home.binding("hero.line1")}
+              placeholder="Text ergänzen"
+            >
+              {content.home.hero.line1}
+            </EditableText>
           </div>
+          <div aria-hidden="true" className="hidden md:block" />
+        </div>
 
-          <PostsSection posts={homepagePosts} showAllPostsLink />
-
-          <div className="h-8" />
-          {/* <div className="px-4 md:px-8">
-            <Marquee
-              className="bg-foreground text-background"
-              elements={["co-working",
-                "workshops",
-                "exhibitions",
-                "events",
-                "design",
-                "architecture",
-                "photography",
-                "nailart",
-                "software development",
-                "UI/UX",
-                "restauration",
-                "conservation"]}
+        <div className="cells grid-cols-[minmax(0,1fr)_auto] md:grid-cols-[minmax(0,1fr)_auto_5.5vw]">
+          <div aria-hidden="true" className="relative overflow-hidden bg-lime">
+            <Wireframe
+              src="/model/wireframe-detail.bin"
+              closeUp
+              className="absolute inset-0 h-full w-full"
             />
-          </div> */}
+          </div>
+          <div
+            aria-hidden="true"
+            className="px-4 py-3 md:px-[2.6vw] md:py-[1.2vw]"
+          >
+            <EditableText
+              editInline
+              as="span"
+              className="text-display block whitespace-nowrap"
+              binding={pages.home.binding("hero.line2")}
+              placeholder="Text ergänzen"
+            >
+              {content.home.hero.line2}
+            </EditableText>
+          </div>
+          <MenuButton className="hidden items-center justify-center transition-colors hover:bg-foreground hover:text-background md:flex">
+            <span className="rotate-180 whitespace-nowrap text-xs [writing-mode:vertical-rl]">
+              cmd/ctrl + k für Menü
+            </span>
+          </MenuButton>
+        </div>
 
-          <div className="h-8" />
+        <div
+          aria-hidden="true"
+          className="border-b px-4 py-3 md:px-7 md:py-[1.2vw]"
+        >
+          <EditableText
+            editInline
+            as="span"
+            className="text-display block"
+            binding={pages.home.binding("hero.line3")}
+            placeholder="Text ergänzen"
+          >
+            {content.home.hero.line3}
+          </EditableText>
+        </div>
 
-          <div className="px-4 md:px-8">
-            <div className="flex pb-8 justify-between items-center w-full pt-4">
+        <div aria-hidden="true" className="grid grid-cols-2 md:grid-cols-4">
+          {HERO_TILES.map(({ shape, field, className }) => {
+            const image = content.home.hero[field];
+            // The code defaults are local files, which the CDN can't resize.
+            const isLocal = image.url.startsWith("/");
+
+            return (
+              <EditableImage
+                key={shape}
+                as="div"
+                binding={pages.home.binding(`hero.${field}`)}
+                placeholder="Bild hinzufügen"
+                className={`group overflow-hidden ${className}`}
+              >
+                {/* Shrinking while turning keeps square corners inside the tile.
+                    The photo undoes that transform, so only the mask moves. */}
+                <ShapeMask
+                  name={shape}
+                  className="relative aspect-square transition-transform duration-700 ease-out group-hover:rotate-90 group-hover:scale-[0.82]"
+                >
+                  <Image
+                    src={isLocal ? image.url : (getEinblickAssetUrl(image) ?? image.url)}
+                    unoptimized={isLocal}
+                    alt=""
+                    fill
+                    sizes="(max-width: 768px) 50vw, 25vw"
+                    className="object-cover transition-transform duration-700 ease-out group-hover:-rotate-90 group-hover:scale-[1.22]"
+                  />
+                </ShapeMask>
+              </EditableImage>
+            );
+          })}
+        </div>
+
+        {studioPost ? (
+          <EditableRegion
+            as="section"
+            binding={studioPost.bindings.region}
+            className="cells md:grid-cols-4"
+          >
+            <div className="px-4 pb-6 pt-16 md:col-span-3 md:px-7 md:pb-7 md:pt-[11vw]">
               <EditableText
                 editInline
-                as="span"
-                className="inline-block text-2xl md:text-5xl"
+                as="p"
+                binding={studioPost.bindings.summary}
+                placeholder="Beschreibung ergänzen"
+                className="text-lead"
+              >
+                {studioPost.summary}
+              </EditableText>
+            </div>
+            <div className="flex flex-col justify-end gap-3 px-4 py-5 md:px-7 md:py-7">
+              <p>{tagline}</p>
+              <Badge href={studioPost.href} variant="link">
+                <EditableText
+                  editInline
+                  as="span"
+                  binding={studioPost.bindings.title}
+                  placeholder="Titel ergänzen"
+                >
+                  {studioPost.title}
+                </EditableText>
+              </Badge>
+            </div>
+          </EditableRegion>
+        ) : null}
+
+        <EditableRegion
+          as="div"
+          binding={pages.home.binding("hero.text")}
+          className="cells grid-cols-2 md:grid-cols-4"
+        >
+          {categories.map(({ key, label, Glyph }) => (
+            <div
+              key={key}
+              className="flex min-h-44 flex-col gap-6 px-4 py-5 md:min-h-[15vw] md:px-7 md:py-7"
+            >
+              <Glyph className="h-9 w-9 flex-none md:h-11 md:w-11" />
+              <span className="text-sub first-letter:uppercase">{label}</span>
+            </div>
+          ))}
+          {FILLER_TILES.slice(0, desktopFillers).map(
+            ({ shape, className }, index) => (
+              <div
+                key={shape}
+                aria-hidden="true"
+                className={`${index < mobileFillers ? "flex" : "hidden md:flex"} items-center justify-center overflow-hidden ${className}`}
+              >
+                <LargeShape name={shape} className="h-full max-h-44 md:max-h-[15vw]" />
+              </div>
+            ),
+          )}
+        </EditableRegion>
+
+        {studioPost?.galleryImages.length ? (
+          <EditableRegion
+            as="div"
+            binding={studioPost.bindings.gallery}
+            className="border-b"
+          >
+            <PostGallery
+              images={studioPost.galleryImages}
+              initialImageLimit={8}
+              title={studioPost.title}
+            />
+          </EditableRegion>
+        ) : null}
+
+        <section id="aktuelles">
+          <SectionHead
+            title={
+              <EditableText
+                editInline
+                as="h2"
+                className="text-display"
+                binding={pages.home.binding("posts.heading")}
+                placeholder="Überschrift ergänzen"
+              >
+                {content.home.posts.heading}
+              </EditableText>
+            }
+            aside={
+              <EditableText
+                editInline
+                as="p"
+                binding={pages.archive.binding("intro.intro")}
+                placeholder="Text ergänzen"
+              >
+                {content.archive.intro.intro}
+              </EditableText>
+            }
+          />
+          <PostsSection posts={newsPosts} showAllPostsLink />
+        </section>
+
+        <section id="raum">
+          <SectionHead
+            title={
+              <EditableText
+                editInline
+                as="h2"
+                className="text-display"
                 binding={pages.home.binding("model.heading")}
                 placeholder="Überschrift ergänzen"
               >
                 {content.home.model.heading}
               </EditableText>
-              <a href="#top">
-                <CornerRightUp className="w-6 h-6 " />
-              </a>
-            </div>
-            <Model3D />
+            }
+          />
+          <div className="border-b bg-lime">
+            <Wireframe
+              src="/model/wireframe.bin"
+              className="aspect-[4/3] max-h-[85vh] w-full md:aspect-[2/1]"
+            />
           </div>
+        </section>
 
-          <div className="h-8" />
-
-          {/* ABOUT */}
-          {/* <div className="flex flex-col gap-8 px-4 md:px-8 pt-8">
-            <div className=" flex items-start flex-col gap-4 md:col-span-2 justify-start relative ">
-              <div className="flex justify-between items-center w-full border-t border-foreground pt-4">
-                <span className="text-2xl md:text-5xl">Über uns</span>
-                <a href="#top">
-                  <CornerRightUp className="w-6 h-6 " />
-                </a>
-              </div>
-              <div className="flex gap-8 w-full flex-col md:flex-row">
-                <div className="flex flex-col gap-8">
-                  <div className=" rounded-3xl contrast-2 group-hover:scale-110 transition-all transform border-foreground border ">
-                    <div className="p-4">
-                      <span className="text-xl rounded-full text-background bg-foreground py-1 px-2 ">Hello</span>
-                      <span className=" text-xl py-1 px-2">Wir sind gerne auf unserem Dach und freuen uns über neue Ideen und Projekte.</span>
-                    </div>
-
-                    <Marquee speed={2} direction="ltr" className="bg-background text-foreground" elements={[<BeanOff key={1} />, <Bean key={2} />, <BeanOff key={4} />, <Bean key={5} />, <BeanOff key={6} />, <Bean key={7} />, <BeanOff key={8} />, <Bean key={9} />, <BeanOff key={10} />, <Bean key={11} />, <BeanOff key={12} />, <Bean key={13} />, <BeanOff key={14} />]} />
-                    <div className="p-4">
-                      <span className=" text-xl py-1 px-2">Wir arbeiten einzeln, zusammen und in Teams. Wir sind eine Gruppe aus Menschen mit unterschiedlichen Hintergründen und Interessen. Wir arbeiten an Projekten, die sich an der Zukunft und unserer Zukunft orientieren. Wir sind ein Team von Menschen, die sich für Innovation und Entwicklung einsetzen.</span>
-                    </div>
-                  </div>
-                  <div className="p-4 rounded-3xl contrast-2 border-foreground border ">
-                    <span className="text-xl rounded-full text-background bg-foreground py-1 px-2 ">Hello</span>
-                    <span className=" text-xl py-1 px-2">Wir sind gerne auf unserem Dach und freuen uns über neue Ideen und Projekte.</span>
-                  </div>
-                </div>
-                <div className="  border-foreground w-full flex flex-col gap-4 justify-between text-woit bg-foreground border overflow-hidden relative rounded-3xl p-4">
-                  <div className="flex justify-between ">
-                    <Cctv className=" w-12 h-12" />
-                    <div className="h-3 w-3 bg-current rounded-full  relative">
-                      <div className="h-3 w-3 bg-current rounded-full absolute animate-ping" />
-                    </div>
-                  </div>
-                  <div className="flex flex-col gap-2">
-                    <span className="self-end text-xl">{new Date().toDateString()}</span>
-                    <hr className="border-current" />
-                    <span className="self-end text-xl font-bold">Zieglergasse Dach</span>
-                  </div>
-                  <div className=" h-[50vh] w-full relative">
-                    <video className=" pointer-events-none h-full w-full object-cover rounded-2xl" autoPlay loop muted>
-                      <source src="outside.mp4" type="video/mp4" />
-                    </video>
-                    <span className="absolute bottom-4 right-4 text-3xl text-woit">
-                      <Clock />
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> */}
-
-          {/* MEMBERS */}
-          <div className="flex flex-col gap-8 py-8 px-4 md:px-8">
-            <div className="flex justify-between items-center w-full">
+        <section id="wer-wir-sind">
+          <SectionHead
+            title={
               <EditableText
                 editInline
-                as="span"
-                className="inline-block text-2xl md:text-5xl"
+                as="h2"
+                className="text-display"
                 binding={pages.home.binding("members.heading")}
                 placeholder="Überschrift ergänzen"
               >
                 {content.home.members.heading}
               </EditableText>
-              <a href="#top">
-                <CornerRightUp className="w-6 h-6 " />
-              </a>
-              {/* <div className="flex gap-2">
-                  <MailButton />
-                </div> */}
-            </div>
-            <EditableCollection
-              as="div"
-              binding={createEditableCollectionBinding({
-                resourceSlug: "members",
-                label: "Members",
-              })}
-              showCreateButton
-              className="flex flex-col gap-8"
-            >
-              {shuffledMembers.map((member, index) => (
-                <MemberItem
-                  key={member.name}
-                  member={member}
-                  switched={index}
-                />
-              ))}
-            </EditableCollection>
-          </div>
+            }
+            aside={<p>{memberFields.join(", ")}</p>}
+          />
+          <EditableCollection
+            as="div"
+            binding={createEditableCollectionBinding({
+              resourceSlug: "members",
+              label: "Members",
+            })}
+            showCreateButton
+            createButtonWrapperClassName="p-4 md:px-7"
+            className="cells grid-cols-2 xl:grid-cols-4"
+          >
+            {shuffled(members).map((member) => (
+              <MemberItem key={member.name} member={member} />
+            ))}
+          </EditableCollection>
+        </section>
 
-          {/* KONTAKT */}
-          <div className="flex flex-col gap-8 py-8 px-4 md:px-8">
-            <div className="member-content flex items-start flex-col gap-4 md:col-span-2 justify-start relative">
-              <div className="flex justify-between items-center w-full ">
-                <EditableText
-                  editInline
-                  as="span"
-                  className="inline-block text-2xl md:text-5xl"
-                  binding={pages.home.binding("contact.heading")}
-                  placeholder="Überschrift ergänzen"
-                >
-                  {content.home.contact.heading}
-                </EditableText>
-                <a href="#top">
-                  <CornerRightUp className="w-6 h-6 " />
-                </a>
-                {/* <div className="flex gap-2">
-                  <MailButton />
-                </div> */}
-              </div>
-              <div className="flex gap-8 w-full flex-col md:flex-row">
-                {siteInfos.emailHref && siteInfos.email ? (
-                  <a
-                    href={siteInfos.emailHref}
-                    className="border-foreground hover:bg-background transition-colors hover:text-foreground w-full flex flex-col gap-4 justify-between text-woit bg-foreground border overflow-hidden relative rounded-3xl p-4"
-                  >
-                    <Mail className="w-12 h-12" />
-                    <div className="flex flex-col gap-2">
-                      <hr className="border-current" />
-                      <EditableRegion
-                        as="span"
-                        binding={siteInfos.bindings.email}
-                        className="self-end text-xl"
-                      >
-                        {siteInfos.email}
-                      </EditableRegion>
-                    </div>
-                  </a>
-                ) : null}
-                {siteInfos.instagramHref ? (
-                  <a
-                    href={siteInfos.instagramHref}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="border-foreground hover:bg-background transition-colors hover:text-foreground w-full flex flex-col gap-4 justify-between text-woit bg-foreground border overflow-hidden relative rounded-3xl p-4"
-                  >
-                    <Instagram className="w-12 h-12" />
-                    <div className="flex flex-col gap-2">
-                      <hr className="border-current" />
-                      <EditableRegion
-                        as="span"
-                        binding={siteInfos.bindings.instagram}
-                        className="self-end text-xl"
-                      >
-                        {siteInfos.instagramLabel ?? "Instagram"}
-                      </EditableRegion>
-                    </div>
-                  </a>
-                ) : null}
-                {siteInfos.websiteHref ? (
-                  <a
-                    href={siteInfos.websiteHref}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="border-foreground hover:bg-background transition-colors hover:text-foreground w-full flex flex-col gap-4 justify-between text-woit bg-foreground border overflow-hidden relative rounded-3xl p-4"
-                  >
-                    <Globe className="w-12 h-12" />
-                    <div className="flex flex-col gap-2">
-                      <hr className="border-current" />
-                      <EditableRegion
-                        as="span"
-                        binding={siteInfos.bindings.website}
-                        className="self-end text-xl"
-                      >
-                        {siteInfos.websiteLabel ?? "Website"}
-                      </EditableRegion>
-                    </div>
-                  </a>
-                ) : null}
-                <Image
-                  unoptimized
-                  src={groupImage}
-                  alt="Gruppenfoto"
-                  width={1280}
-                  height={960}
-                  loading="lazy"
-                  sizes="(max-width: 768px) calc(100vw - 2rem), 33vw"
-                  className="h-64 w-full rounded-3xl object-cover filter grayscalesss contrast-2 transition-all transform group-hover:scale-110"
-                />
-              </div>
-              {/* <div className="border-foreground border overflow-hidden relative rounded-3xl w-full p-4">
-                <span className="text-xl py-1 px-2">Hallo</span>
-              </div> */}
+        <section id="kontakt">
+          <SectionHead
+            title={
+              <EditableText
+                editInline
+                as="h2"
+                className="text-display"
+                binding={pages.home.binding("contact.heading")}
+                placeholder="Überschrift ergänzen"
+              >
+                {content.home.contact.heading}
+              </EditableText>
+            }
+            aside={<p>Zieglergasse 57, 1070 Wien</p>}
+          />
+          <div className="cells grid-cols-2 md:grid-cols-4">
+            {siteInfos.emailHref && siteInfos.email ? (
+              <ContactTile
+                href={siteInfos.emailHref}
+                icon={<Mail className="h-8 w-8 md:h-11 md:w-11" strokeWidth={1.5} />}
+                label="E-Mail"
+                className="bg-lime"
+              >
+                <EditableRegion as="span" binding={siteInfos.bindings.email}>
+                  {siteInfos.email}
+                </EditableRegion>
+              </ContactTile>
+            ) : null}
+            {siteInfos.instagramHref ? (
+              <ContactTile
+                href={siteInfos.instagramHref}
+                external
+                icon={<Instagram className="h-8 w-8 md:h-11 md:w-11" strokeWidth={1.5} />}
+                label="Instagram"
+                className="bg-leaf"
+              >
+                <EditableRegion as="span" binding={siteInfos.bindings.instagram}>
+                  {siteInfos.instagramLabel ?? "Instagram"}
+                </EditableRegion>
+              </ContactTile>
+            ) : null}
+            {siteInfos.websiteHref ? (
+              <ContactTile
+                href={siteInfos.websiteHref}
+                external
+                icon={<Globe className="h-8 w-8 md:h-11 md:w-11" strokeWidth={1.5} />}
+                label="Website"
+                className="bg-foreground text-background hover:bg-lime hover:text-foreground"
+              >
+                <EditableRegion as="span" binding={siteInfos.bindings.website}>
+                  {siteInfos.websiteLabel ?? "Website"}
+                </EditableRegion>
+              </ContactTile>
+            ) : null}
+            <div className="relative aspect-square overflow-hidden">
+              <Image
+                unoptimized
+                src={groupImage}
+                alt="Gruppenfoto"
+                fill
+                loading="lazy"
+                sizes="(max-width: 768px) 50vw, 25vw"
+                className="object-cover"
+              />
             </div>
           </div>
-        </main>
-        <SiteFooter />
-
-        {/* <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a className="flex items-center gap-2 hover:underline hover:underline-offset-4" href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app" target="_blank" rel="noopener noreferrer">
-          <Image aria-hidden unoptimized src="https://nextjs.org/icons/file.svg" alt="File icon" width={16} height={16} />
-          Learn
-        </a>
-        <a className="flex items-center gap-2 hover:underline hover:underline-offset-4" href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app" target="_blank" rel="noopener noreferrer">
-          <Image aria-hidden unoptimized src="https://nextjs.org/icons/window.svg" alt="Window icon" width={16} height={16} />
-          Examples
-        </a>
-        <a className="flex items-center gap-2 hover:underline hover:underline-offset-4" href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app" target="_blank" rel="noopener noreferrer">
-          <Image aria-hidden unoptimized src="https://nextjs.org/icons/globe.svg" alt="Globe icon" width={16} height={16} />
-          Go to nextjs.org →
-        </a>
-      </footer> */}
-      </div>
+        </section>
+      </main>
+      <SiteFooter />
     </>
+  );
+}
+
+function ContactTile({
+  href,
+  external = false,
+  icon,
+  label,
+  className,
+  children,
+}: {
+  href: string;
+  external?: boolean;
+  icon: React.ReactNode;
+  label: string;
+  className: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <a
+      href={href}
+      target={external ? "_blank" : undefined}
+      rel={external ? "noreferrer" : undefined}
+      className={cn(
+        "flex aspect-square flex-col justify-between p-4 transition-colors hover:bg-foreground hover:text-background md:p-7",
+        className,
+      )}
+    >
+      {icon}
+      <span className="flex flex-col gap-1">
+        <span>{label}</span>
+        <span className="text-sub break-words">
+          {children}
+        </span>
+      </span>
+    </a>
   );
 }

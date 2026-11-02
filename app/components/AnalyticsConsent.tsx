@@ -122,14 +122,14 @@ export default function AnalyticsConsentManager() {
         <section
           aria-label="Datenschutz-Einstellungen"
           aria-live="polite"
-          className="fixed inset-x-0 bottom-[var(--einblick-editor-bottom-offset,0px)] z-[100] w-full rounded-t-[2rem] border border-foreground bg-background p-5 md:p-6"
+          className="fixed inset-x-0 bottom-[var(--einblick-editor-bottom-offset,0px)] z-[100] w-full border-t border-foreground bg-background p-5 md:p-6"
           data-einblick-chrome
         >
           <div className="mx-auto w-full max-w-4xl">
-            <h2 className="text-2xl font-semibold tracking-tight">
+            <h2 className="text-sub">
               Privatsphäre und Datenschutz
             </h2>
-            <p className="mt-3 max-w-2xl text-sm leading-relaxed md:text-base">
+            <p className="mt-3 max-w-2xl">
               Wir verwenden notwendige lokale Speicherung, um deine Auswahl zu
               merken. Eine optionale cookieless Reichweitenmessung wird erst
               nach deiner Zustimmung aktiviert. Ohne Entscheidung bleibt jede
@@ -143,28 +143,28 @@ export default function AnalyticsConsentManager() {
               .
             </p>
             {globalPrivacyControl ? (
-              <p className="mt-3 rounded-2xl border border-foreground px-4 py-3 text-sm">
+              <p className="mt-3 border border-foreground px-4 py-3">
                 Dein Browser sendet Global Privacy Control. Deshalb bleibt die
                 Reichweitenmessung unabhängig von der Auswahl deaktiviert.
               </p>
             ) : null}
             <div className="mt-5 grid gap-2 sm:grid-cols-3">
               <button
-                className="rounded-full border border-foreground px-4 py-2.5 text-sm font-medium transition-colors hover:bg-foreground hover:text-background"
+                className="border border-foreground px-4 py-2.5 font-medium transition-colors hover:bg-foreground hover:text-background"
                 onClick={() => saveDecision("denied")}
                 type="button"
               >
                 Ablehnen
               </button>
               <button
-                className="rounded-full border border-foreground px-4 py-2.5 text-sm font-medium transition-colors hover:bg-foreground hover:text-background"
+                className="border border-foreground px-4 py-2.5 font-medium transition-colors hover:bg-foreground hover:text-background"
                 onClick={openPreferences}
                 type="button"
               >
                 Anpassen
               </button>
               <button
-                className="rounded-full border border-foreground bg-foreground px-4 py-2.5 text-sm font-medium text-background transition-opacity hover:opacity-75 disabled:cursor-not-allowed disabled:opacity-40"
+                className="border border-foreground bg-foreground px-4 py-2.5 font-medium text-background transition-colors hover:bg-lime hover:text-foreground disabled:cursor-not-allowed disabled:opacity-40"
                 disabled={globalPrivacyControl}
                 onClick={() => saveDecision("granted")}
                 type="button"
@@ -180,21 +180,21 @@ export default function AnalyticsConsentManager() {
         <section
           aria-label="Individuelle Datenschutz-Einstellungen"
           aria-live="polite"
-          className="fixed inset-x-0 bottom-[var(--einblick-editor-bottom-offset,0px)] z-[100] w-full rounded-t-[2rem] border border-foreground bg-background p-5 md:p-6"
+          className="fixed inset-x-0 bottom-[var(--einblick-editor-bottom-offset,0px)] z-[100] w-full border-t border-foreground bg-background p-5 md:p-6"
           data-einblick-chrome
         >
           <div className="mx-auto w-full max-w-4xl">
-            <p className="text-sm text-foreground/60">
+            <p>
               Datenschutz-Einstellungen
             </p>
-            <h2 className="mt-2 text-2xl font-semibold tracking-tight">
+            <h2 className="mt-2 text-sub">
               Auswahl anpassen
             </h2>
             <div className="mt-5 divide-y divide-foreground/25 border-y border-foreground/25">
               <div className="flex items-start justify-between gap-5 py-4">
                 <div>
-                  <h3 className="font-semibold">Notwendige Speicherung</h3>
-                  <p className="mt-1 text-sm leading-relaxed text-foreground/75">
+                  <h3 className="font-medium">Notwendige Speicherung</h3>
+                  <p className="mt-1">
                     Speichert nur deine Auswahl in diesem Browser. Sie ist für
                     die Verwaltung und den Widerruf deiner Entscheidung
                     erforderlich.
@@ -211,13 +211,13 @@ export default function AnalyticsConsentManager() {
               </div>
               <div className="flex items-start justify-between gap-5 py-4">
                 <div>
-                  <h3 className="font-semibold">Einblick Analytics</h3>
-                  <p className="mt-1 text-sm leading-relaxed text-foreground/75">
+                  <h3 className="font-medium">Einblick Analytics</h3>
+                  <p className="mt-1">
                     Cookieless und pseudonymisiert. Hilft uns, Aufrufe und die
                     Nutzung der Website zu verstehen.
                   </p>
                   {globalPrivacyControl ? (
-                    <p className="mt-2 text-sm font-medium">
+                    <p className="mt-2 font-medium">
                       Durch Global Privacy Control deaktiviert.
                     </p>
                   ) : null}
@@ -234,21 +234,21 @@ export default function AnalyticsConsentManager() {
             </div>
             <div className="mt-5 grid gap-2 sm:grid-cols-3">
               <button
-                className="rounded-full border border-foreground px-4 py-2.5 text-sm font-medium transition-colors hover:bg-foreground hover:text-background"
+                className="border border-foreground px-4 py-2.5 font-medium transition-colors hover:bg-foreground hover:text-background"
                 onClick={() => saveDecision("denied")}
                 type="button"
               >
                 Alle ablehnen
               </button>
               <button
-                className="rounded-full border border-foreground px-4 py-2.5 text-sm font-medium transition-colors hover:bg-foreground hover:text-background"
+                className="border border-foreground px-4 py-2.5 font-medium transition-colors hover:bg-foreground hover:text-background"
                 onClick={() => setView(consent === "unknown" ? "banner" : null)}
                 type="button"
               >
                 Zurück
               </button>
               <button
-                className="rounded-full border border-foreground bg-foreground px-4 py-2.5 text-sm font-medium text-background transition-opacity hover:opacity-75"
+                className="border border-foreground bg-foreground px-4 py-2.5 font-medium text-background transition-colors hover:bg-lime hover:text-foreground"
                 onClick={() =>
                   saveDecision(draftAnalytics ? "granted" : "denied")
                 }

@@ -1,3 +1,5 @@
+import { networkInterfaces } from "node:os";
+
 /** @type {import('next').NextConfig} */
 const einblickApiUrl =
   process.env.EINBLICK_API_URL ??
@@ -5,7 +7,15 @@ const einblickApiUrl =
   "https://actions.einblick.xyz";
 const einblickApiHostname = new URL(einblickApiUrl).hostname;
 
+// Lets a phone on the same network open the dev server at this machine's IP;
+// without this Next answers 403 for its scripts and the page never hydrates.
+const lanAddresses = Object.values(networkInterfaces())
+  .flat()
+  .filter((address) => address.family === "IPv4" && !address.internal)
+  .map((address) => address.address);
+
 const nextConfig = {
+  allowedDevOrigins: lanAddresses,
   experimental: {
     serverActions: {
       bodySizeLimit: '10mb', // Increase from default 1MB to 10MB

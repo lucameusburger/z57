@@ -8,6 +8,8 @@ export default function PrivacySettingsBadge() {
   return (
     <Badge
       data-einblick-chrome
+      variant="link"
+      className="text-left"
       aria-label="Datenschutz-Einstellungen öffnen"
       onClick={() =>
         window.dispatchEvent(new Event(OPEN_PRIVACY_SETTINGS_EVENT))

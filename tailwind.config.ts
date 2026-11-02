@@ -5,8 +5,11 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        background: "rgb(var(--background-rgb) / <alpha-value>)",
+        foreground: "rgb(var(--foreground-rgb) / <alpha-value>)",
+        line: "var(--line)",
+        lime: "#defe51",
+        leaf: "#65d87d",
         blue: {
           "50": "#e8f5ff",
           "100": "#d5ecff",
@@ -23,6 +26,9 @@ const config: Config = {
         paulblau: "#7678bf",
         woit: "#f7f1f3",
         stella: "#C04021",
+      },
+      borderColor: {
+        DEFAULT: "var(--line)",
       },
       backgroundImage: {
         glass: "url('./images/group-glass.jpg')",

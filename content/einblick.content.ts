@@ -9,10 +9,44 @@ export const content = defineSiteContent({
       path: "/",
       sections: {
         hero: section("Hero", {
+          line1: field.string({
+            label: "Headline Zeile 1",
+            default: "Atelier",
+          }),
+          line2: field.string({
+            label: "Headline Zeile 2",
+            default: "& Studio",
+          }),
+          line3: field.string({
+            label: "Headline Zeile 3",
+            default: "Space Vienna",
+          }),
+          image1: field.image({
+            label: "Bild 1 (zwei Pillen, hochkant)",
+            default: { id: "hero-stairs", url: "/images/hero/stairs.webp" },
+          }),
+          image2: field.image({
+            label: "Bild 2 (zwei Pillen, quer)",
+            default: { id: "hero-greenhouse", url: "/images/hero/greenhouse.webp" },
+          }),
+          image3: field.image({
+            label: "Bild 3 (Kleeblatt)",
+            default: { id: "hero-wheel", url: "/images/hero/wheel.webp" },
+          }),
+          image4: field.image({
+            label: "Bild 4 (Becher)",
+            default: { id: "hero-kitchen", url: "/images/hero/kitchen.webp" },
+          }),
           text: field.text({
             label: "Text",
             default:
               "z57 atelier and studio space vienna . grafik . nailart . architektur . webentwicklung . fotografie . design . exhibitions . workshops . co-working . ",
+          }),
+        }),
+        posts: section("Posts", {
+          heading: field.string({
+            label: "Überschrift",
+            default: "Aktuelles",
           }),
         }),
         model: section("Raum", {
