@@ -35,3 +35,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# 3D model sources (35 MB each), input of `pnpm model:build`
+/model-source

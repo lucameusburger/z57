@@ -14,6 +14,13 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Anchor targets land below the header, which is sticky on mobile. */
+@media (max-width: 767px) {
+  html {
+    scroll-padding-top: 3.5rem;
+  }
+}
+
 html,
 body {
   overflow-x: clip;

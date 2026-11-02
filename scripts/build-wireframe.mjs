@@ -15,7 +15,7 @@
 import { createReadStream, writeFileSync } from "node:fs";
 import { createInterface } from "node:readline";
 
-const SOURCE = "public/model/model.obj";
+const SOURCE = "model-source/model.obj";
 const OUTPUTS = [
   // The whole building, centred on its bounding box.
   { file: "public/model/wireframe.bin", cellSize: 0.06 },

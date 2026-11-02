@@ -22,6 +22,25 @@ function isEditing(target: EventTarget | null) {
   );
 }
 
+function showMenu(dialog: HTMLDialogElement) {
+  if (!dialog.open) {
+    dialog.showModal();
+    // Commits the hidden state, so setting `visible` runs the transition.
+    dialog.getBoundingClientRect();
+  }
+  dialog.dataset.visible = "";
+}
+
+/** Closes once the transition ends; right away if motion is reduced. */
+async function hideMenu(dialog: HTMLDialogElement) {
+  delete dialog.dataset.visible;
+  await Promise.allSettled(
+    dialog.getAnimations().map((animation) => animation.finished),
+  );
+  // Reopened while the transition was running.
+  if (!("visible" in dialog.dataset)) dialog.close();
+}
+
 export function MenuButton({
   className,
   children,
@@ -52,7 +71,7 @@ export default function SiteMenu({
 
   useEffect(() => {
     const open = () => {
-      if (!dialogRef.current?.open) dialogRef.current?.showModal();
+      if (dialogRef.current) showMenu(dialogRef.current);
     };
     const handleKeyDown = (event: KeyboardEvent) => {
       if (
@@ -64,8 +83,8 @@ export default function SiteMenu({
       }
 
       event.preventDefault();
-      if (dialogRef.current?.open) {
-        dialogRef.current.close();
+      if (dialogRef.current && "visible" in dialogRef.current.dataset) {
+        void hideMenu(dialogRef.current);
       } else {
         open();
       }
@@ -80,14 +99,21 @@ export default function SiteMenu({
     };
   }, []);
 
-  const close = () => dialogRef.current?.close();
+  const close = () => {
+    if (dialogRef.current) void hideMenu(dialogRef.current);
+  };
 
   return (
     <dialog
       ref={dialogRef}
       aria-label="Menü"
       data-einblick-chrome
-      className="m-0 h-dvh max-h-none w-full max-w-none overflow-y-auto bg-foreground text-background [--line:rgb(var(--background-rgb)/0.4)] backdrop:bg-transparent"
+      onCancel={(event) => {
+        event.preventDefault();
+        close();
+      }}
+      onClose={(event) => delete event.currentTarget.dataset.visible}
+      className="m-0 h-dvh max-h-none w-full max-w-none overflow-y-auto bg-foreground text-background transition-[clip-path] duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] [--line:rgb(var(--background-rgb)/0.4)] [clip-path:inset(0_0_100%_0)] backdrop:bg-transparent data-[visible]:[clip-path:inset(0)] motion-reduce:transition-none"
     >
       <div className="flex min-h-full flex-col">
         <div className="flex h-14 items-center justify-between border-b px-4 md:h-[4.4rem] md:px-7">

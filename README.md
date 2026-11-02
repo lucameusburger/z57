@@ -37,6 +37,6 @@ new content pages.
 ## 3D model
 
 The spinning wireframes on the homepage draw two files baked from
-`public/model/model.obj` by `pnpm model:build`: `wireframe.bin` (the whole
+`model-source/model.obj` by `pnpm model:build`: `wireframe.bin` (the whole
 building) and `wireframe-detail.bin` (a small crop for the hero's close-up). The
 settings are at the top of `scripts/build-wireframe.mjs`.
