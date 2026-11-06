@@ -4,7 +4,6 @@ import { X } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useRef, type ReactNode } from "react";
 
-import { CloverGlyph } from "./Shapes";
 
 const OPEN_MENU_EVENT = "z57:open-menu";
 
@@ -120,10 +119,9 @@ export default function SiteMenu({
           <Link
             href="/"
             onClick={close}
-            className="flex items-center gap-2 font-medium transition-colors hover:text-lime"
+            className="flex items-center font-medium transition-colors hover:text-lime"
           >
-            <CloverGlyph className="h-4 w-4 md:h-5 md:w-5" />
-            z57
+            Z57
           </Link>
           <button
             type="button"

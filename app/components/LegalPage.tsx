@@ -36,7 +36,7 @@ export default function LegalPage({
 
       <main className="flex-1">
         <SectionHead
-          title={<h1 className="text-display break-words">{title}</h1>}
+          title={<h1 className="text-heading break-words">{title}</h1>}
           aside={<p>Stand: {updatedAt}</p>}
         />
 

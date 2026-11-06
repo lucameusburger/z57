@@ -367,7 +367,7 @@ export default function EinblickForm({
         }
         if (question.type === "statement") {
           return (
-            <div key={question.id} className="border-y bg-leaf/30 px-4 py-6 md:px-7 md:py-8">
+            <div key={question.id} className="border-y bg-lime/30 px-4 py-6 md:px-7 md:py-8">
               {question.label ? <h2 className="text-sub">{question.label}</h2> : null}
               {question.content || question.description ? (
                 <p className="mt-2 max-w-3xl whitespace-pre-line">

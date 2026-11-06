@@ -34,6 +34,16 @@ body {
   line-height: 1.45;
 }
 
+@layer base {
+  /* The page content is an opaque sheet above the footer, which waits pinned
+     to the bottom of the screen and is revealed as the content scrolls away. */
+  main {
+    background: var(--background);
+    position: relative;
+    z-index: 10;
+  }
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
@@ -43,6 +53,14 @@ body {
 @layer components {
   .text-display {
     font-size: 13.5vw;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+
+  /* Section and page headings: a step below the hero's display size. */
+  .text-heading {
+    font-size: 12vw;
     font-weight: 500;
     letter-spacing: -0.02em;
     line-height: 1;
@@ -152,6 +170,10 @@ body {
 
   .text-display {
     font-size: clamp(2.75rem, 10.4vw, 12rem);
+  }
+
+  .text-heading {
+    font-size: clamp(2.75rem, 6.5vw, 7.5rem);
   }
 
   .text-sub,

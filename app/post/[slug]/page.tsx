@@ -5,7 +5,7 @@ import {
 } from "@/app/types/posts";
 
 import BackButton from "@/app/components/BackButton";
-import CategoryBadge from "@/app/components/CategoryBadge";
+import Badge from "@/app/components/Badge";
 import Image from "next/image";
 import JsonLd from "@/app/components/JsonLd";
 import Link from "next/link";
@@ -129,7 +129,7 @@ export default async function PostPage({ params }: PostPageProps) {
               as="h1"
               binding={post.bindings.title}
               placeholder="Titel ergänzen"
-              className="text-display break-words"
+              className="text-heading break-words"
             >
               {post.title}
             </EditableText>
@@ -137,7 +137,7 @@ export default async function PostPage({ params }: PostPageProps) {
 
           <div className="cells grid-cols-2 md:grid-cols-4">
             <MetaCell label="Art" plain>
-              <CategoryBadge label={post.kind}>
+              <Badge className="rounded-full">
                 <EditableRegion
                   editInline
                   as="span"
@@ -146,7 +146,7 @@ export default async function PostPage({ params }: PostPageProps) {
                 >
                   {post.kind}
                 </EditableRegion>
-              </CategoryBadge>
+              </Badge>
             </MetaCell>
             <MetaCell label="Veröffentlicht">
               <EditableRegion
@@ -168,7 +168,7 @@ export default async function PostPage({ params }: PostPageProps) {
                   {post.locationLabel}
                 </EditableText>
               ) : (
-                "z57"
+                "Z57"
               )}
             </MetaCell>
             <MetaCell label="Termine">

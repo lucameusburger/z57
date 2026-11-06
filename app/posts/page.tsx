@@ -10,7 +10,7 @@ import { getAllPosts } from "@/app/types/posts";
 
 export const metadata = pageMetadata({
   title: "Alle Posts",
-  description: "Alle Posts, Rückblicke und Einblicke aus dem Atelier z57.",
+  description: "Alle Posts, Rückblicke und Einblicke aus dem Atelier Z57.",
   path: "/posts",
 });
 
@@ -27,7 +27,7 @@ export default async function PostsPage() {
             <EditableText
               editInline
               as="h1"
-              className="text-display"
+              className="text-heading"
               binding={pages.archive.binding("intro.heading")}
               placeholder="Text ergänzen"
             >

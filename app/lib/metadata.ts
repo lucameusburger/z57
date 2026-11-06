@@ -4,10 +4,10 @@ import ogImage from "@/app/og.png";
 
 /** The canonical host: z57.at redirects here. */
 export const SITE_URL = "https://www.z57.at";
-export const SITE_NAME = "z57";
-export const SITE_TITLE = "z57 – Atelier & Studio Space in Wien";
+export const SITE_NAME = "Z57";
+export const SITE_TITLE = "Z57 – Atelier & Studio Space in Wien";
 export const SITE_DESCRIPTION =
-  "z57 ist ein Atelier und Studio Space in Wien für Grafik, Nailart, Architektur, Webentwicklung, Fotografie und Design, mit Ausstellungen, Workshops und Co-Working.";
+  "Z57 ist ein Atelier und Studio Space in Wien für Grafik, Nailart, Architektur, Webentwicklung, Fotografie und Design, mit Ausstellungen, Workshops und Co-Working.";
 
 const MAX_DESCRIPTION_LENGTH = 160;
 
@@ -16,7 +16,7 @@ export const DEFAULT_OG_IMAGE = {
   width: ogImage.width,
   height: ogImage.height,
   type: "image/png",
-  alt: "z57 – Atelier & Studio Space Vienna",
+  alt: "Z57 – Atelier & Studio Space Vienna",
 };
 
 interface PageMetadataOptions {

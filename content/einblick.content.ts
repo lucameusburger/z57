@@ -40,7 +40,7 @@ export const content = defineSiteContent({
           text: field.text({
             label: "Text",
             default:
-              "z57 atelier and studio space vienna . grafik . nailart . architektur . webentwicklung . fotografie . design . exhibitions . workshops . co-working . ",
+              "Z57 atelier and studio space vienna . grafik . nailart . architektur . webentwicklung . fotografie . design . exhibitions . workshops . co-working . ",
           }),
         }),
         wintermarkt: section("Wintermarkt", {
@@ -91,7 +91,7 @@ export const content = defineSiteContent({
           paragraph1: field.text({
             label: "Absatz 1",
             default:
-              "Angaben gemäß den österreichischen Informationspflichten für diese Website und die Kommunikation rund um das Atelier z57.",
+              "Angaben gemäß den österreichischen Informationspflichten für diese Website und die Kommunikation rund um das Atelier Z57.",
           }),
           title: field.string({ label: "Titel", default: "Impressum" }),
           updatedAt: field.string({ label: "Stand", default: "7. März 2026" }),
@@ -101,7 +101,7 @@ export const content = defineSiteContent({
             label: "Überschrift",
             default: "Medieninhaber und Herausgeber",
           }),
-          paragraph1: field.text({ label: "Absatz 1", default: "z57" }),
+          paragraph1: field.text({ label: "Absatz 1", default: "Z57" }),
           paragraph2: field.text({
             label: "Absatz 2",
             default: "ZVR 1169564571",
@@ -119,7 +119,7 @@ export const content = defineSiteContent({
           paragraph1: field.text({
             label: "Absatz 1",
             default:
-              "Diese Website informiert über das Atelier z57, seine Mitglieder, Veranstaltungen, Projekte und Kontaktmöglichkeiten.",
+              "Diese Website informiert über das Atelier Z57, seine Mitglieder, Veranstaltungen, Projekte und Kontaktmöglichkeiten.",
           }),
         }),
         responsibility: section("Inhaltliche Verantwortung", {
@@ -130,7 +130,7 @@ export const content = defineSiteContent({
           paragraph1: field.text({
             label: "Absatz 1",
             default:
-              "Für die Inhalte dieser Website verantwortlich ist z57, erreichbar unter den oben genannten Kontaktdaten.",
+              "Für die Inhalte dieser Website verantwortlich ist Z57, erreichbar unter den oben genannten Kontaktdaten.",
           }),
         }),
         liability: section("Haftung für Inhalte und Links", {
@@ -180,7 +180,7 @@ export const content = defineSiteContent({
             label: "Überschrift",
             default: "Verantwortliche Stelle",
           }),
-          paragraph1: field.text({ label: "Absatz 1", default: "z57" }),
+          paragraph1: field.text({ label: "Absatz 1", default: "Z57" }),
           paragraph2: field.text({
             label: "Absatz 2",
             default: "Zieglergasse 57, 1070 Wien, Österreich",
@@ -368,7 +368,7 @@ export const content = defineSiteContent({
           intro: field.text({
             label: "Einleitung",
             default:
-              "Alle Beiträge, Rückblicke und Einblicke aus dem Atelier z57 an einem Ort.",
+              "Alle Beiträge, Rückblicke und Einblicke aus dem Atelier Z57 an einem Ort.",
           }),
         }),
       },
@@ -384,7 +384,7 @@ export const content = defineSiteContent({
           }),
           aside: field.text({
             label: "Text neben der Überschrift",
-            default: "Bewerbung für den Wintermarkt im z57, Zieglergasse 57, 1070 Wien.",
+            default: "Bewerbung für den Wintermarkt im Z57, Zieglergasse 57, 1070 Wien.",
           }),
           lead: field.text({
             label: "Einleitung",
@@ -443,7 +443,7 @@ export const content = defineSiteContent({
           intro: field.text({
             label: "Einleitung",
             default:
-              "Das Bewerbungsformular bleibt vorerst nur als Archivseite bestehen und ist aktuell nicht aktiv. Wenn ihr mit z57 in Kontakt treten möchtet, schreibt direkt an",
+              "Das Bewerbungsformular bleibt vorerst nur als Archivseite bestehen und ist aktuell nicht aktiv. Wenn ihr mit Z57 in Kontakt treten möchtet, schreibt direkt an",
           }),
         }),
       },

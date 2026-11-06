@@ -1,9 +1,7 @@
 import { type Post } from "@/app/types/posts";
 
 import Badge from "@/app/components/Badge";
-import CategoryBadge from "@/app/components/CategoryBadge";
 import Image from "next/image";
-import PostGallery from "@/app/components/PostGallery";
 import {
   EditableCollection,
   EditableRegion,
@@ -38,52 +36,56 @@ export default function PostsSection({
             binding={post.bindings.region}
           >
             <div className="cells md:grid-cols-4">
-              <div className="flex flex-col gap-4 px-4 py-5 md:px-7 md:py-7">
-                <div className="flex flex-col items-start gap-3">
-                  <CategoryBadge label={post.kind}>
-                    <EditableRegion
-                      editInline
-                      as="span"
-                      binding={post.bindings.kind}
-                      className="inline-block first-letter:uppercase"
-                    >
-                      {post.kind}
-                    </EditableRegion>
-                  </CategoryBadge>
-                  {post.dateLabels?.length ? (
-                    <EditableRegion
-                      editInline
-                      as="div"
-                      binding={post.bindings.dateLabels}
-                    >
-                      {post.dateLabels.map((dateLabel) => (
-                        <p key={dateLabel}>{dateLabel}</p>
-                      ))}
-                    </EditableRegion>
-                  ) : null}
-                </div>
-
-                {post.image ? (
-                  <EditableRegion
-                    as="div"
-                    binding={post.bindings.image}
-                    className="overflow-hidden"
-                  >
-                    <Image
-                      src={post.image.src}
-                      alt={post.image.alt || post.title}
-                      width={post.image.width ?? 1200}
-                      height={post.image.height ?? 1500}
-                      priority={post === posts[0]}
-                      sizes="(max-width: 768px) calc(100vw - 2rem), 22vw"
-                      className="block h-auto w-full"
-                    />
-                  </EditableRegion>
-                ) : null}
-              </div>
+              {/* The cover keeps its own aspect ratio so posters show whole; only
+                  very tall images are capped (and cropped) to stay on screen.
+                  Posts without a cover image use their first gallery image. */}
+              {post.coverImage ? (
+                <EditableRegion
+                  as="div"
+                  binding={
+                    post.image ? post.bindings.image : post.bindings.gallery
+                  }
+                >
+                  <Image
+                    src={post.coverImage.src}
+                    alt={post.coverImage.alt || post.title}
+                    width={post.coverImage.width ?? 1200}
+                    height={post.coverImage.height ?? 1500}
+                    preload={post === posts[0]}
+                    sizes="(max-width: 768px) 100vw, 25vw"
+                    className="block h-auto max-h-[80svh] w-full object-cover"
+                  />
+                </EditableRegion>
+              ) : (
+                <div aria-hidden="true" className="hidden bg-lime md:block" />
+              )}
 
               <div className="flex flex-col justify-between gap-8 px-4 py-5 md:col-span-3 md:px-7 md:py-7">
                 <div className="flex flex-col gap-4">
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+                    <Badge className="rounded-full">
+                      <EditableRegion
+                        editInline
+                        as="span"
+                        binding={post.bindings.kind}
+                        className="inline-block first-letter:uppercase"
+                      >
+                        {post.kind}
+                      </EditableRegion>
+                    </Badge>
+                    {post.dateLabels?.length ? (
+                      <EditableRegion
+                        editInline
+                        as="div"
+                        binding={post.bindings.dateLabels}
+                        className="flex flex-wrap gap-x-3"
+                      >
+                        {post.dateLabels.map((dateLabel) => (
+                          <p key={dateLabel}>{dateLabel}</p>
+                        ))}
+                      </EditableRegion>
+                    ) : null}
+                  </div>
                   <EditableText
                     editInline
                     as="h3"
@@ -110,19 +112,6 @@ export default function PostsSection({
               </div>
             </div>
 
-            {post.galleryImages.length > 0 ? (
-              <EditableRegion
-                as="div"
-                binding={post.bindings.gallery}
-                className="border-b"
-              >
-                <PostGallery
-                  images={post.galleryImages}
-                  title={post.title}
-                  priorityFirstImage={post === posts[0] && !post.image}
-                />
-              </EditableRegion>
-            ) : null}
           </EditableRegion>
         ))}
       </EditableCollection>

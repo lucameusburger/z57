@@ -8,7 +8,7 @@ import { getSiteInfos } from "@/app/types/infos";
 
 export const metadata = pageMetadata({
   title: "Datenschutz",
-  description: "Datenschutzhinweise der Website von z57.",
+  description: "Datenschutzhinweise der Website von Z57.",
   path: "/datenschutz",
 });
 

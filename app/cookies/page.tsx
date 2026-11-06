@@ -6,7 +6,7 @@ import { pageMetadata } from "@/app/lib/metadata";
 
 export const metadata = pageMetadata({
   title: "Cookies",
-  description: "Informationen zu Cookies auf der Website von z57.",
+  description: "Informationen zu Cookies auf der Website von Z57.",
   path: "/cookies",
 });
 

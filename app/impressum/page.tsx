@@ -8,7 +8,7 @@ import { getSiteInfos } from "@/app/types/infos";
 
 export const metadata = pageMetadata({
   title: "Impressum",
-  description: "Impressum der Website von z57.",
+  description: "Impressum der Website von Z57.",
   path: "/impressum",
 });
 

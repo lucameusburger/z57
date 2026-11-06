@@ -1,4 +1,4 @@
-import type { ComponentType } from "react";
+import { useId, type ComponentType } from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -71,7 +71,8 @@ export function ShapeMask({
   className,
   children,
 }: ShapeProps & { name: LargeShapeName; children: React.ReactNode }) {
-  const clipId = `shape-mask-${name}`;
+  // A shape can mask several tiles on one page, so each needs its own id.
+  const clipId = `shape-mask-${name}-${useId().replace(/[^a-zA-Z0-9_-]/g, "")}`;
 
   return (
     <>

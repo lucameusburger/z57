@@ -9,7 +9,6 @@ const config: Config = {
         foreground: "rgb(var(--foreground-rgb) / <alpha-value>)",
         line: "var(--line)",
         lime: "#defe51",
-        leaf: "#65d87d",
         blue: {
           "50": "#e8f5ff",
           "100": "#d5ecff",

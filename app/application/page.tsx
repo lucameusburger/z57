@@ -12,7 +12,7 @@ import { getSiteInfos } from "@/app/types/infos";
 // Kept as an archive page: nothing links here, so it stays out of search.
 export const metadata = pageMetadata({
   title: "Bewerbung",
-  description: "Das Bewerbungsformular von z57 ist derzeit pausiert.",
+  description: "Das Bewerbungsformular von Z57 ist derzeit pausiert.",
   path: "/application",
   noIndex: true,
 });
@@ -41,7 +41,7 @@ export default async function ApplicationPage() {
             <EditableText
               editInline
               as="h1"
-              className="text-display"
+              className="text-heading"
               binding={pages.application.binding("intro.heading")}
               placeholder="Text ergänzen"
             >

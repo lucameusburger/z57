@@ -17,8 +17,8 @@ import { getSiteInfos } from "@/app/types/infos";
 const SHAPE_TILES = [
   { shape: "stackedPills", className: "bg-lime text-foreground" },
   { shape: "clover", className: "bg-foreground text-lime" },
-  { shape: "cup", className: "bg-leaf text-foreground" },
-  { shape: "sideBySidePills", className: "bg-lime text-foreground" },
+  { shape: "cup", className: "bg-lime text-foreground" },
+  { shape: "sideBySidePills", className: "bg-foreground text-lime" },
 ] as const;
 
 // The question list and the response window change without a deploy.
@@ -61,7 +61,7 @@ export default async function WintermarktPage() {
             <EditableText
               editInline
               as="h1"
-              className="text-display"
+              className="text-heading"
               binding={pages.wintermarkt.binding("intro.heading")}
               placeholder="Überschrift ergänzen"
             >

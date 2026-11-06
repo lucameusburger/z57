@@ -8,7 +8,7 @@ import {
   EditableText,
   createEditableCollectionBinding,
 } from "@einblick/editor/react";
-import { Globe, Instagram, Mail, MoveRight } from "lucide-react";
+import { MoveRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -23,7 +23,6 @@ import SiteFooter from "./components/SiteFooter";
 import SiteHeader from "./components/SiteHeader";
 import { MenuButton } from "./components/SiteMenu";
 import Wireframe from "./components/Wireframe";
-import { cn } from "@/lib/utils";
 import {
   absoluteUrl,
   pageMetadata,
@@ -34,19 +33,18 @@ import {
 import { getSiteInfos } from "@/app/types/infos";
 import { getMembers } from "@/app/types/members";
 import { getHomepagePosts } from "@/app/types/posts";
-import groupImage from "@/app/images/group.jpg";
 
 const HERO_TILES = [
   { shape: "sideBySidePills", field: "image1", className: "bg-lime" },
   { shape: "stackedPills", field: "image2", className: "bg-foreground" },
-  { shape: "clover", field: "image3", className: "bg-leaf" },
-  { shape: "cup", field: "image4", className: "bg-lime" },
+  { shape: "sideBySidePills", field: "image3", className: "bg-lime" },
+  { shape: "stackedPills", field: "image4", className: "bg-foreground" },
 ] as const;
 
 const FILLER_TILES = [
   { shape: "stackedPills", className: "bg-lime text-foreground" },
-  { shape: "cup", className: "bg-leaf text-lime" },
-  { shape: "sideBySidePills", className: "bg-foreground text-lime" },
+  { shape: "cup", className: "bg-foreground text-lime" },
+  { shape: "sideBySidePills", className: "bg-lime text-foreground" },
 ] as const;
 
 export const metadata = pageMetadata({ path: "/" });
@@ -186,7 +184,7 @@ export default async function Home() {
 
             return (
               <EditableImage
-                key={shape}
+                key={field}
                 as="div"
                 binding={pages.home.binding(`hero.${field}`)}
                 placeholder="Bild hinzufügen"
@@ -237,7 +235,7 @@ export default async function Home() {
                 {content.home.wintermarkt.text}
               </EditableText>
             </div>
-            <div className="flex items-center justify-between gap-4 bg-foreground px-4 py-5 text-background transition-colors group-hover:bg-leaf group-hover:text-foreground md:items-end md:px-7 md:py-7">
+            <div className="flex items-center justify-between gap-4 bg-foreground px-4 py-5 text-background transition-colors group-hover:bg-lime group-hover:text-foreground md:items-end md:px-7 md:py-7">
               <EditableText
                 editInline
                 as="span"
@@ -331,7 +329,7 @@ export default async function Home() {
               <EditableText
                 editInline
                 as="h2"
-                className="text-display"
+                className="text-heading"
                 binding={pages.home.binding("posts.heading")}
                 placeholder="Überschrift ergänzen"
               >
@@ -358,7 +356,7 @@ export default async function Home() {
               <EditableText
                 editInline
                 as="h2"
-                className="text-display"
+                className="text-heading"
                 binding={pages.home.binding("model.heading")}
                 placeholder="Überschrift ergänzen"
               >
@@ -380,7 +378,7 @@ export default async function Home() {
               <EditableText
                 editInline
                 as="h2"
-                className="text-display"
+                className="text-heading"
                 binding={pages.home.binding("members.heading")}
                 placeholder="Überschrift ergänzen"
               >
@@ -404,112 +402,8 @@ export default async function Home() {
             ))}
           </EditableCollection>
         </section>
-
-        <section id="kontakt">
-          <SectionHead
-            title={
-              <EditableText
-                editInline
-                as="h2"
-                className="text-display"
-                binding={pages.home.binding("contact.heading")}
-                placeholder="Überschrift ergänzen"
-              >
-                {content.home.contact.heading}
-              </EditableText>
-            }
-            aside={<p>Zieglergasse 57, 1070 Wien</p>}
-          />
-          <div className="cells grid-cols-2 md:grid-cols-4">
-            {siteInfos.emailHref && siteInfos.email ? (
-              <ContactTile
-                href={siteInfos.emailHref}
-                icon={<Mail className="h-8 w-8 md:h-11 md:w-11" strokeWidth={1.5} />}
-                label="E-Mail"
-                className="bg-lime"
-              >
-                <EditableRegion as="span" binding={siteInfos.bindings.email}>
-                  {siteInfos.email}
-                </EditableRegion>
-              </ContactTile>
-            ) : null}
-            {siteInfos.instagramHref ? (
-              <ContactTile
-                href={siteInfos.instagramHref}
-                external
-                icon={<Instagram className="h-8 w-8 md:h-11 md:w-11" strokeWidth={1.5} />}
-                label="Instagram"
-                className="bg-leaf"
-              >
-                <EditableRegion as="span" binding={siteInfos.bindings.instagram}>
-                  {siteInfos.instagramLabel ?? "Instagram"}
-                </EditableRegion>
-              </ContactTile>
-            ) : null}
-            {siteInfos.websiteHref ? (
-              <ContactTile
-                href={siteInfos.websiteHref}
-                external
-                icon={<Globe className="h-8 w-8 md:h-11 md:w-11" strokeWidth={1.5} />}
-                label="Website"
-                className="bg-foreground text-background hover:bg-lime hover:text-foreground"
-              >
-                <EditableRegion as="span" binding={siteInfos.bindings.website}>
-                  {siteInfos.websiteLabel ?? "Website"}
-                </EditableRegion>
-              </ContactTile>
-            ) : null}
-            <div className="relative aspect-square overflow-hidden">
-              <Image
-                unoptimized
-                src={groupImage}
-                alt="Gruppenfoto"
-                fill
-                loading="lazy"
-                sizes="(max-width: 768px) 50vw, 25vw"
-                className="object-cover"
-              />
-            </div>
-          </div>
-        </section>
       </main>
       <SiteFooter />
     </>
-  );
-}
-
-function ContactTile({
-  href,
-  external = false,
-  icon,
-  label,
-  className,
-  children,
-}: {
-  href: string;
-  external?: boolean;
-  icon: React.ReactNode;
-  label: string;
-  className: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <a
-      href={href}
-      target={external ? "_blank" : undefined}
-      rel={external ? "noreferrer" : undefined}
-      className={cn(
-        "flex aspect-square flex-col justify-between p-4 transition-colors hover:bg-foreground hover:text-background md:p-7",
-        className,
-      )}
-    >
-      {icon}
-      <span className="flex flex-col gap-1">
-        <span>{label}</span>
-        <span className="text-sub break-words">
-          {children}
-        </span>
-      </span>
-    </a>
   );
 }
