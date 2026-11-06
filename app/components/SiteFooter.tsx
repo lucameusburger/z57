@@ -21,10 +21,10 @@ export default async function SiteFooter() {
       <div id="kontakt" aria-hidden="true" />
 
       {/* Pinned to the bottom of the screen behind the content, which slides
-          up to reveal it. It fits the screen (minus the sticky header on
-          phones), so all of it shows once the page is scrolled to the end. */}
-      <footer className="sticky bottom-0 flex h-[calc(100svh-3.5rem)] flex-col md:h-svh">
-        <div className="cells min-h-48 flex-1 grid-cols-2">
+          up to reveal it. It keeps its own height, so the page ends as soon as
+          the whole footer has come into view. */}
+      <footer className="sticky bottom-0 flex flex-col">
+        <div className="cells h-48 grid-cols-2 md:h-64">
           {siteInfos.emailHref && siteInfos.email ? (
             <ContactTile
               href={siteInfos.emailHref}
