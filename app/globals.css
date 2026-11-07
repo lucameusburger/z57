@@ -102,7 +102,7 @@ body {
     min-width: 0;
   }
 
-  /* Form controls: square, a dark green hairline, and a focus ring that reads
+  /* Form controls: square, a hairline in the text colour, and a focus ring that reads
      on the page colour and on the lime bands alike. */
   .form-focus:focus-visible {
     outline: 2px solid var(--foreground);
@@ -129,7 +129,7 @@ body {
   }
 
   .form-control:hover:not(:disabled) {
-    background: rgb(222 254 81 / 0.25);
+    background: rgb(var(--lime-rgb) / 0.25);
   }
 
   .form-control:focus-visible {
