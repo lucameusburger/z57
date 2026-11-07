@@ -8,7 +8,7 @@ const config: Config = {
         background: "rgb(var(--background-rgb) / <alpha-value>)",
         foreground: "rgb(var(--foreground-rgb) / <alpha-value>)",
         line: "var(--line)",
-        lime: "#defe51",
+        lime: "rgb(var(--lime-rgb) / <alpha-value>)",
         blue: {
           "50": "#e8f5ff",
           "100": "#d5ecff",

@@ -14,11 +14,19 @@ import { WINTERMARKT_FORM_SLUG } from "@/app/lib/forms/logic";
 import { pageMetadata } from "@/app/lib/metadata";
 import { getSiteInfos } from "@/app/types/infos";
 
+// One row of four on mobile, a 2×2 grid from md up: the bottom row swaps
+// colours there so the tiles alternate as a checkerboard.
 const SHAPE_TILES = [
   { shape: "stackedPills", className: "bg-lime text-foreground" },
   { shape: "clover", className: "bg-foreground text-lime" },
-  { shape: "cup", className: "bg-lime text-foreground" },
-  { shape: "sideBySidePills", className: "bg-foreground text-lime" },
+  {
+    shape: "cup",
+    className: "bg-lime text-foreground md:bg-foreground md:text-lime",
+  },
+  {
+    shape: "sideBySidePills",
+    className: "bg-foreground text-lime md:bg-lime md:text-foreground",
+  },
 ] as const;
 
 // Key facts and notes shown above the form, as field names of the
@@ -57,7 +65,7 @@ export default async function WintermarktPage() {
   const details = copy.details;
 
   return (
-    <div className="flex min-h-dvh flex-col">
+    <div data-theme="wintermarkt" className="flex min-h-dvh flex-col">
       <SiteHeader
         back={
           <Link

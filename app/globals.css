@@ -5,9 +5,18 @@
 :root {
   --background-rgb: 242 239 234;
   --foreground-rgb: 28 49 8;
+  --lime-rgb: 222 254 81;
   --background: rgb(var(--background-rgb));
   --foreground: rgb(var(--foreground-rgb));
   --line: rgb(var(--foreground-rgb) / 0.5);
+}
+
+/* The Wintermarkt page takes its colours from the 2026 poster: dark red for
+   text and lines, light blue in place of lime. Set on the root so the body,
+   footer, menu, consent banner and portalled popovers follow along. */
+:root:has([data-theme="wintermarkt"]) {
+  --foreground-rgb: 109 14 0;
+  --lime-rgb: 186 206 255;
 }
 
 html {
