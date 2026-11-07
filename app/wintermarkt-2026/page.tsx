@@ -21,6 +21,20 @@ const SHAPE_TILES = [
   { shape: "sideBySidePills", className: "bg-foreground text-lime" },
 ] as const;
 
+// Key facts and notes shown above the form, as field names of the
+// `details` section.
+const FACTS = [
+  { label: "dateLabel", value: "date" },
+  { label: "placeLabel", value: "place" },
+  { label: "feeLabel", value: "fee" },
+  { label: "deadlineLabel", value: "deadline" },
+] as const;
+
+const NOTES = [
+  { title: "marketingTitle", text: "marketingText" },
+  { title: "presenceTitle", text: "presenceText" },
+] as const;
+
 // The question list and the response window change without a deploy.
 export const dynamic = "force-dynamic";
 
@@ -40,6 +54,7 @@ export default async function WintermarktPage() {
   const siteInfos = await getSiteInfos();
   const formState = await getPublicFormState(WINTERMARKT_FORM_SLUG);
   const copy = content.wintermarkt;
+  const details = copy.details;
 
   return (
     <div className="flex min-h-dvh flex-col">
@@ -106,6 +121,72 @@ export default async function WintermarktPage() {
             ))}
           </div>
         </div>
+
+        <dl className="cells grid-cols-2 md:grid-cols-4">
+          {FACTS.map(({ label, value }) => (
+            <div
+              key={value}
+              className="flex flex-col gap-3 px-4 py-5 md:px-7 md:py-7"
+            >
+              <EditableText
+                editInline
+                as="dt"
+                className="text-sm"
+                binding={pages.wintermarkt.binding(`details.${label}`)}
+                placeholder="Bezeichnung ergänzen"
+              >
+                {details[label]}
+              </EditableText>
+              <EditableText
+                editInline
+                as="dd"
+                className="text-sub whitespace-pre-line"
+                binding={pages.wintermarkt.binding(`details.${value}`)}
+                placeholder="Text ergänzen"
+              >
+                {details[value]}
+              </EditableText>
+            </div>
+          ))}
+        </dl>
+
+        <div className="cells md:grid-cols-2">
+          {NOTES.map(({ title, text }) => (
+            <div
+              key={title}
+              className="flex flex-col gap-3 px-4 py-6 md:px-7 md:py-8"
+            >
+              <EditableText
+                editInline
+                as="h2"
+                className="text-sub"
+                binding={pages.wintermarkt.binding(`details.${title}`)}
+                placeholder="Überschrift ergänzen"
+              >
+                {details[title]}
+              </EditableText>
+              <EditableText
+                editInline
+                as="p"
+                className="max-w-xl"
+                binding={pages.wintermarkt.binding(`details.${text}`)}
+                placeholder="Text ergänzen"
+              >
+                {details[text]}
+              </EditableText>
+            </div>
+          ))}
+        </div>
+
+        <EditableText
+          editInline
+          as="p"
+          className="border-b px-4 py-5 md:px-7 md:py-7"
+          binding={pages.wintermarkt.binding("details.nextSteps")}
+          placeholder="Text ergänzen"
+        >
+          {details.nextSteps}
+        </EditableText>
 
         {formState.status === "open" ? (
           <EinblickForm

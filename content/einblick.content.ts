@@ -157,7 +157,7 @@ export const content = defineSiteContent({
           paragraph1: field.text({
             label: "Absatz 1",
             default:
-              "Texte, Bilder und weitere Inhalte dieser Website unterliegen, soweit nicht anders gekennzeichnet, dem Urheberrecht der jeweiligen Rechteinhaber:innen. Eine Verwendung ohne vorherige Zustimmung ist nur im gesetzlich zulässigen Rahmen erlaubt.",
+              "Texte, Bilder und weitere Inhalte dieser Website unterliegen, soweit nicht anders gekennzeichnet, dem Urheberrecht der jeweiligen Rechteinhaber*innen. Eine Verwendung ohne vorherige Zustimmung ist nur im gesetzlich zulässigen Rahmen erlaubt.",
           }),
         }),
       },
@@ -227,7 +227,7 @@ export const content = defineSiteContent({
           paragraph1: field.text({
             label: "Absatz 1",
             default:
-              "Die Verarbeitung erfolgt insbesondere zur Bereitstellung der Website, zur Wahrung berechtigter Interessen an einem sicheren Betrieb sowie zur Bearbeitung von Anfragen und Kommunikation mit Interessent:innen.",
+              "Die Verarbeitung erfolgt insbesondere zur Bereitstellung der Website, zur Wahrung berechtigter Interessen an einem sicheren Betrieb sowie zur Bearbeitung von Anfragen und Kommunikation mit Interessent*innen.",
           }),
         }),
         analytics: section("Cookieless Reichweitenmessung mit Einblick", {
@@ -389,7 +389,52 @@ export const content = defineSiteContent({
           lead: field.text({
             label: "Einleitung",
             default:
-              "Du möchtest beim Wintermarkt 2026 dabei sein? Erzähl uns von deiner Arbeit und bewirb dich hier.",
+              "Aussteller*innen gesucht ✨ Der Z57 Wintermarkt geht in die vierte Runde. Wir laden Designer*innen und Künstler*innen ein, ihre Werke auf unserer Dachterrasse im Herzen des 7. Bezirks auszustellen und zu verkaufen.",
+          }),
+        }),
+        details: section("Eckdaten", {
+          dateLabel: field.string({ label: "Datum – Bezeichnung", default: "Wann" }),
+          date: field.text({
+            label: "Datum",
+            default: "Samstag, 05.12.\n12–20 Uhr",
+          }),
+          placeLabel: field.string({ label: "Ort – Bezeichnung", default: "Wo" }),
+          place: field.text({
+            label: "Ort",
+            default: "Dachterrasse Z57\nZieglergasse 57, 1070 Wien",
+          }),
+          feeLabel: field.string({
+            label: "Platzgebühr – Bezeichnung",
+            default: "Platzgebühr",
+          }),
+          fee: field.text({ label: "Platzgebühr", default: "35 €" }),
+          deadlineLabel: field.string({
+            label: "Bewerbungsschluss – Bezeichnung",
+            default: "Bewerbung bis",
+          }),
+          deadline: field.text({ label: "Bewerbungsschluss", default: "15.11." }),
+          marketingTitle: field.string({
+            label: "Was wir übernehmen – Überschrift",
+            default: "Wir kümmern uns um die Werbung",
+          }),
+          marketingText: field.text({
+            label: "Was wir übernehmen – Text",
+            default:
+              "Marketing und Social Media übernehmen wir: Wir bewerben den Markt und stellen alle Aussteller*innen auf unseren Kanälen vor.",
+          }),
+          presenceTitle: field.string({
+            label: "Was ihr mitbringt – Überschrift",
+            default: "Du bist vor Ort",
+          }),
+          presenceText: field.text({
+            label: "Was ihr mitbringt – Text",
+            default:
+              "Am Markttag bist du selbst persönlich da, betreust deinen Stand und verkaufst deine Arbeiten.",
+          }),
+          nextSteps: field.text({
+            label: "Wie es weitergeht",
+            default:
+              "Nach Bewerbungsschluss wählen wir die Aussteller*innen aus. Alle weiteren Infos bekommst du dann per Mail.",
           }),
         }),
         form: section("Formular", {
